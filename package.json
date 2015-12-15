@@ -1,0 +1,24 @@
+{
+  "name": "react-native-action-sheet",
+  "version": "0.1.0",
+  "description": "A cross platform ActionSheet for React Native",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exponentjs/react-native-action-sheet.git"
+  },
+  "keywords": [
+    "react-native",
+    "action-sheet"
+  ],
+  "author": "Jesse Ruder <jesse@exp.host>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/exponentjs/react-native-action-sheet/issues"
+  },
+  "homepage": "https://github.com/exponentjs/react-native-action-sheet",
+  "dependencies": {
+    "autobind-decorator": "^1.3.2"
+  }
+}
