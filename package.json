@@ -1,8 +1,8 @@
 {
   "name": "react-native-action-sheet",
   "version": "0.1.0",
-  "description": "A cross platform ActionSheet for React Native",
-  "main": "index.js",
+  "description": "A cross-platform ActionSheet for React Native",
+  "main": "ActionSheet.js",
   "scripts": {},
   "repository": {
     "type": "git",
