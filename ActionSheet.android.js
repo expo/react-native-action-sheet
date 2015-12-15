@@ -2,6 +2,7 @@
 
 import React, {
   Animated,
+  BackAndroid,
   Dimensions,
   Easing,
   PixelRatio,
@@ -156,6 +157,8 @@ export default class ActionSheet extends React.Component {
       easing: Easing.in(Easing.linear),
       duration: OPACITY_ANIMATION_TIME,
     }).start();
+
+    BackAndroid.addEventListener('actionSheetHardwareBackPress', this._animateOut);
   }
 
   @autobind
@@ -174,8 +177,10 @@ export default class ActionSheet extends React.Component {
   @autobind
   _animateOut() {
     if (this.state.isAnimating) {
-      return;
+      return false;
     }
+
+    BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._animateOut);
 
     this.setState({
       isAnimating: true,
@@ -199,6 +204,8 @@ export default class ActionSheet extends React.Component {
       easing: Easing.inOut(Easing.ease),
       duration: Y_ANIMATION_TIME,
     }).start();
+
+    return true;
   }
 
   @autobind
