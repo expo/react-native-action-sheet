@@ -4,7 +4,7 @@ ActionSheet is a cross-platform React Native component that uses the native UIAc
 
 ## Installation
 ```
-npm install exponentjs/react-native-action-sheet
+npm install @exponent/react-native-action-sheet
 ```
 
 ## Usage
