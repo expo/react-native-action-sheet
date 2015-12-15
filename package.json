@@ -1,5 +1,5 @@
 {
-  "name": "react-native-action-sheet",
+  "name": "@exponent/react-native-action-sheet",
   "version": "0.1.0",
   "description": "A cross-platform ActionSheet for React Native",
   "main": "index.js",
@@ -12,7 +12,7 @@
     "react-native",
     "action-sheet"
   ],
-  "author": "Jesse Ruder <jesse@exp.host>",
+  "author": "Jesse Ruder <jesse@sixfivezero.net>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/exponentjs/react-native-action-sheet/issues"
