@@ -43,12 +43,6 @@ class OtherComponent extends React.Component {
     actionSheet: PropTypes.func,
   };
 
-  getChildContext() {
-    return {
-      actionSheet: () => this._actionSheetRef,
-    };
-  }
-
   _onOpenActionSheet() {
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
     let options = ['Delete', 'Save', 'Cancel'];
