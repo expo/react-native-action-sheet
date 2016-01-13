@@ -17,8 +17,5 @@
   "bugs": {
     "url": "https://github.com/exponentjs/react-native-action-sheet/issues"
   },
-  "homepage": "https://github.com/exponentjs/react-native-action-sheet",
-  "dependencies": {
-    "autobind-decorator": "^1.3.2"
-  }
+  "homepage": "https://github.com/exponentjs/react-native-action-sheet"
 }

@@ -14,8 +14,6 @@ import React, {
   View,
 } from 'react-native';
 
-import autobind from 'autobind-decorator';
-
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const OPACITY_ANIMATION_TIME = 250;
 const Y_ANIMATION_TIME = 250;
@@ -76,6 +74,10 @@ class ActionGroup extends React.Component {
 export default class ActionSheet extends React.Component {
   constructor(props, context) {
     super(props, context);
+
+    this._onSelect   = this._onSelect.bind(this);
+    this._animateOut = this._animateOut.bind(this);
+    this._onLayout   = this._onLayout.bind(this);
 
     this.state = {
       isVisible: false,
@@ -161,7 +163,6 @@ export default class ActionSheet extends React.Component {
     BackAndroid.addEventListener('actionSheetHardwareBackPress', this._animateOut);
   }
 
-  @autobind
   _onSelect(index) {
     if (this.state.isAnimating) {
       return;
@@ -174,7 +175,6 @@ export default class ActionSheet extends React.Component {
     this._animateOut();
   }
 
-  @autobind
   _animateOut() {
     if (this.state.isAnimating) {
       return false;
@@ -208,7 +208,6 @@ export default class ActionSheet extends React.Component {
     return true;
   }
 
-  @autobind
   _onLayout(event) {
     if (!this.state.isWaitingForSheetHeight) {
       return;
