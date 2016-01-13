@@ -28,7 +28,7 @@ class ActionGroup extends React.Component {
     onSelect: PropTypes.func.isRequired,
     startIndex: PropTypes.number.isRequired,
     length: PropTypes.number.isRequired,
-  }
+  };
 
   render() {
     let {
