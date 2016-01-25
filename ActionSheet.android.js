@@ -3,7 +3,6 @@
 import React, {
   Animated,
   BackAndroid,
-  Dimensions,
   Easing,
   PixelRatio,
   PropTypes,
@@ -14,9 +13,9 @@ import React, {
   View,
 } from 'react-native';
 
-const DEVICE_HEIGHT = Dimensions.get('window').height;
 const OPACITY_ANIMATION_TIME = 250;
 const Y_ANIMATION_TIME = 250;
+const OFFSCREEN_HEIGHT = 9999;
 const PIXEL = 1 / PixelRatio.get();
 
 class ActionGroup extends React.Component {
@@ -84,8 +83,9 @@ export default class ActionSheet extends React.Component {
       isAnimating: false,
       options: null,
       onSelect: null,
+      sheetHeight: OFFSCREEN_HEIGHT,
       overlayOpacity: new Animated.Value(0),
-      sheetY: new Animated.Value(DEVICE_HEIGHT),
+      sheetY: new Animated.Value(-OFFSCREEN_HEIGHT),
       isWaitingForSheetHeight: false,
     };
   }
@@ -116,7 +116,7 @@ export default class ActionSheet extends React.Component {
 
     return (
       <Animated.View style={[styles.sheetContainer, {
-        top: this.state.sheetY,
+        bottom: this.state.sheetY,
       }]}>
         <View onLayout={this._onLayout} style={styles.sheet}>
           <ActionGroup
@@ -152,7 +152,7 @@ export default class ActionSheet extends React.Component {
     });
 
     this.state.overlayOpacity.setValue(0);
-    this.state.sheetY.setValue(DEVICE_HEIGHT);
+    this.state.sheetY.setValue(-this.state.sheetHeight);
 
     Animated.timing(this.state.overlayOpacity, {
       toValue: 0.3,
@@ -200,7 +200,7 @@ export default class ActionSheet extends React.Component {
     });
 
     Animated.timing(this.state.sheetY, {
-      toValue: DEVICE_HEIGHT,
+      toValue: -this.state.sheetHeight,
       easing: Easing.inOut(Easing.ease),
       duration: Y_ANIMATION_TIME,
     }).start();
@@ -216,11 +216,12 @@ export default class ActionSheet extends React.Component {
     let height = event.nativeEvent.layout.height;
     this.setState({
       isWaitingForSheetHeight: false,
+      sheetHeight: height,
     });
 
-    this.state.sheetY.setValue(DEVICE_HEIGHT);
+    this.state.sheetY.setValue(-height);
     Animated.timing(this.state.sheetY, {
-      toValue: DEVICE_HEIGHT - height,
+      toValue: 0,
       easing: Easing.inOut(Easing.ease),
       duration: Y_ANIMATION_TIME,
     }).start(result => {
