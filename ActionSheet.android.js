@@ -14,8 +14,6 @@ import React, {
 } from 'react-native';
 
 const OPACITY_ANIMATION_TIME = 250;
-const Y_ANIMATION_TIME = 250;
-const OFFSCREEN_HEIGHT = 9999;
 const PIXEL = 1 / PixelRatio.get();
 
 class ActionGroup extends React.Component {
@@ -38,7 +36,7 @@ class ActionGroup extends React.Component {
 
     let optionViews = [];
     for (let i = startIndex; i < startIndex + length; i++) {
-      let color = '#007aff';
+      let color = '#444444';
       if (i === destructiveButtonIndex) {
         color = '#ff3b30';
       }
@@ -76,28 +74,23 @@ export default class ActionSheet extends React.Component {
 
     this._onSelect   = this._onSelect.bind(this);
     this._animateOut = this._animateOut.bind(this);
-    this._onLayout   = this._onLayout.bind(this);
 
     this.state = {
       isVisible: false,
       isAnimating: false,
       options: null,
       onSelect: null,
-      sheetHeight: OFFSCREEN_HEIGHT,
       overlayOpacity: new Animated.Value(0),
-      sheetY: new Animated.Value(-OFFSCREEN_HEIGHT),
-      isWaitingForSheetHeight: false,
+      sheetOpacity: new Animated.Value(0),
     };
   }
 
   render() {
     let { isVisible } = this.state;
     let overlay = isVisible ? (
-      <TouchableWithoutFeedback onPress={this._animateOut}>
-        <Animated.View style={[styles.overlay, {
-          opacity: this.state.overlayOpacity,
-        }]}/>
-      </TouchableWithoutFeedback>
+      <Animated.View style={[styles.overlay, {
+        opacity: this.state.overlayOpacity,
+      }]}/>
     ) : null;
 
     let sheet = isVisible ? this._renderSheet() : null;
@@ -115,26 +108,21 @@ export default class ActionSheet extends React.Component {
     let numOptions = this.state.options.options.length;
 
     return (
-      <Animated.View style={[styles.sheetContainer, {
-        bottom: this.state.sheetY,
-      }]}>
-        <View onLayout={this._onLayout} style={styles.sheet}>
-          <ActionGroup
-            options={this.state.options.options}
-            destructiveButtonIndex={this.state.options.destructiveButtonIndex}
-            onSelect={this._onSelect}
-            startIndex={0}
-            length={numOptions - 1}
-          />
-          <ActionGroup
-            options={this.state.options.options}
-            destructiveButtonIndex={this.state.options.destructiveButtonIndex}
-            onSelect={this._onSelect}
-            startIndex={numOptions - 1}
-            length={1}
-          />
-        </View>
-      </Animated.View>
+      <TouchableWithoutFeedback onPress={this._animateOut}>
+        <Animated.View style={[styles.sheetContainer, {
+            opacity: this.state.sheetOpacity,
+          }]}>
+          <View style={styles.sheet}>
+            <ActionGroup
+              options={this.state.options.options}
+              destructiveButtonIndex={this.state.options.destructiveButtonIndex}
+              onSelect={this._onSelect}
+              startIndex={0}
+              length={numOptions}
+            />
+          </View>
+        </Animated.View>
+      </TouchableWithoutFeedback>
     );
   }
 
@@ -148,17 +136,29 @@ export default class ActionSheet extends React.Component {
       onSelect,
       isVisible: true,
       isAnimating: true,
-      isWaitingForSheetHeight: true,
     });
 
     this.state.overlayOpacity.setValue(0);
-    this.state.sheetY.setValue(-this.state.sheetHeight);
+    this.state.sheetOpacity.setValue(0);
 
-    Animated.timing(this.state.overlayOpacity, {
-      toValue: 0.3,
-      easing: Easing.in(Easing.linear),
-      duration: OPACITY_ANIMATION_TIME,
-    }).start();
+    Animated.parallel([
+      Animated.timing(this.state.overlayOpacity, {
+        toValue: 0.3,
+        easing: Easing.in(Easing.linear),
+        duration: OPACITY_ANIMATION_TIME,
+      }),
+      Animated.timing(this.state.sheetOpacity, {
+        toValue: 1,
+        easing: Easing.in(Easing.linear),
+        duration: OPACITY_ANIMATION_TIME,
+      }),
+    ]).start(result => {
+      if (result.finished) {
+        this.setState({
+          isAnimating: false,
+        });
+      }
+    });
 
     BackAndroid.addEventListener('actionSheetHardwareBackPress', this._animateOut);
   }
@@ -186,11 +186,18 @@ export default class ActionSheet extends React.Component {
       isAnimating: true,
     });
 
-    Animated.timing(this.state.overlayOpacity, {
-      toValue: 0,
-      easing: Easing.in(Easing.linear),
-      duration: OPACITY_ANIMATION_TIME,
-    }).start(result => {
+    Animated.parallel([
+      Animated.timing(this.state.overlayOpacity, {
+        toValue: 0,
+        easing: Easing.in(Easing.linear),
+        duration: OPACITY_ANIMATION_TIME,
+      }),
+      Animated.timing(this.state.sheetOpacity, {
+        toValue: 0,
+        easing: Easing.in(Easing.linear),
+        duration: OPACITY_ANIMATION_TIME,
+      }),
+    ]).start(result => {
       if (result.finished) {
         this.setState({
           isVisible: false,
@@ -199,38 +206,7 @@ export default class ActionSheet extends React.Component {
       }
     });
 
-    Animated.timing(this.state.sheetY, {
-      toValue: -this.state.sheetHeight,
-      easing: Easing.inOut(Easing.ease),
-      duration: Y_ANIMATION_TIME,
-    }).start();
-
     return true;
-  }
-
-  _onLayout(event) {
-    if (!this.state.isWaitingForSheetHeight) {
-      return;
-    }
-
-    let height = event.nativeEvent.layout.height;
-    this.setState({
-      isWaitingForSheetHeight: false,
-      sheetHeight: height,
-    });
-
-    this.state.sheetY.setValue(-height);
-    Animated.timing(this.state.sheetY, {
-      toValue: 0,
-      easing: Easing.inOut(Easing.ease),
-      duration: Y_ANIMATION_TIME,
-    }).start(result => {
-      if (result.finished) {
-        this.setState({
-          isAnimating: false,
-        });
-      }
-    });
   }
 }
 
@@ -241,21 +217,22 @@ let styles = StyleSheet.create({
     borderColor: '#cbcbcb',
     borderWidth: PIXEL,
     overflow: 'hidden',
-    marginHorizontal: 8,
+    marginHorizontal: 16,
     marginBottom: 8,
   },
   button: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     height: 50,
+    paddingHorizontal: 16,
   },
   text: {
     fontSize: 17,
-    fontWeight: '400',
+    fontWeight: '700',
   },
   rowSeparator: {
-    backgroundColor: '#cbcbcb',
-    height: PIXEL,
+    backgroundColor: '#dddddd',
+    height: 1,
     flex: 1,
   },
   overlay: {
@@ -270,9 +247,15 @@ let styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
+    bottom: 0,
+    top: 0,
     backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   sheet: {
+    flex: 1,
     backgroundColor: 'transparent',
   },
 });
