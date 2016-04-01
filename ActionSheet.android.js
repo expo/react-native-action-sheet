@@ -160,19 +160,24 @@ export default class ActionSheet extends React.Component {
       }
     });
 
-    BackAndroid.addEventListener('actionSheetHardwareBackPress', this._animateOut);
+    BackAndroid.addEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
   }
+
+  _selectCancelButton = () => {
+    if (typeof this.state.options.cancelButtonIndex === 'number') {
+      return this._onSelect(this.state.options.cancelButtonIndex);
+    } else {
+      return this._animateOut();
+    }
+  };
 
   _onSelect(index) {
     if (this.state.isAnimating) {
       return;
     }
 
-    if (index !== this.state.options.cancelButtonIndex) {
-      this.state.onSelect(index);
-    }
-
-    this._animateOut();
+    this.state.onSelect(index);
+    return this._animateOut();
   }
 
   _animateOut() {
@@ -180,7 +185,7 @@ export default class ActionSheet extends React.Component {
       return false;
     }
 
-    BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._animateOut);
+    BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
 
     this.setState({
       isAnimating: true,
