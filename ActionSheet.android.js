@@ -72,8 +72,9 @@ export default class ActionSheet extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this._onSelect   = this._onSelect.bind(this);
+    this._onSelect = this._onSelect.bind(this);
     this._animateOut = this._animateOut.bind(this);
+    this._selectCancelButton = this._selectCancelButton.bind(this);
 
     this.state = {
       isVisible: false,
@@ -108,7 +109,7 @@ export default class ActionSheet extends React.Component {
     let numOptions = this.state.options.options.length;
 
     return (
-      <TouchableWithoutFeedback onPress={this._animateOut}>
+      <TouchableWithoutFeedback onPress={this._selectCancelButton}>
         <Animated.View style={[styles.sheetContainer, {
             opacity: this.state.sheetOpacity,
           }]}>
@@ -163,7 +164,7 @@ export default class ActionSheet extends React.Component {
     BackAndroid.addEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
   }
 
-  _selectCancelButton = () => {
+  _selectCancelButton() {
     if (typeof this.state.options.cancelButtonIndex === 'number') {
       return this._onSelect(this.state.options.cancelButtonIndex);
     } else {
