@@ -1,6 +1,7 @@
 'use strict';
 
-import React, {
+import React from 'react';
+import {
   ActionSheetIOS,
   View,
 } from 'react-native';
