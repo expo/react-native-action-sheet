@@ -75,6 +75,7 @@ export default class ActionSheet extends React.Component {
     this._onSelect = this._onSelect.bind(this);
     this._animateOut = this._animateOut.bind(this);
     this._selectCancelButton = this._selectCancelButton.bind(this);
+    this._animateOutCallback = null;
 
     this.state = {
       isVisible: false,
@@ -127,7 +128,7 @@ export default class ActionSheet extends React.Component {
     );
   }
 
-  showActionSheetWithOptions(options, onSelect) {
+  showActionSheetWithOptions(options, onSelect, onAnimateOut) {
     if (this.state.isVisible) {
       return;
     }
@@ -160,6 +161,8 @@ export default class ActionSheet extends React.Component {
         });
       }
     });
+
+    this._animateOutCallback = onAnimateOut;
 
     BackAndroid.addEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
   }
@@ -209,6 +212,10 @@ export default class ActionSheet extends React.Component {
           isVisible: false,
           isAnimating: false,
         });
+        if (typeof this._animateOutCallback === 'function') {
+          this._animateOutCallback();
+          this._animateOutCallback = null;
+        }
       }
     });
 
