@@ -5,15 +5,17 @@ import React, {
   BackAndroid,
   Easing,
   PixelRatio,
+  Platform,
   PropTypes,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableNativeFeedback,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
-const OPACITY_ANIMATION_TIME = 250;
+const OPACITY_ANIMATION_TIME = 150;
 const PIXEL = 1 / PixelRatio.get();
 
 class ActionGroup extends React.Component {
@@ -35,6 +37,12 @@ class ActionGroup extends React.Component {
     } = this.props;
 
     let optionViews = [];
+
+    let nativeFeedbackBackground = TouchableNativeFeedbackSafe.Ripple(
+      'rgba(180, 180, 180, 1)',
+      false
+    );
+
     for (let i = startIndex; i < startIndex + length; i++) {
       let color = '#444444';
       if (i === destructiveButtonIndex) {
@@ -42,14 +50,16 @@ class ActionGroup extends React.Component {
       }
 
       optionViews.push(
-        <TouchableOpacity
+        <TouchableNativeFeedbackSafe
           key={i}
+          pressInDelay={0}
+          background={nativeFeedbackBackground}
           onPress={() => onSelect(i)}
           style={styles.button}>
           <Text style={[styles.text, {color}]}>
             {options[i]}
           </Text>
-        </TouchableOpacity>
+        </TouchableNativeFeedbackSafe>
       );
 
       if (i < startIndex + length - 1) {
@@ -111,8 +121,11 @@ export default class ActionSheet extends React.Component {
 
     return (
       <TouchableWithoutFeedback onPress={this._selectCancelButton}>
-        <Animated.View style={[styles.sheetContainer, {
+        <Animated.View
+          needsOffscreenAlphaCompositing={this.state.isAnimating}
+          style={[styles.sheetContainer, {
             opacity: this.state.sheetOpacity,
+            transform: [{scale: this.state.sheetOpacity.interpolate({inputRange: [0, 0.5, 1], outputRange: [0.6, 1, 1]})}],
           }]}>
           <View style={styles.sheet}>
             <ActionGroup
@@ -145,14 +158,16 @@ export default class ActionSheet extends React.Component {
 
     Animated.parallel([
       Animated.timing(this.state.overlayOpacity, {
-        toValue: 0.3,
+        toValue: 0.5,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
+        useNativeDriver: true,
       }),
       Animated.timing(this.state.sheetOpacity, {
         toValue: 1,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
+        useNativeDriver: true,
       }),
     ]).start(result => {
       if (result.finished) {
@@ -200,11 +215,13 @@ export default class ActionSheet extends React.Component {
         toValue: 0,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
+        useNativeDriver: true,
       }),
       Animated.timing(this.state.sheetOpacity, {
         toValue: 0,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
+        useNativeDriver: true,
       }),
     ]).start(result => {
       if (result.finished) {
@@ -220,6 +237,45 @@ export default class ActionSheet extends React.Component {
     });
 
     return true;
+  }
+}
+
+let TouchableComponent;
+
+if (Platform.OS === 'android') {
+  TouchableComponent = Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
+} else {
+  TouchableComponent = TouchableOpacity;
+}
+
+if (TouchableComponent !== TouchableNativeFeedback) {
+  TouchableComponent.SelectableBackground = () => ({});
+  TouchableComponent.SelectableBackgroundBorderless = () => ({});
+  TouchableComponent.Ripple = (color, borderless) => ({});
+}
+
+class TouchableNativeFeedbackSafe extends React.Component {
+
+  static SelectableBackground = TouchableComponent.SelectableBackground;
+  static SelectableBackgroundBorderless = TouchableComponent.SelectableBackgroundBorderless;
+  static Ripple = TouchableComponent.Ripple;
+
+  render() {
+    if (TouchableComponent === TouchableNativeFeedback) {
+      return (
+        <TouchableComponent {...this.props} style={{}}>
+          <View style={this.props.style}>
+            {this.props.children}
+          </View>
+        </TouchableComponent>
+      );
+    } else {
+      return (
+        <TouchableComponent {...this.props}>
+          {this.props.children}
+        </TouchableComponent>
+      );
+    }
   }
 }
 
@@ -272,3 +328,5 @@ let styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
+
+
