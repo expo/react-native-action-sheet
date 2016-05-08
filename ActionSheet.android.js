@@ -1,12 +1,14 @@
 'use strict';
 
 import React, {
+  PropTypes,
+} from 'react';
+import {
   Animated,
   BackAndroid,
   Easing,
   PixelRatio,
   Platform,
-  PropTypes,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -102,7 +104,7 @@ export default class ActionSheet extends React.Component {
     let overlay = isVisible ? (
       <Animated.View style={[styles.overlay, {
         opacity: this.state.overlayOpacity,
-      }]}/>
+      }]} />
     ) : null;
 
     let sheet = isVisible ? this._renderSheet() : null;
@@ -188,7 +190,7 @@ export default class ActionSheet extends React.Component {
     } else {
       return this._animateOut();
     }
-  };
+  }
 
   _onSelect(index) {
     if (this.state.isAnimating) {
@@ -328,5 +330,3 @@ let styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
-
-
