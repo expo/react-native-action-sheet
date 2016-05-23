@@ -1,11 +1,14 @@
 'use strict';
 
 import React, {
+  PropTypes,
+} from 'react';
+
+import {
   Animated,
   BackAndroid,
   Easing,
   PixelRatio,
-  PropTypes,
   StyleSheet,
   Text,
   TouchableOpacity,
