@@ -1,4 +1,4 @@
-'use strict';
+// @flow
 
 import React, { PropTypes } from 'react';
 import {
@@ -15,10 +15,39 @@ import {
   View,
 } from 'react-native';
 
+type ActionSheetOptions = {
+  options: Array<string>,
+  destructiveButtonIndex: ?number,
+  cancelButtonIndex: ?number,
+}
+
+type ActionGroupProps = {
+  options: Array<string>,
+  destructiveButtonIndex: ?number,
+  onSelect: (i: number) => boolean,
+  startIndex: number,
+  length: number,
+}
+
+type ActionSheetState = {
+  isVisible: boolean,
+  isAnimating: boolean,
+  options: ?ActionSheetOptions,
+  onSelect: ?(i: number) => void,
+  overlayOpacity: any,
+  sheetOpacity: any,
+}
+
+type ActionSheetProps = {
+  children: ?any,
+}
+
 const OPACITY_ANIMATION_TIME = 150;
 const PIXEL = 1 / PixelRatio.get();
 
 class ActionGroup extends React.Component {
+  props: ActionGroupProps;
+
   static propTypes = {
     options: PropTypes.array.isRequired,
     destructiveButtonIndex: PropTypes.number,
@@ -79,23 +108,17 @@ class ActionGroup extends React.Component {
 
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
 export default class ActionSheet extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  props: ActionSheetProps;
+  _animateOutCallback: ?() => void = null;
 
-    this._onSelect = this._onSelect.bind(this);
-    this._animateOut = this._animateOut.bind(this);
-    this._selectCancelButton = this._selectCancelButton.bind(this);
-    this._animateOutCallback = null;
-
-    this.state = {
-      isVisible: false,
-      isAnimating: false,
-      options: null,
-      onSelect: null,
-      overlayOpacity: new Animated.Value(0),
-      sheetOpacity: new Animated.Value(0),
-    };
-  }
+  state: ActionSheetState = {
+    isVisible: false,
+    isAnimating: false,
+    options: null,
+    onSelect: null,
+    overlayOpacity: new Animated.Value(0),
+    sheetOpacity: new Animated.Value(0),
+  };
 
   render() {
     let { isVisible } = this.state;
@@ -117,6 +140,10 @@ export default class ActionSheet extends React.Component {
   }
 
   _renderSheet() {
+    if (!this.state.options) {
+      return;
+    }
+
     let numOptions = this.state.options.options.length;
 
     return (
@@ -141,7 +168,11 @@ export default class ActionSheet extends React.Component {
     );
   }
 
-  showActionSheetWithOptions(options, onSelect, onAnimateOut) {
+  showActionSheetWithOptions(
+    options: ActionSheetOptions,
+    onSelect: (i: number) => void,
+    onAnimateOut: () => void
+  ) {
     if (this.state.isVisible) {
       return;
     }
@@ -182,7 +213,11 @@ export default class ActionSheet extends React.Component {
     BackAndroid.addEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
   }
 
-  _selectCancelButton() {
+  _selectCancelButton = () => {
+    if (!this.state.options) {
+      return;
+    }
+
     if (typeof this.state.options.cancelButtonIndex === 'number') {
       return this._onSelect(this.state.options.cancelButtonIndex);
     } else {
@@ -190,16 +225,16 @@ export default class ActionSheet extends React.Component {
     }
   }
 
-  _onSelect(index) {
+  _onSelect = (index: number): boolean => {
     if (this.state.isAnimating) {
-      return;
+      return false;
     }
 
-    this.state.onSelect(index);
+    this.state.onSelect && this.state.onSelect(index);
     return this._animateOut();
   }
 
-  _animateOut() {
+  _animateOut = (): boolean => {
     if (this.state.isAnimating) {
       return false;
     }
