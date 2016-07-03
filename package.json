@@ -3,7 +3,9 @@
   "version": "0.2.0",
   "description": "A cross-platform ActionSheet for React Native",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "flow": "flow; test $? -eq 0 -o $? -eq 2"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/exponentjs/react-native-action-sheet.git"
@@ -17,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/exponentjs/react-native-action-sheet/issues"
   },
-  "homepage": "https://github.com/exponentjs/react-native-action-sheet"
+  "homepage": "https://github.com/exponentjs/react-native-action-sheet",
+  "devDependencies": {
+    "flow-bin": "^0.26.0",
+    "react": "^15.2.0",
+    "react-native": "^0.28.0"
+  }
 }
