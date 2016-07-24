@@ -78,7 +78,7 @@ export default class ActionSheet extends React.Component {
     super(props, context);
 
     this._onSelect   = this._onSelect.bind(this);
-    this._animateOut = this._animateOut.bind(this);
+    this._animateOut = this._animateOut.bind(this, -1);
     this._onLayout   = this._onLayout.bind(this);
 
     this.state = {
@@ -170,14 +170,16 @@ export default class ActionSheet extends React.Component {
     if (this.state.isAnimating) {
       return;
     }
-    this.state.onSelect(index);
+
     this._animateOut();
   }
 
-  _animateOut() {
+  _animateOut(index) {
     if (this.state.isAnimating) {
       return false;
     }
+
+    this.state.onSelect(index);
 
     BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._animateOut);
 
