@@ -171,7 +171,7 @@ export default class ActionSheet extends React.Component {
       return;
     }
 
-    this._animateOut();
+    this._animateOut(index);
   }
 
   _animateOut(index) {
