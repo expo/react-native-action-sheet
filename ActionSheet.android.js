@@ -170,11 +170,7 @@ export default class ActionSheet extends React.Component {
     if (this.state.isAnimating) {
       return;
     }
-
-    if (index !== this.state.options.cancelButtonIndex) {
-      this.state.onSelect(index);
-    }
-
+    this.state.onSelect(index);
     this._animateOut();
   }
 
