@@ -178,13 +178,14 @@ export default class ActionSheet extends React.Component {
   }
 
   _animateOut(index) {
+    const cancelButtonIndex = this.state.options.cancelButtonIndex;
     if (this.state.isAnimating) {
       return false;
     }
 
-    this.state.onSelect(index);
+    this.state.onSelect(index || cancelButtonIndex);
 
-    if (this.state.options.cancelButtonIndex) {
+    if (cancelButtonIndex) {
       BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._animateOut);
     }
 
