@@ -78,7 +78,7 @@ export default class ActionSheet extends React.Component {
     super(props, context);
 
     this._onSelect   = this._onSelect.bind(this);
-    this._animateOut = this._animateOut.bind(this, -1);
+    this._animateOut = this._animateOut.bind(this);
     this._onLayout   = this._onLayout.bind(this);
 
     this.state = {
