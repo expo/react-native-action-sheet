@@ -94,14 +94,15 @@ export default class ActionSheet extends React.Component {
   }
 
   render() {
-    let { isVisible } = this.state;
-    let overlay = isVisible ? (
-      <TouchableWithoutFeedback onPress={this._animateOut}>
-        <Animated.View style={[styles.overlay, {
-          opacity: this.state.overlayOpacity,
-        }]}/>
-      </TouchableWithoutFeedback>
-    ) : null;
+    let { isVisible, options } = this.state;
+
+    let overlay = null;
+    if (isVisible) {
+      overlay = <Animated.View style={[styles.overlay, { opacity: this.state.overlayOpacity }]} />;
+      if (options.cancelButtonIndex) {
+        overlay = <TouchableWithoutFeedback onPress={this._animateOut}>{overlay}</TouchableWithoutFeedback>;
+      }
+    }
 
     let sheet = isVisible ? this._renderSheet() : null;
 
@@ -163,7 +164,9 @@ export default class ActionSheet extends React.Component {
       duration: OPACITY_ANIMATION_TIME,
     }).start();
 
-    BackAndroid.addEventListener('actionSheetHardwareBackPress', this._animateOut);
+    if (options.cancelButtonIndex) {
+      BackAndroid.addEventListener('actionSheetHardwareBackPress', this._animateOut);
+    }
   }
 
   _onSelect(index) {
@@ -181,7 +184,9 @@ export default class ActionSheet extends React.Component {
 
     this.state.onSelect(index);
 
-    BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._animateOut);
+    if (this.state.options.cancelButtonIndex) {
+      BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._animateOut);
+    }
 
     this.setState({
       isAnimating: true,
