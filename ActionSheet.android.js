@@ -1,9 +1,5 @@
 'use strict';
-
-import React, {
-  PropTypes,
-} from 'react';
-
+import React, { PropTypes } from 'react';
 import {
   Animated,
   BackAndroid,
@@ -31,7 +27,7 @@ class ActionGroup extends React.Component {
   };
 
   render() {
-    let {
+    const {
       options,
       destructiveButtonIndex,
       onSelect,
@@ -50,8 +46,9 @@ class ActionGroup extends React.Component {
         <TouchableOpacity
           key={i}
           onPress={() => onSelect(i)}
-          style={styles.button}>
-          <Text style={[styles.text, {color}]}>
+          style={styles.button}
+        >
+          <Text style={[styles.text, { color }]}>
             {options[i]}
           </Text>
         </TouchableOpacity>
@@ -77,9 +74,7 @@ export default class ActionSheet extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this._onSelect   = this._onSelect.bind(this);
-    this._animateOut = this._animateOut.bind(this);
-    this._onLayout   = this._onLayout.bind(this);
+    this._onCancel = () => this._onSelect(this.state.options.cancelButtonIndex);
 
     this.state = {
       isVisible: false,
@@ -94,20 +89,20 @@ export default class ActionSheet extends React.Component {
   }
 
   render() {
-    let { isVisible, options } = this.state;
+    const { isVisible, options } = this.state;
 
     let overlay = null;
     if (isVisible) {
       overlay = <Animated.View style={[styles.overlay, { opacity: this.state.overlayOpacity }]} />;
       if (options.cancelButtonIndex) {
-        overlay = <TouchableWithoutFeedback onPress={this._animateOut}>{overlay}</TouchableWithoutFeedback>;
+        overlay = <TouchableWithoutFeedback onPress={this._onCancel}>{overlay}</TouchableWithoutFeedback>;
       }
     }
 
-    let sheet = isVisible ? this._renderSheet() : null;
+    const sheet = isVisible ? this._renderSheet() : null;
 
     return (
-      <View style={[{flex: 1}, this.props.style]}>
+      <View style={[{ flex: 1 }, this.props.style]}>
         {React.Children.only(this.props.children)}
         {overlay}
         {sheet}
@@ -116,12 +111,10 @@ export default class ActionSheet extends React.Component {
   }
 
   _renderSheet() {
-    let numOptions = this.state.options.options.length;
+    const numOptions = this.state.options.options.length;
 
     return (
-      <Animated.View style={[styles.sheetContainer, {
-        bottom: this.state.sheetY,
-      }]}>
+      <Animated.View style={[styles.sheetContainer, { bottom: this.state.sheetY }]}>
         <View onLayout={this._onLayout} style={styles.sheet}>
           <ActionGroup
             options={this.state.options.options}
@@ -165,33 +158,20 @@ export default class ActionSheet extends React.Component {
     }).start();
 
     if (options.cancelButtonIndex) {
-      BackAndroid.addEventListener('actionSheetHardwareBackPress', this._animateOut);
+      this._backAndroidEventListener = BackAndroid.addEventListener('actionSheetHardwareBackPress', this._onCancel);
     }
   }
 
-  _onSelect(index) {
-    if (this.state.isAnimating) {
-      return;
+  _onSelect = index => {
+    if (this.state.isAnimating) return false;
+
+    this.state.onSelect(index);
+
+    if (this._backAndroidEventListener) {
+      this._backAndroidEventListener.remove();
     }
 
-    this._animateOut(index);
-  }
-
-  _animateOut(index) {
-    const cancelButtonIndex = this.state.options.cancelButtonIndex;
-    if (this.state.isAnimating) {
-      return false;
-    }
-
-    this.state.onSelect(index || cancelButtonIndex);
-
-    if (cancelButtonIndex) {
-      BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._animateOut);
-    }
-
-    this.setState({
-      isAnimating: true,
-    });
+    this.setState({ isAnimating: true });
 
     Animated.timing(this.state.overlayOpacity, {
       toValue: 0,
@@ -215,12 +195,12 @@ export default class ActionSheet extends React.Component {
     return true;
   }
 
-  _onLayout(event) {
+  _onLayout = event => {
     if (!this.state.isWaitingForSheetHeight) {
       return;
     }
 
-    let height = event.nativeEvent.layout.height;
+    const height = event.nativeEvent.layout.height;
     this.setState({
       isWaitingForSheetHeight: false,
       sheetHeight: height,
@@ -241,7 +221,7 @@ export default class ActionSheet extends React.Component {
   }
 }
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
   groupContainer: {
     backgroundColor: '#fefefe',
     borderRadius: 4,
