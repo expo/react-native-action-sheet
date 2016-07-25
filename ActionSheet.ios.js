@@ -9,7 +9,7 @@ import {
 export default class ActionSheet extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={[{flex: 1}, this.props.style]}>
         {React.Children.only(this.props.children)}
       </View>
     );
