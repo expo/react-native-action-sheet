@@ -9,11 +9,15 @@ import {
   Platform,
   StyleSheet,
   Text,
+  NativeModules,
   TouchableOpacity,
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+
+// Not everybody has this enabled yet
+const useNativeDriver = !!NativeModules.NativeAnimatedModule;
 
 type ActionSheetOptions = {
   options: Array<string>,
@@ -192,13 +196,13 @@ export default class ActionSheet extends React.Component {
         toValue: 0.5,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
-        useNativeDriver: true,
+        useNativeDriver,
       }),
       Animated.timing(this.state.sheetOpacity, {
         toValue: 1,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
-        useNativeDriver: true,
+        useNativeDriver,
       }),
     ]).start(result => {
       if (result.finished) {
@@ -250,13 +254,13 @@ export default class ActionSheet extends React.Component {
         toValue: 0,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
-        useNativeDriver: true,
+        useNativeDriver,
       }),
       Animated.timing(this.state.sheetOpacity, {
         toValue: 0,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
-        useNativeDriver: true,
+        useNativeDriver,
       }),
     ]).start(result => {
       if (result.finished) {

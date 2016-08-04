@@ -1,6 +1,6 @@
 {
   "name": "@exponent/react-native-action-sheet",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A cross-platform ActionSheet for React Native",
   "main": "index.js",
   "scripts": {
