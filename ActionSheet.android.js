@@ -17,7 +17,9 @@ import {
 } from 'react-native';
 
 // Not everybody has this enabled yet
-const useNativeDriver = !!NativeModules.NativeAnimatedModule;
+// const useNativeDriver = !!NativeModules.NativeAnimatedModule;
+// wait for RN 0.33.0 
+const useNativeDriver = false;
 
 type ActionSheetOptions = {
   options: Array<string>,
