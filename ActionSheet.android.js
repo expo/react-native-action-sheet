@@ -23,6 +23,7 @@ type ActionSheetOptions = {
   options: Array<string>,
   destructiveButtonIndex: ?number,
   cancelButtonIndex: ?number,
+  textStyle: ?any,
 }
 
 type ActionGroupProps = {
@@ -31,6 +32,7 @@ type ActionGroupProps = {
   onSelect: (i: number) => boolean,
   startIndex: number,
   length: number,
+  textStyle: ?any,
 }
 
 type ActionSheetState = {
@@ -58,6 +60,7 @@ class ActionGroup extends React.Component {
     onSelect: PropTypes.func.isRequired,
     startIndex: PropTypes.number.isRequired,
     length: PropTypes.number.isRequired,
+    textStyle: Text.propTypes.style,
   };
 
   render() {
@@ -67,6 +70,7 @@ class ActionGroup extends React.Component {
       onSelect,
       startIndex,
       length,
+      textStyle,
     } = this.props;
 
     let optionViews = [];
@@ -89,7 +93,7 @@ class ActionGroup extends React.Component {
           background={nativeFeedbackBackground}
           onPress={() => onSelect(i)}
           style={styles.button}>
-          <Text style={[styles.text, {color}]}>
+          <Text style={[styles.text, {color}, textStyle]}>
             {options[i]}
           </Text>
         </TouchableNativeFeedbackSafe>
@@ -165,6 +169,7 @@ export default class ActionSheet extends React.Component {
               onSelect={this._onSelect}
               startIndex={0}
               length={numOptions}
+              textStyle={this.state.options.textStyle}
             />
           </View>
         </Animated.View>
