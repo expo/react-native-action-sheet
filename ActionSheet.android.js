@@ -219,7 +219,7 @@ export default class ActionSheet extends React.Component {
 
   _selectCancelButton = () => {
     if (!this.state.options) {
-      return;
+      return false;
     }
 
     if (typeof this.state.options.cancelButtonIndex === 'number') {
