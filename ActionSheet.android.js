@@ -281,11 +281,7 @@ export default class ActionSheet extends React.Component {
 
 let TouchableComponent;
 
-if (Platform.OS === 'android') {
-  TouchableComponent = Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
-} else {
-  TouchableComponent = TouchableOpacity;
-}
+TouchableComponent = Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
 
 if (TouchableComponent !== TouchableNativeFeedback) {
   TouchableComponent.SelectableBackground = () => ({});
