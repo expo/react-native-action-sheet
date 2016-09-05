@@ -9,6 +9,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  Image,
   NativeModules,
   TouchableOpacity,
   TouchableNativeFeedback,
@@ -21,12 +22,14 @@ const useNativeDriver = !!NativeModules.NativeAnimatedModule;
 
 type ActionSheetOptions = {
   options: Array<string>,
+  icons: ?Array<number>,
   destructiveButtonIndex: ?number,
   cancelButtonIndex: ?number,
 }
 
 type ActionGroupProps = {
   options: Array<string>,
+  icons: ?Array<number>,
   destructiveButtonIndex: ?number,
   onSelect: (i: number) => boolean,
   startIndex: number,
@@ -54,6 +57,7 @@ class ActionGroup extends React.Component {
 
   static propTypes = {
     options: PropTypes.array.isRequired,
+    icons: PropTypes.array,
     destructiveButtonIndex: PropTypes.number,
     onSelect: PropTypes.func.isRequired,
     startIndex: PropTypes.number.isRequired,
@@ -63,6 +67,7 @@ class ActionGroup extends React.Component {
   render() {
     let {
       options,
+      icons,
       destructiveButtonIndex,
       onSelect,
       startIndex,
@@ -82,6 +87,17 @@ class ActionGroup extends React.Component {
         color = '#ff3b30';
       }
 
+      let iconElement = undefined
+
+      if (icons && icons[i]) {
+        iconElement = (
+          <Image
+            source={icons[i]}
+            style={styles.icon}
+          />
+          )
+      }
+
       optionViews.push(
         <TouchableNativeFeedbackSafe
           key={i}
@@ -89,6 +105,7 @@ class ActionGroup extends React.Component {
           background={nativeFeedbackBackground}
           onPress={() => onSelect(i)}
           style={styles.button}>
+          {iconElement}
           <Text style={[styles.text, {color}]}>
             {options[i]}
           </Text>
@@ -161,6 +178,7 @@ export default class ActionSheet extends React.Component {
           <View style={styles.sheet}>
             <ActionGroup
               options={this.state.options.options}
+              icons={this.state.options.icons}
               destructiveButtonIndex={this.state.options.destructiveButtonIndex}
               onSelect={this._onSelect}
               startIndex={0}
@@ -325,10 +343,14 @@ let styles = StyleSheet.create({
     marginBottom: 8,
   },
   button: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
     height: 50,
     paddingHorizontal: 16,
+  },
+  icon: {
+    marginRight: 15,
   },
   text: {
     fontSize: 17,
