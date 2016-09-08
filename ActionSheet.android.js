@@ -16,11 +16,6 @@ import {
   View,
 } from 'react-native';
 
-// Not everybody has this enabled yet
-// const useNativeDriver = !!NativeModules.NativeAnimatedModule;
-// wait for RN 0.33.0 
-const useNativeDriver = false;
-
 type ActionSheetOptions = {
   options: Array<string>,
   destructiveButtonIndex: ?number,
@@ -46,6 +41,7 @@ type ActionSheetState = {
 
 type ActionSheetProps = {
   children: ?any,
+  useNativeDriver: ?boolean,
 }
 
 const OPACITY_ANIMATION_TIME = 150;
@@ -198,13 +194,13 @@ export default class ActionSheet extends React.Component {
         toValue: 0.5,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
-        useNativeDriver,
+        useNativeDriver: this.props.useNativeDriver,
       }),
       Animated.timing(this.state.sheetOpacity, {
         toValue: 1,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
-        useNativeDriver,
+        useNativeDriver: this.props.useNativeDriver,
       }),
     ]).start(result => {
       if (result.finished) {
@@ -256,13 +252,13 @@ export default class ActionSheet extends React.Component {
         toValue: 0,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
-        useNativeDriver,
+        useNativeDriver: this.props.useNativeDriver,
       }),
       Animated.timing(this.state.sheetOpacity, {
         toValue: 0,
         easing: Easing.in(Easing.linear),
         duration: OPACITY_ANIMATION_TIME,
-        useNativeDriver,
+        useNativeDriver: this.props.useNativeDriver,
       }),
     ]).start(result => {
       if (result.finished) {
@@ -280,6 +276,10 @@ export default class ActionSheet extends React.Component {
     return true;
   }
 }
+
+ActionSheet.defaultProps = {
+  useNativeDriver: true
+};
 
 let TouchableComponent;
 
