@@ -9,6 +9,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  Image,
   NativeModules,
   TouchableOpacity,
   TouchableNativeFeedback,
@@ -18,16 +19,20 @@ import {
 
 type ActionSheetOptions = {
   options: Array<string>,
+  icons: ?Array<number>,
   destructiveButtonIndex: ?number,
   cancelButtonIndex: ?number,
+  textStyle: ?any,
 }
 
 type ActionGroupProps = {
   options: Array<string>,
+  icons: ?Array<number>,
   destructiveButtonIndex: ?number,
   onSelect: (i: number) => boolean,
   startIndex: number,
   length: number,
+  textStyle: ?any,
 }
 
 type ActionSheetState = {
@@ -52,19 +57,23 @@ class ActionGroup extends React.Component {
 
   static propTypes = {
     options: PropTypes.array.isRequired,
+    icons: PropTypes.array,
     destructiveButtonIndex: PropTypes.number,
     onSelect: PropTypes.func.isRequired,
     startIndex: PropTypes.number.isRequired,
     length: PropTypes.number.isRequired,
+    textStyle: Text.propTypes.style,
   };
 
   render() {
     let {
       options,
+      icons,
       destructiveButtonIndex,
       onSelect,
       startIndex,
       length,
+      textStyle,
     } = this.props;
 
     let optionViews = [];
@@ -80,6 +89,17 @@ class ActionGroup extends React.Component {
         color = '#ff3b30';
       }
 
+      let iconElement = undefined
+
+      if (icons && icons[i]) {
+        iconElement = (
+          <Image
+            source={icons[i]}
+            style={styles.icon}
+          />
+          )
+      }
+
       optionViews.push(
         <TouchableNativeFeedbackSafe
           key={i}
@@ -87,7 +107,8 @@ class ActionGroup extends React.Component {
           background={nativeFeedbackBackground}
           onPress={() => onSelect(i)}
           style={styles.button}>
-          <Text style={[styles.text, {color}]}>
+          {iconElement}
+          <Text style={[styles.text, {color}, textStyle]}>
             {options[i]}
           </Text>
         </TouchableNativeFeedbackSafe>
@@ -159,10 +180,12 @@ export default class ActionSheet extends React.Component {
           <View style={styles.sheet}>
             <ActionGroup
               options={this.state.options.options}
+              icons={this.state.options.icons}
               destructiveButtonIndex={this.state.options.destructiveButtonIndex}
               onSelect={this._onSelect}
               startIndex={0}
               length={numOptions}
+              textStyle={this.state.options.textStyle}
             />
           </View>
         </Animated.View>
@@ -217,7 +240,7 @@ export default class ActionSheet extends React.Component {
 
   _selectCancelButton = () => {
     if (!this.state.options) {
-      return;
+      return false;
     }
 
     if (typeof this.state.options.cancelButtonIndex === 'number') {
@@ -283,11 +306,7 @@ ActionSheet.defaultProps = {
 
 let TouchableComponent;
 
-if (Platform.OS === 'android') {
-  TouchableComponent = Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
-} else {
-  TouchableComponent = TouchableOpacity;
-}
+TouchableComponent = Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
 
 if (TouchableComponent !== TouchableNativeFeedback) {
   TouchableComponent.SelectableBackground = () => ({});
@@ -331,14 +350,19 @@ let styles = StyleSheet.create({
     marginBottom: 8,
   },
   button: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
     height: 50,
     paddingHorizontal: 16,
+  },
+  icon: {
+    marginRight: 15,
   },
   text: {
     fontSize: 17,
     fontWeight: '700',
+    textAlignVertical: 'center',
   },
   rowSeparator: {
     backgroundColor: '#dddddd',

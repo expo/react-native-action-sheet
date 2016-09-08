@@ -12,6 +12,9 @@ npm install @exponent/react-native-action-sheet
 Wrap your entire app in `ActionSheet`. We recommend using [context](https://facebook.github.io/react/docs/context.html) to pass `ActionSheet` to the rest of your app.
 
 ```js
+import ActionSheet from '@exponent/react-native-action-sheet';
+// other imports..
+
 class MainApp extends React.Component {
 
   static childContextTypes = {
@@ -37,6 +40,9 @@ class MainApp extends React.Component {
 To open the action sheet:
 
 ```js
+import ActionSheet from '@exponent/react-native-action-sheet';
+// other imports..
+
 class OtherComponent extends React.Component {
 
   static contextTypes = {
