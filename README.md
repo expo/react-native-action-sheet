@@ -7,61 +7,10 @@ ActionSheet is a cross-platform React Native component that uses the native UIAc
 npm install @exponent/react-native-action-sheet
 ```
 
+## Try it out
+
+Try it in Exponent: https://getexponent.com/@community/react-native-action-sheet-example
+
 ## Usage
 
-Wrap your entire app in `ActionSheet`. We recommend using [context](https://facebook.github.io/react/docs/context.html) to pass `ActionSheet` to the rest of your app.
-
-```js
-import ActionSheet from '@exponent/react-native-action-sheet';
-// other imports..
-
-class MainApp extends React.Component {
-
-  static childContextTypes = {
-    actionSheet: PropTypes.func,
-  };
-
-  getChildContext() {
-    return {
-      actionSheet: () => this._actionSheetRef,
-    };
-  }
-
-  render() {
-    return (
-      <ActionSheet ref={component => this._actionSheetRef = component}>
-        // Render the rest of your app here.
-      </ActionSheet>
-    );
-  }
-}
-```
-
-To open the action sheet:
-
-```js
-import ActionSheet from '@exponent/react-native-action-sheet';
-// other imports..
-
-class OtherComponent extends React.Component {
-
-  static contextTypes = {
-    actionSheet: PropTypes.func,
-  };
-
-  _onOpenActionSheet() {
-    // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
-    let options = ['Delete', 'Save', 'Cancel'];
-    let destructiveButtonIndex = 0;
-    let cancelButtonIndex = 2;
-    this.context.actionSheet().showActionSheetWithOptions({
-      options,
-      cancelButtonIndex,
-      destructiveButtonIndex,
-    },
-    (buttonIndex) => {
-      // Do something here
-    });
-  }
-}
-```
+[See the example app source](https://github.com/exponentjs/react-native-action-sheet/tree/master/example)
