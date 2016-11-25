@@ -1,6 +1,6 @@
 {
   "name": "@exponent/react-native-action-sheet",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "A cross-platform ActionSheet for React Native",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,14 @@
   "keywords": [
     "react-native",
     "action-sheet"
+  ],
+  "files": [
+    "ActionSheet.android.js",
+    "ActionSheet.ios.js",
+    "ActionSheetProvider.js",
+    "connectActionSheet.js",
+    "index.js",
+    "README.md"
   ],
   "author": "Jesse Ruder <jesse@sixfivezero.net>",
   "license": "MIT",
