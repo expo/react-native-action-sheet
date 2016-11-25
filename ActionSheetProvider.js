@@ -2,13 +2,17 @@ import React from 'react';
 import ActionSheet from './ActionSheet';
 
 export default class ActionSheetProvider extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.any
+  };
+
   static childContextTypes = {
-    actionSheet: React.PropTypes.func,
+    showActionSheetWithOptions: React.PropTypes.func,
   };
 
   getChildContext() {
     return {
-      actionSheet: () => this._actionSheetRef,
+      showActionSheetWithOptions: (...args) => this._actionSheetRef.showActionSheetWithOptions(...args),
     };
   }
 
