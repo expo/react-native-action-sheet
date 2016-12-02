@@ -145,7 +145,7 @@ class ActionGroup extends React.Component {
 
     return (
       <View>
-        <View style={[styles.titleContainer, this.props.message && { paddingBottom: 0 }]}>
+        <View style={[styles.titleContainer, this.props.message && styles.titleContainerWithMsg]}>
           <Text style={styles.title}>{this.props.title}</Text>
         </View>
         {rowSeparator}
@@ -436,6 +436,9 @@ let styles = StyleSheet.create({
   titleContainer: {
     alignItems: 'center',
     padding: 16,
+  },
+  titleContainerWithMsg: {
+    paddingBottom: 0,
   },
   title: {
     fontSize: 14,
