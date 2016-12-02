@@ -63,6 +63,7 @@ class ActionGroup extends React.Component {
     startIndex: PropTypes.number.isRequired,
     length: PropTypes.number.isRequired,
     textStyle: Text.propTypes.style,
+    title: PropTypes.string,
   };
 
   render() {
@@ -74,6 +75,7 @@ class ActionGroup extends React.Component {
       startIndex,
       length,
       textStyle,
+      title,
     } = this.props;
 
     let optionViews = [];
@@ -123,7 +125,27 @@ class ActionGroup extends React.Component {
 
     return (
       <View style={styles.groupContainer}>
+        {this._renderTitle()}
         {optionViews}
+      </View>
+    );
+  }
+
+  _renderTitle() {
+    if (!this.props.title) {
+      return;
+    }
+
+    const rowSeparator = this.props.message ? null : (
+      <View style={styles.rowSeparator} />
+    );
+
+    return (
+      <View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{this.props.title}</Text>
+        </View>
+        {rowSeparator}
       </View>
     );
   }
@@ -186,6 +208,7 @@ export default class ActionSheet extends React.Component {
               startIndex={0}
               length={numOptions}
               textStyle={this.state.options.textStyle}
+              title={this.state.options.title}
             />
           </View>
         </Animated.View>
@@ -391,5 +414,14 @@ let styles = StyleSheet.create({
   sheet: {
     flex: 1,
     backgroundColor: 'transparent',
+  },
+  titleContainer: {
+    alignItems: 'center',
+    padding: 16,
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: '700',
+    textAlignVertical: 'center',
   },
 });
