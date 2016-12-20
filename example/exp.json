@@ -1,6 +1,6 @@
 {
   "name": "@exponent/react-native-action-sheet-example",
-  "description": "A cross-platform ActionSheet component. https://github.com/exponentjs/react-native-action-sheet",
+  "description": "A cross-platform ActionSheet component. https://github.com/exponent/react-native-action-sheet",
   "slug": "react-native-action-sheet-example",
   "sdkVersion": "11.0.0",
   "version": "1.0.0",
