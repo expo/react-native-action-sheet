@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/exponentjs/react-native-action-sheet.git"
+    "url": "https://github.com/exponent/react-native-action-sheet.git"
   },
   "keywords": [
     "react-native",
@@ -25,9 +25,9 @@
   "author": "Jesse Ruder <jesse@sixfivezero.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/exponentjs/react-native-action-sheet/issues"
+    "url": "https://github.com/exponent/react-native-action-sheet/issues"
   },
-  "homepage": "https://github.com/exponentjs/react-native-action-sheet",
+  "homepage": "https://github.com/exponent/react-native-action-sheet",
   "devDependencies": {
     "flow-bin": "^0.26.0",
     "react": "^15.2.0",
