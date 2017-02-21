@@ -1,3 +1,4 @@
+import hoistStatics from 'hoist-non-react-statics';
 import React from 'react';
 
 export default function connectActionSheet(WrappedComponent) {
@@ -10,5 +11,5 @@ export default function connectActionSheet(WrappedComponent) {
     showActionSheetWithOptions: React.PropTypes.func,
   };
 
-  return ConnectedActionSheet;
+  return hoistStatics(ConnectedActionSheet, WrappedComponent);
 }
