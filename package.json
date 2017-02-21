@@ -28,12 +28,12 @@
     "url": "https://github.com/exponent/react-native-action-sheet/issues"
   },
   "homepage": "https://github.com/exponent/react-native-action-sheet",
+  "dependencies": {
+    "hoist-non-react-statics": "^1.2.0"
+  },
   "devDependencies": {
     "flow-bin": "^0.26.0",
     "react": "^15.2.0",
     "react-native": "^0.28.0"
-  },
-  "dependencies": {
-    "hoist-non-react-statics": "^1.2.0"
   }
 }
