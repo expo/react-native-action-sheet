@@ -1,4 +1,4 @@
-import Exponent from 'exponent';
+import Expo from 'expo';
 import React from 'react';
 import {
   StyleSheet,
@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Entypo } from '@exponent/vector-icons';
-import { ActionSheetProvider, connectActionSheet } from '@exponent/react-native-action-sheet';
+import { Entypo } from '@expo/vector-icons';
+import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
 
 class AppContainer extends React.Component {
   render() {
@@ -63,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-Exponent.registerRootComponent(AppContainer);
+Expo.registerRootComponent(AppContainer);

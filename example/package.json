@@ -1,15 +1,15 @@
 {
   "name": "example",
   "version": "0.0.0",
-  "description": "Hello Exponent!",
+  "description": "Hello Expo!",
   "author": "exponent.team@gmail.com",
   "private": true,
   "main": "main.js",
   "dependencies": {
-    "@exponent/react-native-action-sheet": "file://",
-    "@exponent/vector-icons": "~2.0.3",
-    "exponent": "~11.0.2",
-    "react": "~15.3.2",
-    "react-native": "git+https://github.com/exponent/react-native#sdk-11.0.3"
+    "@expo/react-native-action-sheet": "../",
+    "@expo/vector-icons": "~4.0.0",
+    "expo": "~14.0.2",
+    "react": "^15.4.0",
+    "react-native": "git+https://github.com/exponent/react-native#sdk-14.0.0"
   }
 }
