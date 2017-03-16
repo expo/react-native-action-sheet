@@ -13,4 +13,4 @@ Try it with Expo: https://expo.io/@community/react-native-action-sheet-example
 
 ## Usage
 
-[See the example app source](https://github.com/expo/react-native-action-sheet/tree/master/example)
+[See the example app source](https://github.com/exponent/react-native-action-sheet/tree/master/example)
