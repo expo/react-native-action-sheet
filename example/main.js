@@ -1,13 +1,11 @@
 import Expo from 'expo';
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
-import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
+import {
+  ActionSheetProvider,
+  connectActionSheet,
+} from '@expo/react-native-action-sheet';
 
 class AppContainer extends React.Component {
   render() {
@@ -19,20 +17,22 @@ class AppContainer extends React.Component {
   }
 }
 
-@connectActionSheet
-class App extends React.Component {
+@connectActionSheet class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{marginBottom: 30}}>
-          <Text style={{textAlign: 'center'}}>
+        <View style={{ marginBottom: 30 }}>
+          <Text style={{ textAlign: 'center' }}>
             Hello! This is a simple example app to demonstrate
             @exponent/react-native-action-sheet.
           </Text>
         </View>
 
-        <Entypo.Button name="code" backgroundColor="#3e3e3e" onPress={this._onOpenActionSheet}>
-          <Text style={{fontSize: 15, color: '#fff'}}>Open action sheet</Text>
+        <Entypo.Button
+          name="code"
+          backgroundColor="#3e3e3e"
+          onPress={this._onOpenActionSheet}>
+          <Text style={{ fontSize: 15, color: '#fff' }}>Open action sheet</Text>
         </Entypo.Button>
       </View>
     );
@@ -43,15 +43,17 @@ class App extends React.Component {
     let options = ['Delete', 'Save', 'Cancel'];
     let destructiveButtonIndex = 0;
     let cancelButtonIndex = 2;
-    this.props.showActionSheetWithOptions({
-      options,
-      cancelButtonIndex,
-      destructiveButtonIndex,
-    },
-    (buttonIndex) => {
-      // Do something here depending on the button index selected
-    });
-  }
+    this.props.showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
+      },
+      buttonIndex => {
+        // Do something here depending on the button index selected
+      }
+    );
+  };
 }
 
 const styles = StyleSheet.create({

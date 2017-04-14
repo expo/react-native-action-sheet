@@ -23,7 +23,7 @@ type ActionSheetOptions = {
   destructiveButtonIndex: ?number,
   cancelButtonIndex: ?number,
   textStyle: ?any,
-}
+};
 
 type ActionGroupProps = {
   options: Array<string>,
@@ -33,7 +33,7 @@ type ActionGroupProps = {
   startIndex: number,
   length: number,
   textStyle: ?any,
-}
+};
 
 type ActionSheetState = {
   isVisible: boolean,
@@ -42,12 +42,12 @@ type ActionSheetState = {
   onSelect: ?(i: number) => void,
   overlayOpacity: any,
   sheetOpacity: any,
-}
+};
 
 type ActionSheetProps = {
   children: ?any,
   useNativeDriver: ?boolean,
-}
+};
 
 const OPACITY_ANIMATION_TIME = 150;
 const PIXEL = 1 / PixelRatio.get();
@@ -89,15 +89,10 @@ class ActionGroup extends React.Component {
         color = '#ff3b30';
       }
 
-      let iconElement = undefined
+      let iconElement = undefined;
 
       if (icons && icons[i]) {
-        iconElement = (
-          <Image
-            source={icons[i]}
-            style={styles.icon}
-          />
-          )
+        iconElement = <Image source={icons[i]} style={styles.icon} />;
       }
 
       optionViews.push(
@@ -108,7 +103,7 @@ class ActionGroup extends React.Component {
           onPress={() => onSelect(i)}
           style={styles.button}>
           {iconElement}
-          <Text style={[styles.text, {color}, textStyle]}>
+          <Text style={[styles.text, { color }, textStyle]}>
             {options[i]}
           </Text>
         </TouchableNativeFeedbackSafe>
@@ -145,16 +140,21 @@ export default class ActionSheet extends React.Component {
 
   render() {
     let { isVisible } = this.state;
-    let overlay = isVisible ? (
-      <Animated.View style={[styles.overlay, {
-        opacity: this.state.overlayOpacity,
-      }]} />
-    ) : null;
+    let overlay = isVisible
+      ? <Animated.View
+          style={[
+            styles.overlay,
+            {
+              opacity: this.state.overlayOpacity,
+            },
+          ]}
+        />
+      : null;
 
     let sheet = isVisible ? this._renderSheet() : null;
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         {React.Children.only(this.props.children)}
         {overlay}
         {sheet}
@@ -173,10 +173,20 @@ export default class ActionSheet extends React.Component {
       <TouchableWithoutFeedback onPress={this._selectCancelButton}>
         <Animated.View
           needsOffscreenAlphaCompositing={this.state.isAnimating}
-          style={[styles.sheetContainer, {
-            opacity: this.state.sheetOpacity,
-            transform: [{scale: this.state.sheetOpacity.interpolate({inputRange: [0, 0.5, 1], outputRange: [0.6, 1, 1]})}],
-          }]}>
+          style={[
+            styles.sheetContainer,
+            {
+              opacity: this.state.sheetOpacity,
+              transform: [
+                {
+                  scale: this.state.sheetOpacity.interpolate({
+                    inputRange: [0, 0.5, 1],
+                    outputRange: [0.6, 1, 1],
+                  }),
+                },
+              ],
+            },
+          ]}>
           <View style={styles.sheet}>
             <ActionGroup
               options={this.state.options.options}
@@ -235,7 +245,10 @@ export default class ActionSheet extends React.Component {
 
     this._animateOutCallback = onAnimateOut;
 
-    BackAndroid.addEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
+    BackAndroid.addEventListener(
+      'actionSheetHardwareBackPress',
+      this._selectCancelButton
+    );
   }
 
   _selectCancelButton = () => {
@@ -248,7 +261,7 @@ export default class ActionSheet extends React.Component {
     } else {
       return this._animateOut();
     }
-  }
+  };
 
   _onSelect = (index: number): boolean => {
     if (this.state.isAnimating) {
@@ -257,14 +270,17 @@ export default class ActionSheet extends React.Component {
 
     this.state.onSelect && this.state.onSelect(index);
     return this._animateOut();
-  }
+  };
 
   _animateOut = (): boolean => {
     if (this.state.isAnimating) {
       return false;
     }
 
-    BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
+    BackAndroid.removeEventListener(
+      'actionSheetHardwareBackPress',
+      this._selectCancelButton
+    );
 
     this.setState({
       isAnimating: true,
@@ -297,16 +313,18 @@ export default class ActionSheet extends React.Component {
     });
 
     return true;
-  }
+  };
 }
 
 ActionSheet.defaultProps = {
-  useNativeDriver: true
+  useNativeDriver: true,
 };
 
 let TouchableComponent;
 
-TouchableComponent = Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
+TouchableComponent = Platform.Version <= 20
+  ? TouchableOpacity
+  : TouchableNativeFeedback;
 
 if (TouchableComponent !== TouchableNativeFeedback) {
   TouchableComponent.SelectableBackground = () => ({});
@@ -315,7 +333,6 @@ if (TouchableComponent !== TouchableNativeFeedback) {
 }
 
 class TouchableNativeFeedbackSafe extends React.Component {
-
   static SelectableBackground = TouchableComponent.SelectableBackground;
   static SelectableBackgroundBorderless = TouchableComponent.SelectableBackgroundBorderless;
   static Ripple = TouchableComponent.Ripple;
