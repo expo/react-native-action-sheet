@@ -3,7 +3,7 @@ import ActionSheet from './ActionSheet';
 
 export default class ActionSheetProvider extends React.Component {
   static propTypes = {
-    children: React.PropTypes.any
+    children: React.PropTypes.any,
   };
 
   static childContextTypes = {
@@ -12,7 +12,8 @@ export default class ActionSheetProvider extends React.Component {
 
   getChildContext() {
     return {
-      showActionSheetWithOptions: (...args) => this._actionSheetRef.showActionSheetWithOptions(...args),
+      showActionSheetWithOptions: (...args) =>
+        this._actionSheetRef.showActionSheetWithOptions(...args),
     };
   }
 
