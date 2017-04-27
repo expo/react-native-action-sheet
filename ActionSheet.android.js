@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react';
 import {
   Animated,
-  BackAndroid,
+  BackHandler,
   Easing,
   PixelRatio,
   Platform,
@@ -245,7 +245,7 @@ export default class ActionSheet extends React.Component {
 
     this._animateOutCallback = onAnimateOut;
 
-    BackAndroid.addEventListener(
+    BackHandler.addEventListener(
       'actionSheetHardwareBackPress',
       this._selectCancelButton
     );
@@ -277,7 +277,7 @@ export default class ActionSheet extends React.Component {
       return false;
     }
 
-    BackAndroid.removeEventListener(
+    BackHandler.removeEventListener(
       'actionSheetHardwareBackPress',
       this._selectCancelButton
     );
