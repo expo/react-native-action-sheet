@@ -7,9 +7,9 @@
   "main": "main.js",
   "dependencies": {
     "@expo/react-native-action-sheet": "../",
-    "@expo/vector-icons": "~4.0.0",
-    "expo": "~14.0.2",
-    "react": "^15.4.0",
-    "react-native": "git+https://github.com/exponent/react-native#sdk-14.0.0"
+    "@expo/vector-icons": "^5.0.0",
+    "expo": "^17.0.0",
+    "react": "16.0.0-alpha.6",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz"
   }
 }
