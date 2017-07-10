@@ -1,6 +1,6 @@
 // @flow
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import {
   Animated,
   BackHandler,
@@ -16,6 +16,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 type ActionSheetOptions = {
   options: Array<string>,
