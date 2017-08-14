@@ -2,13 +2,15 @@ import hoistStatics from 'hoist-non-react-statics';
 import React from 'react';
 
 export default function connectActionSheet(WrappedComponent) {
-  const ConnectedActionSheet = (props, context) => {
-    return (
-      <WrappedComponent
-        {...props}
-        showActionSheetWithOptions={context.showActionSheetWithOptions}
-      />
-    );
+  class ConnectedActionSheet extends React.PureComponent {
+    render() {
+      return (
+        <WrappedComponent
+          {...this.props}
+          showActionSheetWithOptions={this.context.showActionSheetWithOptions}
+        />
+      );
+    }
   };
 
   ConnectedActionSheet.contextTypes = {
