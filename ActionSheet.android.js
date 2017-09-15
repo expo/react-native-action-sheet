@@ -74,7 +74,6 @@ class ActionGroup extends React.Component {
       onSelect,
       startIndex,
       length,
-      textStyle,
     } = this.props;
 
     let optionViews = [];
@@ -84,10 +83,15 @@ class ActionGroup extends React.Component {
       false
     );
 
+    let textStyle = [styles.text];
+
     for (let i = startIndex; i < startIndex + length; i++) {
       let color = '#444444';
       if (i === destructiveButtonIndex) {
         color = '#ff3b30';
+        textStyle = textStyle.concat([ this.props.textStyle, {color} ])
+      } else {
+        textStyle = textStyle.concat([ {color}, this.props.textStyle ])
       }
 
       let iconElement = undefined;
@@ -104,7 +108,7 @@ class ActionGroup extends React.Component {
           onPress={() => onSelect(i)}
           style={styles.button}>
           {iconElement}
-          <Text style={[styles.text, { color }, textStyle]}>
+          <Text style={textStyle}>
             {options[i]}
           </Text>
         </TouchableNativeFeedbackSafe>
