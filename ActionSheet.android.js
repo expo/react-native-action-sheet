@@ -64,6 +64,8 @@ class ActionGroup extends React.Component {
     startIndex: PropTypes.number.isRequired,
     length: PropTypes.number.isRequired,
     textStyle: Text.propTypes.style,
+    title: PropTypes.string,
+    message: PropTypes.string,
   };
 
   render() {
@@ -75,6 +77,8 @@ class ActionGroup extends React.Component {
       startIndex,
       length,
       textStyle,
+      title,
+      message,
     } = this.props;
 
     let optionViews = [];
@@ -111,15 +115,50 @@ class ActionGroup extends React.Component {
       );
 
       if (i < startIndex + length - 1) {
-        optionViews.push(
-          <View key={`separator-${i}`} style={styles.rowSeparator} />
-        );
+        optionViews.push(this._renderRowSeparator(i));
       }
     }
 
     return (
       <View style={styles.groupContainer}>
+        {this._renderTitle()}
+        {this._renderMessage()}
         {optionViews}
+      </View>
+    );
+  }
+
+  _renderRowSeparator(key) {
+    return <View key={key ? `separator-${key}` : null} style={styles.rowSeparator} />;
+  }
+
+  _renderTitle() {
+    if (!this.props.title) {
+      return;
+    }
+
+    const rowSeparator = this.props.message ? null : this._renderRowSeparator();
+
+    return (
+      <View>
+        <View style={[styles.titleContainer, this.props.message && styles.titleContainerWithMsg]}>
+          <Text style={styles.title}>{this.props.title}</Text>
+        </View>
+        {rowSeparator}
+      </View>
+    );
+  }
+
+  _renderMessage() {
+    if (!this.props.message) {
+      return;
+    }
+    return (
+      <View>
+        <View style={styles.messageContainer}>
+          <Text style={styles.message}>{this.props.message}</Text>
+        </View>
+        {this._renderRowSeparator()}
       </View>
     );
   }
@@ -197,6 +236,8 @@ export default class ActionSheet extends React.Component {
               startIndex={0}
               length={numOptions}
               textStyle={this.state.options.textStyle}
+              title={this.state.options.title}
+              message={this.state.options.message}
             />
           </View>
         </Animated.View>
@@ -409,5 +450,25 @@ let styles = StyleSheet.create({
   sheet: {
     flex: 1,
     backgroundColor: 'transparent',
+  },
+  titleContainer: {
+    alignItems: 'center',
+    padding: 16,
+  },
+  titleContainerWithMsg: {
+    paddingBottom: 0,
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: '700',
+    textAlignVertical: 'center',
+  },
+  messageContainer: {
+    alignItems: 'center',
+    padding: 16,
+  },
+  message: {
+    fontSize: 14,
+    textAlignVertical: 'center',
   },
 });
