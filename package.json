@@ -1,6 +1,6 @@
 {
   "name": "@expo/react-native-action-sheet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A cross-platform ActionSheet for React Native",
   "main": "index.js",
   "scripts": {
@@ -29,11 +29,12 @@
   },
   "homepage": "https://github.com/expo/react-native-action-sheet",
   "dependencies": {
-    "hoist-non-react-statics": "^1.2.0"
+    "hoist-non-react-statics": "^2.2.2",
+    "prop-types": "^15.5.10"
   },
   "devDependencies": {
     "flow-bin": "^0.26.0",
-    "react": "^15.2.0",
+    "react": "^15.6.1",
     "react-native": "^0.28.0"
   }
 }
