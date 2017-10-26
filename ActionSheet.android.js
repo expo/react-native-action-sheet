@@ -11,7 +11,6 @@ import {
   StyleSheet,
   Text,
   Image,
-  NativeModules,
   TouchableOpacity,
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
@@ -53,6 +52,54 @@ type ActionSheetProps = {
 const OPACITY_ANIMATION_TIME = 150;
 const PIXEL = 1 / PixelRatio.get();
 
+const nativeFeedbackBackgroundColor = 'rgba(180, 180, 180, 1)';
+const GREY_COLOR = '#444444';
+const RED_COLOR = '#ff3b30';
+
+const SHEET_OPACITY_INPUT_RANGE = [0, 0.5, 1];
+const SHEET_OPACITY_OUTPUT_RANGE = [0.6, 1, 1];
+const EMPTY_STYLE = {};
+
+class TouchableOption extends React.PureComponent {
+  static propTypes = {
+    num: PropTypes.number.isRequired,
+    onSelect: PropTypes.func.isRequired,
+    iconElement: PropTypes.any,
+    textStyle: PropTypes.array.isRequired,
+    text: PropTypes.string.isRequired,
+  };
+
+  constructor() {
+    super();
+
+    this.onPress = this.onPress.bind(this);
+  }
+
+  onPress() {
+    this.props.onSelect(this.props.num);
+  }
+
+  render() {
+    const nativeFeedbackBackground = TouchableNativeFeedbackSafe.Ripple(
+      nativeFeedbackBackgroundColor,
+      false
+    );
+
+    return (
+      <TouchableNativeFeedbackSafe
+        pressInDelay={0}
+        background={nativeFeedbackBackground}
+        onPress={this.onPress}
+        style={styles.button}>
+        {this.props.iconElement}
+        <Text style={this.props.textStyle}>
+          {this.props.text}
+        </Text>
+      </TouchableNativeFeedbackSafe>
+    )
+  }
+}
+
 class ActionGroup extends React.Component {
   props: ActionGroupProps;
 
@@ -67,27 +114,26 @@ class ActionGroup extends React.Component {
   };
 
   render() {
-    let {
+    const {
       options,
       icons,
       destructiveButtonIndex,
       onSelect,
       startIndex,
       length,
-      textStyle,
     } = this.props;
 
     let optionViews = [];
 
-    let nativeFeedbackBackground = TouchableNativeFeedbackSafe.Ripple(
-      'rgba(180, 180, 180, 1)',
-      false
-    );
+    let textStyle = [styles.text];
 
     for (let i = startIndex; i < startIndex + length; i++) {
-      let color = '#444444';
+      let color = GREY_COLOR;
       if (i === destructiveButtonIndex) {
-        color = '#ff3b30';
+        color = RED_COLOR;
+        textStyle = textStyle.concat([ this.props.textStyle, {color} ])
+      } else {
+        textStyle = textStyle.concat([ {color}, this.props.textStyle ])
       }
 
       let iconElement = undefined;
@@ -97,17 +143,14 @@ class ActionGroup extends React.Component {
       }
 
       optionViews.push(
-        <TouchableNativeFeedbackSafe
+        <TouchableOption
           key={i}
-          pressInDelay={0}
-          background={nativeFeedbackBackground}
-          onPress={() => onSelect(i)}
-          style={styles.button}>
-          {iconElement}
-          <Text style={[styles.text, { color }, textStyle]}>
-            {options[i]}
-          </Text>
-        </TouchableNativeFeedbackSafe>
+          num={i}
+          onSelect={onSelect}
+          iconElement={iconElement}
+          textStyle={textStyle}
+          text={options[i]}
+        />
       );
 
       if (i < startIndex + length - 1) {
@@ -155,7 +198,7 @@ export default class ActionSheet extends React.Component {
     let sheet = isVisible ? this._renderSheet() : null;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.actionSheetContainer}>
         {React.Children.only(this.props.children)}
         {overlay}
         {sheet}
@@ -181,8 +224,8 @@ export default class ActionSheet extends React.Component {
               transform: [
                 {
                   scale: this.state.sheetOpacity.interpolate({
-                    inputRange: [0, 0.5, 1],
-                    outputRange: [0.6, 1, 1],
+                    inputRange: SHEET_OPACITY_INPUT_RANGE,
+                    outputRange: SHEET_OPACITY_OUTPUT_RANGE,
                   }),
                 },
               ],
@@ -341,7 +384,7 @@ class TouchableNativeFeedbackSafe extends React.Component {
   render() {
     if (TouchableComponent === TouchableNativeFeedback) {
       return (
-        <TouchableComponent {...this.props} style={{}}>
+        <TouchableComponent {...this.props} style={EMPTY_STYLE}>
           <View style={this.props.style}>
             {this.props.children}
           </View>
@@ -409,5 +452,8 @@ let styles = StyleSheet.create({
   sheet: {
     flex: 1,
     backgroundColor: 'transparent',
+  },
+  actionSheetContainer: {
+    flex: 1
   },
 });
