@@ -1,12 +1,12 @@
 'use strict';
 
 import React from 'react';
-import { ActionSheetIOS, View } from 'react-native';
+import { ActionSheetIOS, View, StyleSheet } from 'react-native';
 
 export default class ActionSheet extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         {React.Children.only(this.props.children)}
       </View>
     );
@@ -16,3 +16,9 @@ export default class ActionSheet extends React.Component {
     ActionSheetIOS.showActionSheetWithOptions(options, onSelect);
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});

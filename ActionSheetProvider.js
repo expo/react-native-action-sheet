@@ -11,6 +11,11 @@ export default class ActionSheetProvider extends React.Component {
     showActionSheetWithOptions: PropTypes.func,
   };
 
+  constructor() {
+    super();
+    this.onRefActionSheet = this.onRefActionSheet.bind(this);
+  }
+
   getChildContext() {
     return {
       showActionSheetWithOptions: (...args) =>
@@ -18,9 +23,13 @@ export default class ActionSheetProvider extends React.Component {
     };
   }
 
+  onRefActionSheet(_actionSheetRef) {
+    this._actionSheetRef = _actionSheetRef;
+  }
+
   render() {
     return (
-      <ActionSheet ref={component => this._actionSheetRef = component}>
+      <ActionSheet ref={this.onRefActionSheet}>
         {React.Children.only(this.props.children)}
       </ActionSheet>
     );
