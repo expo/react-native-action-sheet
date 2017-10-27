@@ -103,24 +103,16 @@ class ActionGroup extends React.Component {
           onPress={() => onSelect(i)}
           style={styles.button}>
           {iconElement}
-          <Text style={[styles.text, { color }, textStyle]}>
-            {options[i]}
-          </Text>
+          <Text style={[styles.text, { color }, textStyle]}>{options[i]}</Text>
         </TouchableNativeFeedbackSafe>
       );
 
       if (i < startIndex + length - 1) {
-        optionViews.push(
-          <View key={`separator-${i}`} style={styles.rowSeparator} />
-        );
+        optionViews.push(<View key={`separator-${i}`} style={styles.rowSeparator} />);
       }
     }
 
-    return (
-      <View style={styles.groupContainer}>
-        {optionViews}
-      </View>
-    );
+    return <View style={styles.groupContainer}>{optionViews}</View>;
   }
 }
 
@@ -140,16 +132,16 @@ export default class ActionSheet extends React.Component {
 
   render() {
     let { isVisible } = this.state;
-    let overlay = isVisible
-      ? <Animated.View
-          style={[
-            styles.overlay,
-            {
-              opacity: this.state.overlayOpacity,
-            },
-          ]}
-        />
-      : null;
+    let overlay = isVisible ? (
+      <Animated.View
+        style={[
+          styles.overlay,
+          {
+            opacity: this.state.overlayOpacity,
+          },
+        ]}
+      />
+    ) : null;
 
     let sheet = isVisible ? this._renderSheet() : null;
 
@@ -245,10 +237,7 @@ export default class ActionSheet extends React.Component {
 
     this._animateOutCallback = onAnimateOut;
 
-    BackAndroid.addEventListener(
-      'actionSheetHardwareBackPress',
-      this._selectCancelButton
-    );
+    BackAndroid.addEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
   }
 
   _selectCancelButton = () => {
@@ -277,10 +266,7 @@ export default class ActionSheet extends React.Component {
       return false;
     }
 
-    BackAndroid.removeEventListener(
-      'actionSheetHardwareBackPress',
-      this._selectCancelButton
-    );
+    BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
 
     this.setState({
       isAnimating: true,
@@ -322,9 +308,7 @@ ActionSheet.defaultProps = {
 
 let TouchableComponent;
 
-TouchableComponent = Platform.Version <= 20
-  ? TouchableOpacity
-  : TouchableNativeFeedback;
+TouchableComponent = Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
 
 if (TouchableComponent !== TouchableNativeFeedback) {
   TouchableComponent.SelectableBackground = () => ({});
@@ -341,17 +325,11 @@ class TouchableNativeFeedbackSafe extends React.Component {
     if (TouchableComponent === TouchableNativeFeedback) {
       return (
         <TouchableComponent {...this.props} style={{}}>
-          <View style={this.props.style}>
-            {this.props.children}
-          </View>
+          <View style={this.props.style}>{this.props.children}</View>
         </TouchableComponent>
       );
     } else {
-      return (
-        <TouchableComponent {...this.props}>
-          {this.props.children}
-        </TouchableComponent>
-      );
+      return <TouchableComponent {...this.props}>{this.props.children}</TouchableComponent>;
     }
   }
 }

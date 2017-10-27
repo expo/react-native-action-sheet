@@ -20,7 +20,7 @@ export default class ActionSheetProvider extends React.Component {
 
   render() {
     return (
-      <ActionSheet ref={component => this._actionSheetRef = component}>
+      <ActionSheet ref={component => (this._actionSheetRef = component)}>
         {React.Children.only(this.props.children)}
       </ActionSheet>
     );
