@@ -15,6 +15,7 @@ import {
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
   View,
+  ScrollView,
 } from 'react-native';
 
 type ActionSheetOptions = {
@@ -112,7 +113,11 @@ class ActionGroup extends React.Component {
       }
     }
 
-    return <View style={styles.groupContainer}>{optionViews}</View>;
+    return (
+      <View style={styles.groupContainer}>
+        <ScrollView>{optionViews}</ScrollView>
+      </View>
+    );
   }
 }
 
