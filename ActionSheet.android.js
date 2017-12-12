@@ -1,10 +1,9 @@
 // @flow
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { PropTypes } from 'react';
 import {
   Animated,
-  BackHandler,
+  BackAndroid,
   Easing,
   PixelRatio,
   Platform,
@@ -246,7 +245,7 @@ export default class ActionSheet extends React.Component {
 
     this._animateOutCallback = onAnimateOut;
 
-    BackHandler.addEventListener(
+    BackAndroid.addEventListener(
       'actionSheetHardwareBackPress',
       this._selectCancelButton
     );
@@ -278,7 +277,7 @@ export default class ActionSheet extends React.Component {
       return false;
     }
 
-    BackHandler.removeEventListener(
+    BackAndroid.removeEventListener(
       'actionSheetHardwareBackPress',
       this._selectCancelButton
     );
