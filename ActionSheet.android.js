@@ -242,7 +242,8 @@ export default class ActionSheet extends React.Component {
 
     this._animateOutCallback = onAnimateOut;
 
-    BackAndroid.addEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
+    if (BackAndroid)
+      BackAndroid.addEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
   }
 
   _selectCancelButton = () => {
@@ -271,7 +272,8 @@ export default class ActionSheet extends React.Component {
       return false;
     }
 
-    BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
+    if (BackAndroid)
+      BackAndroid.removeEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
 
     this.setState({
       isAnimating: true,
@@ -313,7 +315,7 @@ ActionSheet.defaultProps = {
 
 let TouchableComponent;
 
-TouchableComponent = Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
+TouchableComponent = TouchableNativeFeedback ? TouchableNativeFeedback : TouchableOpacity;
 
 if (TouchableComponent !== TouchableNativeFeedback) {
   TouchableComponent.SelectableBackground = () => ({});
