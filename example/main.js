@@ -21,7 +21,7 @@ class App extends React.Component {
       <View style={styles.container}>
         <View style={{ marginBottom: 30 }}>
           <Text style={{ textAlign: 'center' }}>
-            Hello! This is a simple example app to demonstrate @exponent/react-native-action-sheet.
+            Hello! This is a simple example app to demonstrate @expo/react-native-action-sheet.
           </Text>
         </View>
 
