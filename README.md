@@ -7,6 +7,56 @@ ActionSheet is a cross-platform React Native component that uses the native UIAc
 npm install @expo/react-native-action-sheet
 ```
 
+## A basic ActionSheet Setup
+
+import ActionSheetProvider & connectActionSheet   
+
+```
+import { ActionSheetProvider, connectActionSheet } from '@exponent/react-native-action-sheet';
+```
+
+wrap your component with `<ActionSheetProvider />`   
+
+```
+class AppContainer extends React.Component {
+  render() {
+    return (
+      <ActionSheetProvider>
+        <App />
+      </ActionSheetProvider>
+    );
+  }
+}
+```
+
+decorate your main component   
+
+```
+@connectActionSheet
+class App extends React.Component { /* ... */ }
+```
+
+access actionSheet method as this.props.showActionSheetWithOptions   
+```
+_onOpenActionSheet = () => {
+  // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
+  let options = ['Delete', 'Save', 'Cancel'];
+  let destructiveButtonIndex = 0;
+  let cancelButtonIndex = 2;
+  
+  this.props.showActionSheetWithOptions({
+    options,
+    cancelButtonIndex,
+    destructiveButtonIndex,
+  },
+  (buttonIndex) => {
+    // Do something here depending on the button index selected
+  });
+
+}
+```
+
+
 ## Try it out
 
 Try it with Expo: https://expo.io/@community/react-native-action-sheet-example
