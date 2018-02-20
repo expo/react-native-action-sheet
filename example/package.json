@@ -2,14 +2,13 @@
   "name": "example",
   "version": "0.0.0",
   "description": "Hello Expo!",
-  "author": "exponent.team@gmail.com",
+  "author": "support@expo.io",
   "private": true,
-  "main": "main.js",
+  "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
     "@expo/react-native-action-sheet": "../",
-    "@expo/vector-icons": "^5.0.0",
-    "expo": "^24.0.0",
-    "react": "16.0.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-24.0.0.tar.gz"
+    "expo": "^25.0.0",
+    "react": "16.2.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz"
   }
 }
