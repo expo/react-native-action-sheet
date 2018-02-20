@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
 
-class AppContainer extends React.Component {
+export default class AppContainer extends React.Component {
   render() {
     return (
       <ActionSheetProvider>
@@ -58,5 +58,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-Expo.registerRootComponent(AppContainer);
