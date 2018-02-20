@@ -2,7 +2,7 @@
   "name": "@expo/react-native-action-sheet-example",
   "description": "A cross-platform ActionSheet component. https://github.com/expo/react-native-action-sheet",
   "slug": "react-native-action-sheet-example",
-  "sdkVersion": "17.0.0",
+  "sdkVersion": "24.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
   "primaryColor": "#cccccc",
