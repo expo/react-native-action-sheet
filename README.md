@@ -11,13 +11,13 @@ npm install @expo/react-native-action-sheet
 
 import ActionSheetProvider & connectActionSheet
 
-```
+```es6
 import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
 ```
 
 wrap your top-level component with `<ActionSheetProvider />`
 
-```
+```es6
 class AppContainer extends React.Component {
   render() {
     return (
@@ -31,14 +31,14 @@ class AppContainer extends React.Component {
 
 decorate the component you want to use the action sheet with `@connectActionSheet`
 
-```
+```es6
 @connectActionSheet
 class App extends React.Component { /* ... */ }
 ```
 
 access actionSheet method as `this.props.showActionSheetWithOptions`
 
-```
+```es6
 _onOpenActionSheet = () => {
   // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
   let options = ['Delete', 'Save', 'Cancel'];
