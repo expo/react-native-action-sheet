@@ -1,1 +1,1 @@
-export ActionSheet from './ActionSheet.android.js';
+export default from './ActionSheet.android.js';
