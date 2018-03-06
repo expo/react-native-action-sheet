@@ -1,6 +1,6 @@
 {
-  "name": "@exponent/react-native-action-sheet",
-  "version": "0.3.0",
+  "name": "@expo/react-native-action-sheet",
+  "version": "1.0.2",
   "description": "A cross-platform ActionSheet for React Native",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/exponentjs/react-native-action-sheet.git"
+    "url": "https://github.com/expo/react-native-action-sheet.git"
   },
   "keywords": [
     "react-native",
@@ -25,12 +25,16 @@
   "author": "Jesse Ruder <jesse@sixfivezero.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/exponentjs/react-native-action-sheet/issues"
+    "url": "https://github.com/expo/react-native-action-sheet/issues"
   },
-  "homepage": "https://github.com/exponentjs/react-native-action-sheet",
+  "homepage": "https://github.com/expo/react-native-action-sheet",
+  "dependencies": {
+    "hoist-non-react-statics": "^2.2.2",
+    "prop-types": "^15.5.10"
+  },
   "devDependencies": {
     "flow-bin": "^0.26.0",
-    "react": "^15.2.0",
+    "react": "^15.6.1",
     "react-native": "^0.28.0"
   }
 }

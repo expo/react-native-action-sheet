@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "@expo/react-native-action-sheet-example",
+    "description": "A cross-platform ActionSheet component. https://github.com/expo/react-native-action-sheet",
+    "slug": "react-native-action-sheet-example",
+    "privacy": "public",
+    "sdkVersion": "25.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "icon": "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
+    "packagerOpts": {
+      "assetExts": ["ttf", "mp4"]
+    }
+  }
+}
