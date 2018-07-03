@@ -10,9 +10,8 @@ export default function connectActionSheet(WrappedComponent) {
         {(ref) => (
           <WrappedComponent
             {...props}
-            showActionSheetWithOptions={
-              (...args) => ref.showActionSheetWithOptions(...args)
-            }
+            showActionSheetWithOptions={(...args) =>
+              ref.current.showActionSheetWithOptions(...args)}
           />
         )}
       </Consumer>
