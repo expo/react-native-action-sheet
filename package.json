@@ -29,12 +29,12 @@
   },
   "homepage": "https://github.com/expo/react-native-action-sheet",
   "dependencies": {
-    "hoist-non-react-statics": "^2.2.2",
-    "prop-types": "^15.5.10"
+    "hoist-non-react-statics": "2.5.5",
+    "prop-types": "^15.6.2"
   },
   "devDependencies": {
-    "flow-bin": "^0.26.0",
-    "react": "^15.6.1",
-    "react-native": "^0.28.0"
+    "flow-bin": "^0.75.0",
+    "react": "^16.4.1",
+    "react-native": "^0.55.4"
   }
 }

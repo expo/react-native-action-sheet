@@ -2,27 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ActionSheet from './ActionSheet';
 
+import { Provider } from './Context';
+
 export default class ActionSheetProvider extends React.Component {
   static propTypes = {
     children: PropTypes.any,
   };
 
-  static childContextTypes = {
-    showActionSheetWithOptions: PropTypes.func,
-  };
+  constructor(props) {
+    super(props);
 
-  getChildContext() {
-    return {
-      showActionSheetWithOptions: (...args) =>
-        this._actionSheetRef.showActionSheetWithOptions(...args),
-    };
+    this._actionSheetRef = React.createRef();
   }
 
   render() {
     return (
-      <ActionSheet ref={component => (this._actionSheetRef = component)}>
-        {React.Children.only(this.props.children)}
-      </ActionSheet>
+      <Provider value={this._actionSheetRef}>
+        <ActionSheet ref={this._actionSheetRef}>
+          {React.Children.only(this.props.children)}
+        </ActionSheet>
+      </Provider>
     );
   }
 }
