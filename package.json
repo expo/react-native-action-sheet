@@ -18,6 +18,7 @@
     "ActionSheet.android.js",
     "ActionSheet.ios.js",
     "ActionSheetProvider.js",
+    "Context.js",
     "connectActionSheet.js",
     "index.js",
     "README.md"
