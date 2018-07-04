@@ -7,11 +7,10 @@ export default function connectActionSheet(WrappedComponent) {
   const ConnectedActionSheet = (props, context) => {
     return (
       <Consumer>
-        {(ref) => (
+        {(showActionSheetWithOptions) => (
           <WrappedComponent
             {...props}
-            showActionSheetWithOptions={(...args) =>
-              ref.current.showActionSheetWithOptions(...args)}
+            showActionSheetWithOptions={showActionSheetWithOptions}
           />
         )}
       </Consumer>
