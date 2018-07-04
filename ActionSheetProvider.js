@@ -17,7 +17,7 @@ export default class ActionSheetProvider extends React.Component {
   }
 
   showActionSheetWithOptions(...args) {
-    this._actionSheetRef.current.showActionSheetWithOptions(..args);
+    this._actionSheetRef.current.showActionSheetWithOptions(...args);
   }
 
   render() {
