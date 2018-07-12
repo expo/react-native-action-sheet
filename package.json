@@ -33,6 +33,8 @@
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
+    "@types/react": "^16.4.6",
+    "@types/react-native": "^0.56.0",
     "flow-bin": "^0.26.0",
     "react": "^15.6.1",
     "react-native": "^0.28.0"
