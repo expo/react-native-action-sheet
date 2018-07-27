@@ -24,11 +24,12 @@ type ActionSheetOptions = {
   destructiveButtonIndex?: ?number,
   cancelButtonIndex?: ?number,
   textStyle?: ?any,
-  title?: string,
+  tintColor?: ?string,
+  title?: ?string,
   titleTextStyle?: ?any,
-  message?: string,
+  message?: ?string,
   messageTextStyle?: ?any,
-  showSeparators?: boolean,
+  showSeparators?: ?boolean,
 };
 
 type ActionGroupProps = {
@@ -39,11 +40,12 @@ type ActionGroupProps = {
   startIndex: number,
   length: number,
   textStyle: ?any,
+  tintColor: ?string,
   title: ?string,
   titleTextStyle: ?any,
   message: ?string,
   messageTextStyle: ?any,
-  showSeparators: boolean,
+  showSeparators: ?boolean,
 };
 
 type ActionSheetState = {
@@ -79,6 +81,7 @@ class ActionGroup extends React.Component {
       startIndex,
       length,
       textStyle,
+      tintColor,
       showSeparators,
     } = this.props;
 
@@ -90,7 +93,9 @@ class ActionGroup extends React.Component {
     );
 
     for (let i = startIndex; i < startIndex + length; i++) {
-      const defaultColor = textStyle && textStyle.color ? textStyle.color : BLACK_87PC_TRANSPARENT;
+      const defaultColor = tintColor
+        ? tintColor
+        : (textStyle || {}).color || BLACK_87PC_TRANSPARENT;
       const color = i === destructiveButtonIndex ? '#d32f2f' : defaultColor;
       const iconSource = icons != null && icons[i];
       let iconElement = undefined;
@@ -160,6 +165,7 @@ ActionGroup.propTypes = {
   startIndex: PropTypes.number.isRequired,
   length: PropTypes.number.isRequired,
   textStyle: Text.propTypes.style,
+  tintColor: PropTypes.string,
   title: PropTypes.string,
   titleTextStyle: Text.propTypes.style,
   message: PropTypes.string,
@@ -248,6 +254,7 @@ export default class ActionSheet extends React.Component {
               startIndex={0}
               length={options.options.length}
               textStyle={options.textStyle}
+              tintColor={options.tintColor}
               title={options.title}
               titleTextStyle={options.titleTextStyle}
               message={options.message}
