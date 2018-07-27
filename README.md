@@ -41,9 +41,9 @@ access actionSheet method as `this.props.showActionSheetWithOptions`
 ```es6
 _onOpenActionSheet = () => {
   // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
-  let options = ['Delete', 'Save', 'Cancel'];
-  let destructiveButtonIndex = 0;
-  let cancelButtonIndex = 2;
+  const options = ['Delete', 'Save', 'Cancel'];
+  const destructiveButtonIndex = 0;
+  const cancelButtonIndex = 2;
   
   this.props.showActionSheetWithOptions({
     options,
@@ -53,10 +53,22 @@ _onOpenActionSheet = () => {
   (buttonIndex) => {
     // Do something here depending on the button index selected
   });
-
 }
 ```
 
+## Universal Props
+
+The same options available on https://facebook.github.io/react-native/docs/actionsheetios.html#showactionsheetwithoptions
+
+## Android-Only Props
+
+`textStyle` (Text.propTypes.style, optional): Apply any text style props to the options. If the `tintColor` option is provided, it takes precedence over a color text style prop.
+
+`titleTextStyle` (Text.propTypes.style, optional): Apply any text style props to the title if present.
+
+`messageTextStyle` (Text.propTypes.style, optional): Apply any text style props to the message if present.
+
+`showSeparators`: (boolean, optional; default: false): Show separators between items. On iOS, separators always show so this prop has no effect.
 
 ## Try it out
 
