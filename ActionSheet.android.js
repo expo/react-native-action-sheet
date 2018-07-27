@@ -20,10 +20,15 @@ import {
 
 type ActionSheetOptions = {
   options: Array<string>,
-  icons: ?Array<number>,
-  destructiveButtonIndex: ?number,
-  cancelButtonIndex: ?number,
-  textStyle: ?any,
+  icons?: ?Array<number>,
+  destructiveButtonIndex?: ?number,
+  cancelButtonIndex?: ?number,
+  textStyle?: ?any,
+  title?: string,
+  titleTextStyle?: ?any,
+  message?: string,
+  messageTextStyle?: ?any,
+  showSeparators?: boolean,
 };
 
 type ActionGroupProps = {
@@ -34,6 +39,11 @@ type ActionGroupProps = {
   startIndex: number,
   length: number,
   textStyle: ?any,
+  title: ?string,
+  titleTextStyle: ?any,
+  message: ?string,
+  messageTextStyle: ?any,
+  showSeparators: boolean,
 };
 
 type ActionSheetState = {
@@ -52,23 +62,13 @@ type ActionSheetProps = {
 
 const OPACITY_ANIMATION_IN_TIME = 225;
 const OPACITY_ANIMATION_OUT_TIME = 195;
-const EASING_OUT = Easing.bezier(0.25, 0.46, 0.45, 0.94)
-const EASING_IN = Easing.out(EASING_OUT)
+const EASING_OUT = Easing.bezier(0.25, 0.46, 0.45, 0.94);
+const EASING_IN = Easing.out(EASING_OUT);
+const BLACK_54PC_TRANSPARENT = '#0000008a';
+const BLACK_87PC_TRANSPARENT = '#000000de';
 
 class ActionGroup extends React.Component {
   props: ActionGroupProps;
-
-  static propTypes = {
-    options: PropTypes.array.isRequired,
-    icons: PropTypes.array,
-    destructiveButtonIndex: PropTypes.number,
-    onSelect: PropTypes.func.isRequired,
-    startIndex: PropTypes.number.isRequired,
-    length: PropTypes.number.isRequired,
-    textStyle: Text.propTypes.style,
-    title: PropTypes.string,
-    message: PropTypes.string,
-  };
 
   render() {
     let {
@@ -79,8 +79,7 @@ class ActionGroup extends React.Component {
       startIndex,
       length,
       textStyle,
-      title,
-      message,
+      showSeparators,
     } = this.props;
 
     let optionViews = [];
@@ -91,19 +90,18 @@ class ActionGroup extends React.Component {
     );
 
     for (let i = startIndex; i < startIndex + length; i++) {
-      let color = '#212121';
-      if (i === destructiveButtonIndex) {
-        color = '#d32f2f';
-      }
-
+      const defaultColor = textStyle && textStyle.color ? textStyle.color : BLACK_87PC_TRANSPARENT;
+      const color = i === destructiveButtonIndex ? '#d32f2f' : defaultColor;
+      const iconSource = icons != null && icons[i];
       let iconElement = undefined;
 
-      if (icons && icons[i]) {
-        const iconStyle = [styles.icon]
-        if (textStyle.color !== undefined && textStyle.color !== null) {
-          iconStyle.push({ tintColor: textStyle.color })
-        }
-        iconElement = <Image source={icons[i]} resizeMode="contain" style={iconStyle} />;
+      if (iconSource) {
+        const iconStyle = [styles.icon, { tintColor: color }];
+        iconElement = <Image
+          fadeDuration={0}
+          source={iconSource}
+          resizeMode="contain"
+          style={iconStyle} />;
       }
 
       optionViews.push(
@@ -114,19 +112,18 @@ class ActionGroup extends React.Component {
           onPress={() => onSelect(i)}
           style={styles.button}>
           {iconElement}
-          <Text style={[styles.text, { color }, textStyle]}>{options[i]}</Text>
+          <Text style={[styles.text, textStyle, { color }]}>{options[i]}</Text>
         </TouchableNativeFeedbackSafe>
       );
 
-      if (i < startIndex + length - 1) {
+      if (showSeparators && i < startIndex + length - 1) {
         optionViews.push(this._renderRowSeparator(i));
       }
     }
 
     return (
       <View style={styles.groupContainer}>
-        {this._renderTitle()}
-        {this._renderMessage()}
+        {this._renderTitleContent()}
         <ScrollView>{optionViews}</ScrollView>
       </View>
     );
@@ -136,41 +133,50 @@ class ActionGroup extends React.Component {
     return <View key={key ? `separator-${key}` : null} style={styles.rowSeparator} />;
   }
 
-  _renderTitle() {
-    if (!this.props.title) {
-      return;
-    }
+  _renderTitleContent()  {
+    const { title, titleTextStyle, message, messageTextStyle, showSeparators } = this.props;
 
-    const rowSeparator = this.props.message ? null : this._renderRowSeparator();
+    if (!title && !message) {
+      return null;
+    }
 
     return (
       <View>
-        <View style={[styles.titleContainer, this.props.message && styles.titleContainerWithMsg]}>
-          <Text style={styles.title}>{this.props.title}</Text>
+        <View style={[styles.titleContainer, { paddingBottom: showSeparators ? 24 : 16 }]}>
+          {title ? <Text style={[styles.title, titleTextStyle]}>{title}</Text> : null}
+          {message ? <Text style={[styles.message, messageTextStyle]}>{message}</Text> : null}
         </View>
-        {rowSeparator}
+        {showSeparators ? this._renderRowSeparator('title') : null}
       </View>
-    );
-  }
-
-  _renderMessage() {
-    if (!this.props.message) {
-      return;
-    }
-    return (
-      <View>
-        <View style={styles.messageContainer}>
-          <Text style={styles.message}>{this.props.message}</Text>
-        </View>
-        {this._renderRowSeparator()}
-      </View>
-    );
+    )
   }
 }
+
+ActionGroup.propTypes = {
+  options: PropTypes.array.isRequired,
+  icons: PropTypes.array,
+  destructiveButtonIndex: PropTypes.number,
+  onSelect: PropTypes.func.isRequired,
+  startIndex: PropTypes.number.isRequired,
+  length: PropTypes.number.isRequired,
+  textStyle: Text.propTypes.style,
+  title: PropTypes.string,
+  titleTextStyle: Text.propTypes.style,
+  message: PropTypes.string,
+  messageTextStyle: Text.propTypes.style,
+  showSeparators: PropTypes.bool,
+};
+
+ActionGroup.defaultProps = {
+  title: null,
+  message: null,
+  showSeparators: false,
+};
 
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
 export default class ActionSheet extends React.Component {
   props: ActionSheetProps;
+
   _actionSheetHeight = 360;
   _animateOutCallback: ?() => void = null;
 
@@ -183,36 +189,37 @@ export default class ActionSheet extends React.Component {
     sheetOpacity: new Animated.Value(0),
   };
 
+  _setActionSheetHeight = ({ nativeEvent }) =>
+    this._actionSheetHeight = nativeEvent.layout.height;
+
   render() {
-    let { isVisible } = this.state;
-    let overlay = isVisible ? (
+    const { isVisible, overlayOpacity } = this.state;
+    const overlay = isVisible ? (
       <Animated.View
         style={[
           styles.overlay,
           {
-            opacity: this.state.overlayOpacity,
+            opacity: overlayOpacity,
           },
         ]}
       />
     ) : null;
 
-    let sheet = isVisible ? this._renderSheet() : null;
-
     return (
       <View style={{ flex: 1 }}>
         {React.Children.only(this.props.children)}
         {overlay}
-        {sheet}
+        {isVisible ? this._renderSheet() : null}
       </View>
     );
   }
 
   _renderSheet() {
-    if (!this.state.options) {
-      return;
-    }
+    const { options } = this.state;
 
-    let numOptions = this.state.options.options.length;
+    if (!options) {
+      return null;
+    }
 
     return (
       <TouchableWithoutFeedback onPress={this._selectCancelButton}>
@@ -232,18 +239,20 @@ export default class ActionSheet extends React.Component {
               ],
             },
           ]}>
-          <View style={styles.sheet}
-            onLayout={(event) => { this._actionSheetHeight = event.nativeEvent.layout.height }}>
+          <View style={styles.sheet} onLayout={this._setActionSheetHeight}>
             <ActionGroup
-              options={this.state.options.options}
-              icons={this.state.options.icons}
-              destructiveButtonIndex={this.state.options.destructiveButtonIndex}
+              options={options.options}
+              icons={options.icons}
+              destructiveButtonIndex={options.destructiveButtonIndex}
               onSelect={this._onSelect}
               startIndex={0}
-              length={numOptions}
-              textStyle={this.state.options.textStyle}
-              title={this.state.options.title}
-              message={this.state.options.message}
+              length={options.options.length}
+              textStyle={options.textStyle}
+              title={options.title}
+              titleTextStyle={options.titleTextStyle}
+              message={options.message}
+              messageTextStyle={options.messageTextStyle}
+              showSeparators={options.showSeparators}
             />
           </View>
         </Animated.View>
@@ -256,7 +265,9 @@ export default class ActionSheet extends React.Component {
     onSelect: (i: number) => void,
     onAnimateOut: () => void
   ) {
-    if (this.state.isVisible) {
+    const { isVisible, overlayOpacity, sheetOpacity } = this.state;
+
+    if (isVisible) {
       return;
     }
 
@@ -267,17 +278,17 @@ export default class ActionSheet extends React.Component {
       isAnimating: true,
     });
 
-    this.state.overlayOpacity.setValue(0);
-    this.state.sheetOpacity.setValue(0);
+    overlayOpacity.setValue(0);
+    sheetOpacity.setValue(0);
 
     Animated.parallel([
-      Animated.timing(this.state.overlayOpacity, {
-        toValue: 0.2,
+      Animated.timing(overlayOpacity, {
+        toValue: 0.32,
         easing: EASING_OUT,
         duration: OPACITY_ANIMATION_IN_TIME,
         useNativeDriver: this.props.useNativeDriver,
       }),
-      Animated.timing(this.state.sheetOpacity, {
+      Animated.timing(sheetOpacity, {
         toValue: 1,
         easing: EASING_OUT,
         duration: OPACITY_ANIMATION_IN_TIME,
@@ -300,28 +311,33 @@ export default class ActionSheet extends React.Component {
   }
 
   _selectCancelButton = () => {
-    if (!this.state.options) {
+    const { options } = this.state;
+    if (!options) {
       return false;
     }
 
-    if (typeof this.state.options.cancelButtonIndex === 'number') {
-      return this._onSelect(this.state.options.cancelButtonIndex);
+    if (typeof options.cancelButtonIndex === 'number') {
+      return this._onSelect(options.cancelButtonIndex);
     } else {
       return this._animateOut();
     }
   };
 
   _onSelect = (index: number): boolean => {
-    if (this.state.isAnimating) {
+    const { isAnimating, onSelect } = this.state;
+
+    if (isAnimating) {
       return false;
     }
 
-    this.state.onSelect && this.state.onSelect(index);
+    onSelect && onSelect(index);
     return this._animateOut();
   };
 
   _animateOut = (): boolean => {
-    if (this.state.isAnimating) {
+    const { isAnimating, overlayOpacity, sheetOpacity } = this.state;
+
+    if (isAnimating) {
       return false;
     }
 
@@ -335,13 +351,13 @@ export default class ActionSheet extends React.Component {
     });
 
     Animated.parallel([
-      Animated.timing(this.state.overlayOpacity, {
+      Animated.timing(overlayOpacity, {
         toValue: 0,
         easing: EASING_IN,
         duration: OPACITY_ANIMATION_OUT_TIME,
         useNativeDriver: this.props.useNativeDriver,
       }),
-      Animated.timing(this.state.sheetOpacity, {
+      Animated.timing(sheetOpacity, {
         toValue: 0,
         easing: EASING_IN,
         duration: OPACITY_ANIMATION_OUT_TIME,
@@ -396,19 +412,16 @@ class TouchableNativeFeedbackSafe extends React.Component {
   }
 }
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
   groupContainer: {
-    backgroundColor: '#fefefe',
-    borderColor: '#ffffff',
-    borderTopWidth: StyleSheet.hairlineWidth,
+    backgroundColor: '#ffffff',
     overflow: 'hidden',
-    paddingVertical: 8,
   },
   button: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    height: 48,
+    height: 56,
     paddingHorizontal: 16,
   },
   icon: {
@@ -418,12 +431,13 @@ let styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+    color: BLACK_87PC_TRANSPARENT,
     textAlignVertical: 'center',
   },
   rowSeparator: {
     backgroundColor: '#dddddd',
     height: 1,
-    flex: 1,
+    width: '100%',
   },
   overlay: {
     position: 'absolute',
@@ -449,23 +463,19 @@ let styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   titleContainer: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     padding: 16,
-  },
-  titleContainerWithMsg: {
-    paddingBottom: 0,
+    paddingTop: 24,
   },
   title: {
-    fontSize: 14,
-    fontWeight: '700',
+    fontSize: 16,
+    color: BLACK_54PC_TRANSPARENT,
     textAlignVertical: 'center',
   },
-  messageContainer: {
-    alignItems: 'center',
-    padding: 16,
-  },
   message: {
+    marginTop: 12,
     fontSize: 14,
+    color: BLACK_54PC_TRANSPARENT,
     textAlignVertical: 'center',
   },
 });
