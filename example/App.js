@@ -91,7 +91,7 @@ class App extends React.Component {
     const options = ['Delete', 'Save', 'Share', 'Cancel'];
     const icons = withIcons ? [deleteIcon, saveIcon, shareIcon, cancelIcon] : null;
     const title = withTitle ? 'Choose An Action' : null;
-    const message = withMessage ? 'This library tries to mimic the native Android Material share sheet as close as possible.' : null;
+    const message = withMessage ? 'This library tries to mimic the native share sheets as close as possible.' : null;
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 3;
     const textStyle = withCustomStyles ? { fontSize: 20, fontWeight: '500', color: 'blue' } : null;
