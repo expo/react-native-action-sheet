@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
 
