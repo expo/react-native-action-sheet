@@ -107,9 +107,9 @@ class App extends React.Component {
         message,
         icons, // Android only
         showSeparators: withSeparators, // Affects Android only; default is false
-        textStyle,
-        titleTextStyle,
-        messageTextStyle,
+        textStyle, // Android only
+        titleTextStyle, // Android only
+        messageTextStyle, // Android only
       },
       buttonIndex => {
         // Do something here depending on the button index selected
