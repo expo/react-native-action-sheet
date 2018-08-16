@@ -13,10 +13,9 @@ export default class ActionSheetProvider extends React.Component {
     super(props);
 
     this._actionSheetRef = React.createRef();
-    this.showActionSheetWithOptions = this.showActionSheetWithOptions.bind(this);
   }
 
-  showActionSheetWithOptions(...args) {
+  showActionSheetWithOptions = (...args) => {
     this._actionSheetRef.current.showActionSheetWithOptions(...args);
   }
 
