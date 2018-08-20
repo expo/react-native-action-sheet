@@ -25,11 +25,11 @@ class App extends React.Component {
     selectedIndex: null,
   };
 
-  _updateSelectionText = (selectedIndex: number) => {
+  _updateSelectionText = (selectedIndex) => {
     this.setState({ selectedIndex });
   };
 
-  _renderButton = (title: string, onPress: () => void) => (
+  _renderButton = (title, onPress) => (
     <View style={{ marginBottom: 12 }}>
       <Entypo.Button
         name="code"
@@ -81,11 +81,11 @@ class App extends React.Component {
   }
 
   _onOpenActionSheet = (
-    withTitle: boolean,
-    withMessage: boolean,
-    withIcons: boolean,
-    withSeparators: boolean,
-    withCustomStyles: boolean,
+    withTitle,
+    withMessage,
+    withIcons,
+    withSeparators,
+    withCustomStyles,
   ) => () => {
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
     const options = ['Delete', 'Save', 'Share', 'Cancel'];
