@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
+import ShowActionSheetButton from './ShowActionSheetButton';
 
 const saveIcon = require('./img/baseline_save_black_24dp.png');
 const shareIcon = require('./img/baseline_share_black_24dp.png');
@@ -29,17 +30,6 @@ class App extends React.Component {
     this.setState({ selectedIndex });
   };
 
-  _renderButton = (title, onPress) => (
-    <View style={{ marginBottom: 12 }}>
-      <Entypo.Button
-        name="code"
-        backgroundColor="#3e3e3e"
-        onPress={onPress}>
-        <Text style={{ fontSize: 15, color: '#fff' }}>{title}</Text>
-      </Entypo.Button>
-    </View>
-  );
-
   _renderSelectionText = () => {
     const { selectedIndex } = this.state;
     const text = selectedIndex === null
@@ -64,13 +54,13 @@ class App extends React.Component {
               {"Hello!\n\nThis is a simple example app to demonstrate @expo/react-native-action-sheet."}
             </Text>
           </View>
-          {this._renderButton('Options Only', this._onOpenActionSheet(false, false, false, false, false))}
-          {this._renderButton('Title', this._onOpenActionSheet(true, false, false, false, false))}
-          {this._renderButton('Title & Message', this._onOpenActionSheet(true, true, false, false, false))}
-          {this._renderButton('Icons', this._onOpenActionSheet(false, false, true, false, false))}
-          {this._renderButton('Title, Message, & Icons', this._onOpenActionSheet(true, true, true, false, false))}
-          {this._renderButton('Use Separators', this._onOpenActionSheet(true, false, true, true, false))}
-          {this._renderButton('Custom Styles', this._onOpenActionSheet(true, true, true, false, true))}
+          <ShowActionSheetButton title="Options Only" />
+          <ShowActionSheetButton title="Title" withTitle />
+          <ShowActionSheetButton title="Title & Message" withTitle withMessage />
+          <ShowActionSheetButton title="Icons" withIcons />
+          <ShowActionSheetButton title="Title, Message, & Icons" withTitle withMessage withIcons />
+          <ShowActionSheetButton title="Use Separators" withTitle withIcons withSeparators />
+          <ShowActionSheetButton title="Custom Styles" withTitle withMessage withIcons withCustomStyles />
           {this._renderSelectionText()}
           <Text style={{ marginTop: 32 }}>
             Note: Icons and custom text styles are only available on Android. Separators can only be toggled on Android; they always show on iOS.
@@ -79,45 +69,6 @@ class App extends React.Component {
       </View>
     );
   }
-
-  _onOpenActionSheet = (
-    withTitle,
-    withMessage,
-    withIcons,
-    withSeparators,
-    withCustomStyles,
-  ) => () => {
-    // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
-    const options = ['Delete', 'Save', 'Share', 'Cancel'];
-    const icons = withIcons ? [deleteIcon, saveIcon, shareIcon, cancelIcon] : null;
-    const title = withTitle ? 'Choose An Action' : null;
-    const message = withMessage ? 'This library tries to mimic the native share sheets as close as possible.' : null;
-    const destructiveButtonIndex = 0;
-    const cancelButtonIndex = 3;
-    const textStyle = withCustomStyles ? { fontSize: 20, fontWeight: '500', color: 'blue' } : null;
-    const titleTextStyle = withCustomStyles ? { fontSize: 24, textAlign: 'center', fontWeight: '700', color: 'orange' } : null;
-    const messageTextStyle = withCustomStyles ? { fontSize: 12, color: 'purple', textAlign: 'right' } : null;
-
-    this.props.showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-        destructiveButtonIndex,
-        title,
-        message,
-        icons, // Android only
-        showSeparators: withSeparators, // Affects Android only; default is false
-        textStyle, // Android only
-        titleTextStyle, // Android only
-        messageTextStyle, // Android only
-      },
-      buttonIndex => {
-        // Do something here depending on the button index selected
-
-        this._updateSelectionText(buttonIndex)
-      }
-    );
-  };
 }
 
 const styles = StyleSheet.create({
