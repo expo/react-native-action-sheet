@@ -1,9 +1,18 @@
 import React from 'react';
 import { Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { Entypo } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 class ShowActionSheetButton extends React.PureComponent {
+  static _icon = (name) => <MaterialIcons name={name} size={24} />;
+
+  static _icons = [
+    ShowActionSheetButton._icon('delete'),
+    ShowActionSheetButton._icon('save'),
+    ShowActionSheetButton._icon('share'),
+    ShowActionSheetButton._icon('cancel'),
+  ];
+
   _showActionSheet = () => {
     const {
       withTitle,
@@ -14,7 +23,7 @@ class ShowActionSheetButton extends React.PureComponent {
     } = this.props;
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
     const options = ['Delete', 'Save', 'Share', 'Cancel'];
-    const icons = withIcons ? [deleteIcon, saveIcon, shareIcon, cancelIcon] : null;
+    const icons = withIcons ? ShowActionSheetButton._icons : null;
     const title = withTitle ? 'Choose An Action' : null;
     const message = withMessage ? 'This library tries to mimic the native share sheets as close as possible.' : null;
     const destructiveButtonIndex = 0;

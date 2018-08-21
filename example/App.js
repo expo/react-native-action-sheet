@@ -1,14 +1,8 @@
 import Expo from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
 import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
 import ShowActionSheetButton from './ShowActionSheetButton';
-
-const saveIcon = require('./img/baseline_save_black_24dp.png');
-const shareIcon = require('./img/baseline_share_black_24dp.png');
-const cancelIcon = require('./img/baseline_cancel_black_24dp.png');
-const deleteIcon = require('./img/baseline_delete_black_24dp.png');
 
 export default class AppContainer extends React.Component {
   render() {
