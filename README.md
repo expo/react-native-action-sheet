@@ -62,6 +62,8 @@ The same options available on https://facebook.github.io/react-native/docs/actio
 
 ## Android-Only Props
 
+`icons` (array of image source paths or nodes, optional): Show icons to go along with each option. If image source paths are provided, images will be rendered. Alternatively, you can provide an array of elements such as vector icons, your own pre-rendered images, etc.
+
 `textStyle` (Text.propTypes.style, optional): Apply any text style props to the options. If the `tintColor` option is provided, it takes precedence over a color text style prop.
 
 `titleTextStyle` (Text.propTypes.style, optional): Apply any text style props to the title if present.
