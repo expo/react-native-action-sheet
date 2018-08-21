@@ -14,6 +14,7 @@ export default class ActionSheet extends React.Component {
       // A null title or message on iOS causes a crash
       title: options.title || undefined,
       message: options.message || undefined,
+      icons: undefined,
     };
 
     ActionSheetIOS.showActionSheetWithOptions(iosOptions, onSelect);
