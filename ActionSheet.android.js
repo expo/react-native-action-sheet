@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import {
   Animated,
@@ -20,7 +20,8 @@ import {
 
 type ActionSheetOptions = {
   options: Array<string>,
-  icons?: ?Array<string | React.Node>,
+  icons?: ?Array<number | React.Node>,
+  tintIcons?: ?boolean,
   destructiveButtonIndex?: ?number,
   cancelButtonIndex?: ?number,
   textStyle?: ?any,
@@ -34,7 +35,8 @@ type ActionSheetOptions = {
 
 type ActionGroupProps = {
   options: Array<string>,
-  icons: ?Array<string | React.Node>,
+  icons: ?Array<number | React.Node>,
+  tintIcons: ?boolean,
   destructiveButtonIndex: ?number,
   onSelect: (i: number) => boolean,
   startIndex: number,
@@ -76,6 +78,7 @@ class ActionGroup extends React.Component {
     let {
       options,
       icons,
+      tintIcons,
       destructiveButtonIndex,
       onSelect,
       startIndex,
@@ -101,8 +104,8 @@ class ActionGroup extends React.Component {
       let iconElement = undefined;
 
       if (iconSource) {
-        if (typeof iconSource === 'string') {
-          const iconStyle = [styles.icon, { tintColor: color }];
+        if (typeof iconSource === 'number') {
+          const iconStyle = [styles.icon, { tintColor: tintIcons ? color : null }];
           iconElement = <Image
             fadeDuration={0}
             source={iconSource}
@@ -164,6 +167,7 @@ class ActionGroup extends React.Component {
 ActionGroup.propTypes = {
   options: PropTypes.array.isRequired,
   icons: PropTypes.array,
+  tintIcons: PropTypes.bool,
   destructiveButtonIndex: PropTypes.number,
   onSelect: PropTypes.func.isRequired,
   startIndex: PropTypes.number.isRequired,
@@ -181,6 +185,7 @@ ActionGroup.defaultProps = {
   title: null,
   message: null,
   showSeparators: false,
+  tintIcons: true,
 };
 
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
@@ -253,6 +258,7 @@ export default class ActionSheet extends React.Component {
             <ActionGroup
               options={options.options}
               icons={options.icons}
+              tintIcons={options.tintIcons}
               destructiveButtonIndex={options.destructiveButtonIndex}
               onSelect={this._onSelect}
               startIndex={0}

@@ -62,15 +62,17 @@ The same options available on https://facebook.github.io/react-native/docs/actio
 
 ## Android-Only Props
 
-`icons` (array of image source paths or nodes, optional): Show icons to go along with each option. If image source paths are provided, images will be rendered. Alternatively, you can provide an array of elements such as vector icons, your own pre-rendered images, etc.
+`icons` (array of numbers (image source paths), or nodes; optional): Show icons to go along with each option. If image source paths are provided, images will be rendered for you. Alternatively, you can provide an array of elements such as vector icons, pre-rendered Images, etc.
 
-`textStyle` (Text.propTypes.style, optional): Apply any text style props to the options. If the `tintColor` option is provided, it takes precedence over a color text style prop.
+`tintIcons` (boolean; optional; default: true): Icons by default will be tinted to match the text color. When set to false, the icons will be the color of the source image. This is useful if you want to use multicolor icons. If you provide your own nodes rather than an image source, you will need to tint them appropriately.
 
-`titleTextStyle` (Text.propTypes.style, optional): Apply any text style props to the title if present.
+`textStyle` (Text.propTypes.style; optional): Apply any text style props to the options. If the `tintColor` option is provided, it takes precedence over a color text style prop.
 
-`messageTextStyle` (Text.propTypes.style, optional): Apply any text style props to the message if present.
+`titleTextStyle` (Text.propTypes.style; optional): Apply any text style props to the title if present.
 
-`showSeparators`: (boolean, optional; default: false): Show separators between items. On iOS, separators always show so this prop has no effect.
+`messageTextStyle` (Text.propTypes.style; optional): Apply any text style props to the message if present.
+
+`showSeparators`: (boolean; optional; default: false): Show separators between items. On iOS, separators always show so this prop has no effect.
 
 ## Try it out
 
