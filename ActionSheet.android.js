@@ -20,7 +20,7 @@ import {
 
 type ActionSheetOptions = {
   options: Array<string>,
-  icons?: ?Array<number>,
+  icons?: ?Array<string | React.Node>,
   destructiveButtonIndex?: ?number,
   cancelButtonIndex?: ?number,
   textStyle?: ?any,
@@ -34,7 +34,7 @@ type ActionSheetOptions = {
 
 type ActionGroupProps = {
   options: Array<string>,
-  icons: ?Array<number>,
+  icons: ?Array<string | React.Node>,
   destructiveButtonIndex: ?number,
   onSelect: (i: number) => boolean,
   startIndex: number,
@@ -101,12 +101,16 @@ class ActionGroup extends React.Component {
       let iconElement = undefined;
 
       if (iconSource) {
-        const iconStyle = [styles.icon, { tintColor: color }];
-        iconElement = <Image
-          fadeDuration={0}
-          source={iconSource}
-          resizeMode="contain"
-          style={iconStyle} />;
+        if (typeof iconSource === 'string') {
+          const iconStyle = [styles.icon, { tintColor: color }];
+          iconElement = <Image
+            fadeDuration={0}
+            source={iconSource}
+            resizeMode="contain"
+            style={iconStyle}/>;
+        } else {
+          iconElement = <View style={styles.icon}>{iconSource}</View>;
+        }
       }
 
       optionViews.push(
