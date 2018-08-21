@@ -24,7 +24,7 @@ class App extends React.Component {
     this.setState({ selectedIndex });
   };
 
-  _renderSelectionText = () => {
+  _renderSelectionText() {
     const { selectedIndex } = this.state;
     const text = selectedIndex === null
       ? 'No Option Selected'
@@ -37,7 +37,57 @@ class App extends React.Component {
         </Text>
       </View>
     )
-  };
+  }
+
+  _renderButtons() {
+    const { showActionSheetWithOptions } = this.props;
+    return (
+      <View style={{ alignItems: 'center' }}>
+        <ShowActionSheetButton
+          title="Options Only"
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={showActionSheetWithOptions} />
+        <ShowActionSheetButton
+          title="Title"
+          withTitle
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={showActionSheetWithOptions} />
+        <ShowActionSheetButton
+          title="Title & Message"
+          withTitle
+          withMessage
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={showActionSheetWithOptions} />
+        <ShowActionSheetButton
+          title="Icons"
+          withIcons
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={showActionSheetWithOptions} />
+        <ShowActionSheetButton
+          title="Title, Message, & Icons"
+          withTitle
+          withMessage
+          withIcons
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={showActionSheetWithOptions} />
+        <ShowActionSheetButton
+          title="Use Separators"
+          withTitle
+          withIcons
+          withSeparators
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={showActionSheetWithOptions} />
+        <ShowActionSheetButton
+          title="Custom Styles"
+          withTitle
+          withMessage
+          withIcons
+          withCustomStyles
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={showActionSheetWithOptions} />
+      </View>
+    )
+  }
 
   render() {
     return (
@@ -48,13 +98,7 @@ class App extends React.Component {
               {"Hello!\n\nThis is a simple example app to demonstrate @expo/react-native-action-sheet."}
             </Text>
           </View>
-          <ShowActionSheetButton title="Options Only" />
-          <ShowActionSheetButton title="Title" withTitle />
-          <ShowActionSheetButton title="Title & Message" withTitle withMessage />
-          <ShowActionSheetButton title="Icons" withIcons />
-          <ShowActionSheetButton title="Title, Message, & Icons" withTitle withMessage withIcons />
-          <ShowActionSheetButton title="Use Separators" withTitle withIcons withSeparators />
-          <ShowActionSheetButton title="Custom Styles" withTitle withMessage withIcons withCustomStyles />
+          {this._renderButtons()}
           {this._renderSelectionText()}
           <Text style={{ marginTop: 32 }}>
             Note: Icons and custom text styles are only available on Android. Separators can only be toggled on Android; they always show on iOS.

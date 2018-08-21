@@ -1,18 +1,12 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
+const icon = (name) => <MaterialIcons key={name} name={name} size={24} />;
+
+// A custom button that shows examples of different share sheet configurations
 class ShowActionSheetButton extends React.PureComponent {
-  static _icon = (name) => <MaterialIcons name={name} size={24} />;
-
-  static _icons = [
-    ShowActionSheetButton._icon('delete'),
-    ShowActionSheetButton._icon('save'),
-    ShowActionSheetButton._icon('share'),
-    ShowActionSheetButton._icon('cancel'),
-  ];
-
   _showActionSheet = () => {
     const {
       withTitle,
@@ -20,10 +14,12 @@ class ShowActionSheetButton extends React.PureComponent {
       withIcons,
       withSeparators,
       withCustomStyles,
+      onSelection,
+      showActionSheetWithOptions,
     } = this.props;
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
     const options = ['Delete', 'Save', 'Share', 'Cancel'];
-    const icons = withIcons ? ShowActionSheetButton._icons : null;
+    const icons = withIcons ? [icon('delete'), icon('save'), icon('share'), icon('cancel')] : null;
     const title = withTitle ? 'Choose An Action' : null;
     const message = withMessage ? 'This library tries to mimic the native share sheets as close as possible.' : null;
     const destructiveButtonIndex = 0;
@@ -32,7 +28,7 @@ class ShowActionSheetButton extends React.PureComponent {
     const titleTextStyle = withCustomStyles ? { fontSize: 24, textAlign: 'center', fontWeight: '700', color: 'orange' } : null;
     const messageTextStyle = withCustomStyles ? { fontSize: 12, color: 'purple', textAlign: 'right' } : null;
 
-    this.props.showActionSheetWithOptions(
+    showActionSheetWithOptions(
       {
         options,
         cancelButtonIndex,
@@ -40,6 +36,7 @@ class ShowActionSheetButton extends React.PureComponent {
         title,
         message,
         icons, // Android only
+        tintIcons: true, // Android only; default is true
         showSeparators: withSeparators, // Affects Android only; default is false
         textStyle, // Android only
         titleTextStyle, // Android only
@@ -47,35 +44,38 @@ class ShowActionSheetButton extends React.PureComponent {
       },
       buttonIndex => {
         // Do something here depending on the button index selected
-
-        this._updateSelectionText(buttonIndex)
+        onSelection(buttonIndex);
       }
     );
   };
 
   render() {
+    const { title } = this.props;
     return (
-      <Entypo.Button
-        name="code"
-        style={{ marginBottom: 12 }}
-        backgroundColor="#3e3e3e"
-        onPress={this._showActionSheet}>
-        <Text style={{
-          fontSize: 15,
-          color: '#fff'
-        }}>{title}</Text>
-      </Entypo.Button>
+      <View style={{ margin: 6 }}>
+        <Entypo.Button
+          name="code"
+          backgroundColor="#3e3e3e"
+          onPress={this._showActionSheet}>
+          <Text style={{
+            fontSize: 15,
+            color: '#fff'
+          }}>{title}</Text>
+        </Entypo.Button>
+      </View>
     );
   }
 }
 
 ShowActionSheetButton.propTypes = {
   title: PropTypes.string.isRequired,
-  withTitle: PropTypes.boolean,
-  withMessage: PropTypes.boolean,
-  withIcons: PropTypes.boolean,
-  withSeparators: PropTypes.boolean,
-  withCustomStyles: PropTypes.boolean,
+  onSelection: PropTypes.func,
+  showActionSheetWithOptions: PropTypes.func.isRequired,
+  withTitle: PropTypes.bool,
+  withMessage: PropTypes.bool,
+  withIcons: PropTypes.bool,
+  withSeparators: PropTypes.bool,
+  withCustomStyles: PropTypes.bool,
 };
 
 ShowActionSheetButton.defaultProps = {
@@ -84,6 +84,7 @@ ShowActionSheetButton.defaultProps = {
   withIcons: false,
   withSeparators: false,
   withCustomStyles: false,
+  onSelection: null,
 };
 
 export default ShowActionSheetButton;
