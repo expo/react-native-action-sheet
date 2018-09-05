@@ -20,6 +20,7 @@
     "ActionSheetProvider.js",
     "connectActionSheet.js",
     "index.js",
+    "index.d.ts",
     "README.md"
   ],
   "author": "Jesse Ruder <jesse@sixfivezero.net>",
