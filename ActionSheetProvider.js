@@ -4,6 +4,7 @@ import ActionSheet from './ActionSheet';
 
 export default class ActionSheetProvider extends React.Component {
   static propTypes = {
+    textStyle: PropTypes.Object,
     children: PropTypes.any,
   };
 
@@ -11,10 +12,19 @@ export default class ActionSheetProvider extends React.Component {
     showActionSheetWithOptions: PropTypes.func,
   };
 
+  static defaultProps = {
+    textStyle: {}
+  }
+
   getChildContext() {
     return {
-      showActionSheetWithOptions: (...args) =>
-        this._actionSheetRef.showActionSheetWithOptions(...args),
+      showActionSheetWithOptions: (...args) => {
+        const [config, ...rest] = args
+        const textStyle = {...this.props.textStyle, ...config.textStyle}
+        const nextConfig = {...config, textStyle}
+
+        this._actionSheetRef.showActionSheetWithOptions(nextConfig, ...rest)
+      },
     };
   }
 
