@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/expo/react-native-action-sheet",
   "dependencies": {
+    "create-react-context": "0.2.3",
     "hoist-non-react-statics": "2.5.5",
     "prop-types": "^15.6.2"
   },

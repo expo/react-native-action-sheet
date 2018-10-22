@@ -1,6 +1,6 @@
-import React from 'react';
+import createReactContext from 'create-react-context'
 
-const ActionSheetContext = React.createContext();
+const ActionSheetContext = createReactContext();
 
 export const Provider = ActionSheetContext.Provider
 export const Consumer = ActionSheetContext.Consumer
