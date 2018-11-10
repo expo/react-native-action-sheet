@@ -70,6 +70,7 @@ const EASING_OUT = Easing.bezier(0.25, 0.46, 0.45, 0.94);
 const EASING_IN = Easing.out(EASING_OUT);
 const BLACK_54PC_TRANSPARENT = '#0000008a';
 const BLACK_87PC_TRANSPARENT = '#000000de';
+const DESTRUCTIVE_COLOR = '#d32f2f';
 
 class ActionGroup extends React.Component {
   props: ActionGroupProps;
@@ -98,8 +99,8 @@ class ActionGroup extends React.Component {
     for (let i = startIndex; i < startIndex + length; i++) {
       const defaultColor = tintColor
         ? tintColor
-        : (textStyle || {}).color || BLACK_87PC_TRANSPARENT;
-      const color = i === destructiveButtonIndex ? '#d32f2f' : defaultColor;
+        : textStyle.color || BLACK_87PC_TRANSPARENT;
+      const color = i === destructiveButtonIndex ? DESTRUCTIVE_COLOR : defaultColor;
       const iconSource = icons != null && icons[i];
       let iconElement = undefined;
 
@@ -155,10 +156,10 @@ class ActionGroup extends React.Component {
     return (
       <View>
         <View style={[styles.titleContainer, { paddingBottom: showSeparators ? 24 : 16 }]}>
-          {title ? <Text style={[styles.title, titleTextStyle]}>{title}</Text> : null}
-          {message ? <Text style={[styles.message, messageTextStyle]}>{message}</Text> : null}
+          {!!title && <Text style={[styles.title, titleTextStyle]}>{title}</Text>}
+          {!!message && <Text style={[styles.message, messageTextStyle]}>{message}</Text>}
         </View>
-        {showSeparators ? this._renderRowSeparator('title') : null}
+        {!!showSeparators && this._renderRowSeparator('title')}
       </View>
     )
   }
@@ -186,6 +187,7 @@ ActionGroup.defaultProps = {
   message: null,
   showSeparators: false,
   tintIcons: true,
+  textStyle: {},
 };
 
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
@@ -209,7 +211,7 @@ export default class ActionSheet extends React.Component {
 
   render() {
     const { isVisible, overlayOpacity } = this.state;
-    const overlay = isVisible ? (
+    const overlay = !!isVisible && (
       <Animated.View
         style={[
           styles.overlay,
@@ -218,13 +220,13 @@ export default class ActionSheet extends React.Component {
           },
         ]}
       />
-    ) : null;
+    );
 
     return (
       <View style={{ flex: 1 }}>
         {React.Children.only(this.props.children)}
         {overlay}
-        {isVisible ? this._renderSheet() : null}
+        {!!isVisible && this._renderSheet()}
       </View>
     );
   }
