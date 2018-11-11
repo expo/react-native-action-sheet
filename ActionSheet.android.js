@@ -10,7 +10,6 @@ import {
   StyleSheet,
   Text,
   Image,
-  NativeModules,
   TouchableOpacity,
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
