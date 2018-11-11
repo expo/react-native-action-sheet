@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
 import ShowActionSheetButton from './ShowActionSheetButton';
 
@@ -30,19 +30,18 @@ class App extends React.Component {
       ? 'No Option Selected'
       : `Option #${selectedIndex + 1} Selected`;
 
-    return (
-      <View style={{ marginTop: 20 }}>
-        <Text style={{ textAlign: 'center', color: 'blue', fontSize: 16 }}>
-          {text}
-        </Text>
-      </View>
-    )
+    return <Text style={styles.selectionText}>{text}</Text>
+  }
+
+  _renderSectionHeader(text) {
+    return <Text style={styles.sectionHeaderText}>{text}</Text>;
   }
 
   _renderButtons() {
     const { showActionSheetWithOptions } = this.props;
     return (
       <View style={{ alignItems: 'center' }}>
+        {this._renderSectionHeader('Universal Options')}
         <ShowActionSheetButton
           title="Options Only"
           onSelection={this._updateSelectionText}
@@ -58,6 +57,7 @@ class App extends React.Component {
           withMessage
           onSelection={this._updateSelectionText}
           showActionSheetWithOptions={showActionSheetWithOptions} />
+        {this._renderSectionHeader('Android-Only Options')}
         <ShowActionSheetButton
           title="Icons"
           withIcons
@@ -91,32 +91,50 @@ class App extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
-          <View style={{ marginBottom: 30 }}>
-            <Text style={{ textAlign: 'center', fontSize: 16 }}>
-              {"Hello!\n\nThis is a simple example app to demonstrate @expo/react-native-action-sheet."}
-            </Text>
-          </View>
+      <SafeAreaView style={styles.flex}>
+        <ScrollView style={styles.flex} contentContainerStyle={styles.contentContainer}>
+          <Text style={styles.headerText}>
+            {"Hello!\n\nThis is a simple example app to demonstrate @expo/react-native-action-sheet."}
+          </Text>
           {this._renderButtons()}
           {this._renderSelectionText()}
-          <Text style={{ marginTop: 32 }}>
+          <Text style={styles.notes}>
             Note: Icons and custom text styles are only available on Android. Separators can only be toggled on Android; they always show on iOS.
           </Text>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: '#fff',
+  flex: {
     flex: 1,
-    padding: 16,
-    paddingTop: 60,
   },
   contentContainer: {
-    alignItems: 'center',
+    padding: 16,
+    paddingVertical: 20,
+  },
+  headerText: {
+    textAlign: 'center',
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  notes: {
+    marginTop: 32,
+  },
+  sectionHeaderText: {
+    color: 'orange',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  selectionText: {
+    textAlign: 'center',
+    color: 'blue',
+    fontSize: 16,
+    marginTop: 20,
   },
 });
