@@ -181,7 +181,7 @@ ActionGroup.propTypes = {
   message: PropTypes.string,
   messageTextStyle: Text.propTypes.style,
   showSeparators: PropTypes.bool,
-  separatorStyle: View.propTypes.style,
+  separatorStyle: PropTypes.object,
 };
 
 ActionGroup.defaultProps = {
