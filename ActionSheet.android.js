@@ -231,23 +231,37 @@ export default class ActionSheet extends React.Component {
   }
 
   _renderSheet() {
-    const { options } = this.state;
+    const { options, isAnimating, sheetOpacity } = this.state;
 
     if (!options) {
       return null;
     }
 
+    const {
+      options: optionsArray,
+      icons,
+      tintIcons,
+      destructiveButtonIndex,
+      textStyle,
+      tintColor,
+      title,
+      titleTextStyle,
+      message,
+      messageTextStyle,
+      showSeparators
+    } = options;
+
     return (
       <TouchableWithoutFeedback onPress={this._selectCancelButton}>
         <Animated.View
-          needsOffscreenAlphaCompositing={this.state.isAnimating}
+          needsOffscreenAlphaCompositing={isAnimating}
           style={[
             styles.sheetContainer,
             {
-              opacity: this.state.sheetOpacity,
+              opacity: sheetOpacity,
               transform: [
                 {
-                  translateY: this.state.sheetOpacity.interpolate({
+                  translateY: sheetOpacity.interpolate({
                     inputRange: [0, 1],
                     outputRange: [this._actionSheetHeight, 0],
                   }),
@@ -257,20 +271,20 @@ export default class ActionSheet extends React.Component {
           ]}>
           <View style={styles.sheet} onLayout={this._setActionSheetHeight}>
             <ActionGroup
-              options={options.options}
-              icons={options.icons}
-              tintIcons={options.tintIcons === undefined ? true : options.tintIcons}
-              destructiveButtonIndex={options.destructiveButtonIndex}
+              options={optionsArray}
+              icons={icons}
+              tintIcons={tintIcons === undefined ? true : tintIcons}
+              destructiveButtonIndex={destructiveButtonIndex}
               onSelect={this._onSelect}
               startIndex={0}
-              length={options.options.length}
-              textStyle={options.textStyle || {}}
-              tintColor={options.tintColor}
-              title={options.title}
-              titleTextStyle={options.titleTextStyle}
-              message={options.message}
-              messageTextStyle={options.messageTextStyle}
-              showSeparators={options.showSeparators}
+              length={optionsArray.length}
+              textStyle={textStyle || {}}
+              tintColor={tintColor}
+              title={title}
+              titleTextStyle={titleTextStyle}
+              message={message}
+              messageTextStyle={messageTextStyle}
+              showSeparators={showSeparators}
             />
           </View>
         </Animated.View>
