@@ -31,7 +31,7 @@ type ActionSheetOptions = {
   message?: ?string,
   messageTextStyle?: ?any,
   showSeparators?: ?boolean,
-  separatorStyle: ?any,
+  separatorStyle?: ?any,
 };
 
 type ActionGroupProps = {

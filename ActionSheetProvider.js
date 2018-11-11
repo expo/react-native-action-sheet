@@ -14,16 +14,16 @@ export default class ActionSheetProvider extends React.Component {
 
   static defaultProps = {
     textStyle: {}
-  }
+  };
 
   getChildContext() {
     return {
       showActionSheetWithOptions: (...args) => {
-        const [config, ...rest] = args
-        const textStyle = {...this.props.textStyle, ...config.textStyle}
-        const nextConfig = {...config, textStyle}
+        const [config, ...rest] = args;
+        const textStyle = {...this.props.textStyle, ...config.textStyle};
+        const nextConfig = {...config, textStyle};
 
-        this._actionSheetRef.showActionSheetWithOptions(nextConfig, ...rest)
+        this._actionSheetRef.showActionSheetWithOptions(nextConfig, ...rest);
       },
     };
   }
