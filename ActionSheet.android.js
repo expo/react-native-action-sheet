@@ -99,7 +99,7 @@ class ActionGroup extends React.Component {
     for (let i = startIndex; i < startIndex + length; i++) {
       const defaultColor = tintColor
         ? tintColor
-        : textStyle.color || BLACK_87PC_TRANSPARENT;
+        : (textStyle || {}).color || BLACK_87PC_TRANSPARENT;
       const color = i === destructiveButtonIndex ? DESTRUCTIVE_COLOR : defaultColor;
       const iconSource = icons != null && icons[i];
       let iconElement = undefined;
@@ -187,7 +187,6 @@ ActionGroup.defaultProps = {
   message: null,
   showSeparators: false,
   tintIcons: true,
-  textStyle: {},
 };
 
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
@@ -260,12 +259,12 @@ export default class ActionSheet extends React.Component {
             <ActionGroup
               options={options.options}
               icons={options.icons}
-              tintIcons={options.tintIcons}
+              tintIcons={options.tintIcons === undefined ? true : options.tintIcons}
               destructiveButtonIndex={options.destructiveButtonIndex}
               onSelect={this._onSelect}
               startIndex={0}
               length={options.options.length}
-              textStyle={options.textStyle}
+              textStyle={options.textStyle || {}}
               tintColor={options.tintColor}
               title={options.title}
               titleTextStyle={options.titleTextStyle}
