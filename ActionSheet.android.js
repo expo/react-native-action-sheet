@@ -31,6 +31,7 @@ type ActionSheetOptions = {
   message?: ?string,
   messageTextStyle?: ?any,
   showSeparators?: ?boolean,
+  separatorStyle: ?any,
 };
 
 type ActionGroupProps = {
@@ -48,6 +49,7 @@ type ActionGroupProps = {
   message: ?string,
   messageTextStyle: ?any,
   showSeparators: ?boolean,
+  separatorStyle: ?any,
 };
 
 type ActionSheetState = {
@@ -143,7 +145,7 @@ class ActionGroup extends React.Component {
   }
 
   _renderRowSeparator(key) {
-    return <View key={key ? `separator-${key}` : null} style={styles.rowSeparator} />;
+    return <View key={key ? `separator-${key}` : null} style={[styles.rowSeparator, this.props.separatorStyle]} />;
   }
 
   _renderTitleContent()  {
@@ -180,6 +182,7 @@ ActionGroup.propTypes = {
   message: PropTypes.string,
   messageTextStyle: Text.propTypes.style,
   showSeparators: PropTypes.bool,
+  separatorStyle: View.propTypes.style,
 };
 
 ActionGroup.defaultProps = {
@@ -187,6 +190,7 @@ ActionGroup.defaultProps = {
   message: null,
   showSeparators: false,
   tintIcons: true,
+  textStyle: {},
 };
 
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
@@ -248,7 +252,8 @@ export default class ActionSheet extends React.Component {
       titleTextStyle,
       message,
       messageTextStyle,
-      showSeparators
+      showSeparators,
+      separatorStyle,
     } = options;
 
     return (
@@ -280,11 +285,12 @@ export default class ActionSheet extends React.Component {
               length={optionsArray.length}
               textStyle={textStyle || {}}
               tintColor={tintColor}
-              title={title}
+              title={title || null}
               titleTextStyle={titleTextStyle}
-              message={message}
+              message={message || null}
               messageTextStyle={messageTextStyle}
               showSeparators={showSeparators}
+              separatorStyle={separatorStyle}
             />
           </View>
         </Animated.View>

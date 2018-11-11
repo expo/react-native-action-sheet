@@ -74,6 +74,8 @@ The same options available on https://facebook.github.io/react-native/docs/actio
 
 `showSeparators`: (boolean; optional; default: false): Show separators between items. On iOS, separators always show so this prop has no effect.
 
+`separatorStyle`: (View.propTypes.style; optional): Modify the look of the separators rather than use the default look.
+
 ## Try it out
 
 Try it in Expo: https://expo.io/@community/react-native-action-sheet-example
