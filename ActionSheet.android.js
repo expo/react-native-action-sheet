@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import {
   Animated,
@@ -10,7 +10,6 @@ import {
   StyleSheet,
   Text,
   Image,
-  NativeModules,
   TouchableOpacity,
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
@@ -20,20 +19,36 @@ import {
 
 type ActionSheetOptions = {
   options: Array<string>,
-  icons: ?Array<number>,
-  destructiveButtonIndex: ?number,
-  cancelButtonIndex: ?number,
-  textStyle: ?any,
+  icons?: ?Array<number | React.Node>,
+  tintIcons?: ?boolean,
+  destructiveButtonIndex?: ?number,
+  cancelButtonIndex?: ?number,
+  textStyle?: ?any,
+  tintColor?: ?string,
+  title?: ?string,
+  titleTextStyle?: ?any,
+  message?: ?string,
+  messageTextStyle?: ?any,
+  showSeparators?: ?boolean,
+  separatorStyle?: ?any,
 };
 
 type ActionGroupProps = {
   options: Array<string>,
-  icons: ?Array<number>,
+  icons: ?Array<number | React.Node>,
+  tintIcons: ?boolean,
   destructiveButtonIndex: ?number,
   onSelect: (i: number) => boolean,
   startIndex: number,
   length: number,
   textStyle: ?any,
+  tintColor: ?string,
+  title: ?string,
+  titleTextStyle: ?any,
+  message: ?string,
+  messageTextStyle: ?any,
+  showSeparators: ?boolean,
+  separatorStyle: ?any,
 };
 
 type ActionSheetState = {
@@ -52,31 +67,27 @@ type ActionSheetProps = {
 
 const OPACITY_ANIMATION_IN_TIME = 225;
 const OPACITY_ANIMATION_OUT_TIME = 195;
-const EASING_OUT = Easing.bezier(0.25, 0.46, 0.45, 0.94)
-const EASING_IN = Easing.out(EASING_OUT)
+const EASING_OUT = Easing.bezier(0.25, 0.46, 0.45, 0.94);
+const EASING_IN = Easing.out(EASING_OUT);
+const BLACK_54PC_TRANSPARENT = '#0000008a';
+const BLACK_87PC_TRANSPARENT = '#000000de';
+const DESTRUCTIVE_COLOR = '#d32f2f';
 
 class ActionGroup extends React.Component {
   props: ActionGroupProps;
-
-  static propTypes = {
-    options: PropTypes.array.isRequired,
-    icons: PropTypes.array,
-    destructiveButtonIndex: PropTypes.number,
-    onSelect: PropTypes.func.isRequired,
-    startIndex: PropTypes.number.isRequired,
-    length: PropTypes.number.isRequired,
-    textStyle: Text.propTypes.style,
-  };
 
   render() {
     let {
       options,
       icons,
+      tintIcons,
       destructiveButtonIndex,
       onSelect,
       startIndex,
       length,
       textStyle,
+      tintColor,
+      showSeparators,
     } = this.props;
 
     let optionViews = [];
@@ -87,19 +98,24 @@ class ActionGroup extends React.Component {
     );
 
     for (let i = startIndex; i < startIndex + length; i++) {
-      let color = '#212121';
-      if (i === destructiveButtonIndex) {
-        color = '#d32f2f';
-      }
-
+      const defaultColor = tintColor
+        ? tintColor
+        : (textStyle || {}).color || BLACK_87PC_TRANSPARENT;
+      const color = i === destructiveButtonIndex ? DESTRUCTIVE_COLOR : defaultColor;
+      const iconSource = icons != null && icons[i];
       let iconElement = undefined;
 
-      if (icons && icons[i]) {
-        const iconStyle = [styles.icon]
-        if (textStyle.color !== undefined && textStyle.color !== null) {
-          iconStyle.push({ tintColor: textStyle.color })
+      if (iconSource) {
+        if (typeof iconSource === 'number') {
+          const iconStyle = [styles.icon, { tintColor: tintIcons ? color : null }];
+          iconElement = <Image
+            fadeDuration={0}
+            source={iconSource}
+            resizeMode="contain"
+            style={iconStyle}/>;
+        } else {
+          iconElement = <View style={styles.icon}>{iconSource}</View>;
         }
-        iconElement = <Image source={icons[i]} resizeMode="contain" style={iconStyle} />;
       }
 
       optionViews.push(
@@ -110,26 +126,76 @@ class ActionGroup extends React.Component {
           onPress={() => onSelect(i)}
           style={styles.button}>
           {iconElement}
-          <Text style={[styles.text, { color }, textStyle]}>{options[i]}</Text>
+          <Text style={[styles.text, textStyle, { color }]}>{options[i]}</Text>
         </TouchableNativeFeedbackSafe>
       );
 
-      if (i < startIndex + length - 1) {
-        optionViews.push(<View key={`separator-${i}`} style={styles.rowSeparator} />);
+      if (showSeparators && i < startIndex + length - 1) {
+        optionViews.push(this._renderRowSeparator(i));
       }
     }
 
     return (
       <View style={styles.groupContainer}>
+        {this._renderTitleContent()}
         <ScrollView>{optionViews}</ScrollView>
       </View>
     );
   }
+
+  _renderRowSeparator(key) {
+    return <View key={key ? `separator-${key}` : null} style={[styles.rowSeparator, this.props.separatorStyle]} />;
+  }
+
+  _renderTitleContent()  {
+    const { title, titleTextStyle, message, messageTextStyle, showSeparators } = this.props;
+
+    if (!title && !message) {
+      return null;
+    }
+
+    return (
+      <View>
+        <View style={[styles.titleContainer, { paddingBottom: showSeparators ? 24 : 16 }]}>
+          {!!title && <Text style={[styles.title, titleTextStyle]}>{title}</Text>}
+          {!!message && <Text style={[styles.message, messageTextStyle]}>{message}</Text>}
+        </View>
+        {!!showSeparators && this._renderRowSeparator('title')}
+      </View>
+    )
+  }
 }
+
+ActionGroup.propTypes = {
+  options: PropTypes.array.isRequired,
+  icons: PropTypes.array,
+  tintIcons: PropTypes.bool,
+  destructiveButtonIndex: PropTypes.number,
+  onSelect: PropTypes.func.isRequired,
+  startIndex: PropTypes.number.isRequired,
+  length: PropTypes.number.isRequired,
+  textStyle: Text.propTypes.style,
+  tintColor: PropTypes.string,
+  title: PropTypes.string,
+  titleTextStyle: Text.propTypes.style,
+  message: PropTypes.string,
+  messageTextStyle: Text.propTypes.style,
+  showSeparators: PropTypes.bool,
+  separatorStyle: PropTypes.object,
+};
+
+ActionGroup.defaultProps = {
+  title: null,
+  message: null,
+  showSeparators: false,
+  tintIcons: true,
+  textStyle: {},
+};
 
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
 export default class ActionSheet extends React.Component {
   props: ActionSheetProps;
+
   _actionSheetHeight = 360;
   _animateOutCallback: ?() => void = null;
 
@@ -142,48 +208,64 @@ export default class ActionSheet extends React.Component {
     sheetOpacity: new Animated.Value(0),
   };
 
+  _setActionSheetHeight = ({ nativeEvent }) =>
+    this._actionSheetHeight = nativeEvent.layout.height;
+
   render() {
-    let { isVisible } = this.state;
-    let overlay = isVisible ? (
+    const { isVisible, overlayOpacity } = this.state;
+    const overlay = !!isVisible && (
       <Animated.View
         style={[
           styles.overlay,
           {
-            opacity: this.state.overlayOpacity,
+            opacity: overlayOpacity,
           },
         ]}
       />
-    ) : null;
-
-    let sheet = isVisible ? this._renderSheet() : null;
+    );
 
     return (
       <View style={{ flex: 1 }}>
         {React.Children.only(this.props.children)}
         {overlay}
-        {sheet}
+        {!!isVisible && this._renderSheet()}
       </View>
     );
   }
 
   _renderSheet() {
-    if (!this.state.options) {
-      return;
+    const { options, isAnimating, sheetOpacity } = this.state;
+
+    if (!options) {
+      return null;
     }
 
-    let numOptions = this.state.options.options.length;
+    const {
+      options: optionsArray,
+      icons,
+      tintIcons,
+      destructiveButtonIndex,
+      textStyle,
+      tintColor,
+      title,
+      titleTextStyle,
+      message,
+      messageTextStyle,
+      showSeparators,
+      separatorStyle,
+    } = options;
 
     return (
       <TouchableWithoutFeedback onPress={this._selectCancelButton}>
         <Animated.View
-          needsOffscreenAlphaCompositing={this.state.isAnimating}
+          needsOffscreenAlphaCompositing={isAnimating}
           style={[
             styles.sheetContainer,
             {
-              opacity: this.state.sheetOpacity,
+              opacity: sheetOpacity,
               transform: [
                 {
-                  translateY: this.state.sheetOpacity.interpolate({
+                  translateY: sheetOpacity.interpolate({
                     inputRange: [0, 1],
                     outputRange: [this._actionSheetHeight, 0],
                   }),
@@ -191,16 +273,23 @@ export default class ActionSheet extends React.Component {
               ],
             },
           ]}>
-          <View style={styles.sheet}
-            onLayout={(event) => { this._actionSheetHeight = event.nativeEvent.layout.height }}>
+          <View style={styles.sheet} onLayout={this._setActionSheetHeight}>
             <ActionGroup
-              options={this.state.options.options}
-              icons={this.state.options.icons}
-              destructiveButtonIndex={this.state.options.destructiveButtonIndex}
+              options={optionsArray}
+              icons={icons}
+              tintIcons={tintIcons === undefined ? true : tintIcons}
+              destructiveButtonIndex={destructiveButtonIndex}
               onSelect={this._onSelect}
               startIndex={0}
-              length={numOptions}
-              textStyle={this.state.options.textStyle}
+              length={optionsArray.length}
+              textStyle={textStyle || {}}
+              tintColor={tintColor}
+              title={title || null}
+              titleTextStyle={titleTextStyle}
+              message={message || null}
+              messageTextStyle={messageTextStyle}
+              showSeparators={showSeparators}
+              separatorStyle={separatorStyle}
             />
           </View>
         </Animated.View>
@@ -213,7 +302,9 @@ export default class ActionSheet extends React.Component {
     onSelect: (i: number) => void,
     onAnimateOut: () => void
   ) {
-    if (this.state.isVisible) {
+    const { isVisible, overlayOpacity, sheetOpacity } = this.state;
+
+    if (isVisible) {
       return;
     }
 
@@ -224,17 +315,17 @@ export default class ActionSheet extends React.Component {
       isAnimating: true,
     });
 
-    this.state.overlayOpacity.setValue(0);
-    this.state.sheetOpacity.setValue(0);
+    overlayOpacity.setValue(0);
+    sheetOpacity.setValue(0);
 
     Animated.parallel([
-      Animated.timing(this.state.overlayOpacity, {
-        toValue: 0.2,
+      Animated.timing(overlayOpacity, {
+        toValue: 0.32,
         easing: EASING_OUT,
         duration: OPACITY_ANIMATION_IN_TIME,
         useNativeDriver: this.props.useNativeDriver,
       }),
-      Animated.timing(this.state.sheetOpacity, {
+      Animated.timing(sheetOpacity, {
         toValue: 1,
         easing: EASING_OUT,
         duration: OPACITY_ANIMATION_IN_TIME,
@@ -257,28 +348,33 @@ export default class ActionSheet extends React.Component {
   }
 
   _selectCancelButton = () => {
-    if (!this.state.options) {
+    const { options } = this.state;
+    if (!options) {
       return false;
     }
 
-    if (typeof this.state.options.cancelButtonIndex === 'number') {
-      return this._onSelect(this.state.options.cancelButtonIndex);
+    if (typeof options.cancelButtonIndex === 'number') {
+      return this._onSelect(options.cancelButtonIndex);
     } else {
       return this._animateOut();
     }
   };
 
   _onSelect = (index: number): boolean => {
-    if (this.state.isAnimating) {
+    const { isAnimating, onSelect } = this.state;
+
+    if (isAnimating) {
       return false;
     }
 
-    this.state.onSelect && this.state.onSelect(index);
+    onSelect && onSelect(index);
     return this._animateOut();
   };
 
   _animateOut = (): boolean => {
-    if (this.state.isAnimating) {
+    const { isAnimating, overlayOpacity, sheetOpacity } = this.state;
+
+    if (isAnimating) {
       return false;
     }
 
@@ -292,13 +388,13 @@ export default class ActionSheet extends React.Component {
     });
 
     Animated.parallel([
-      Animated.timing(this.state.overlayOpacity, {
+      Animated.timing(overlayOpacity, {
         toValue: 0,
         easing: EASING_IN,
         duration: OPACITY_ANIMATION_OUT_TIME,
         useNativeDriver: this.props.useNativeDriver,
       }),
-      Animated.timing(this.state.sheetOpacity, {
+      Animated.timing(sheetOpacity, {
         toValue: 0,
         easing: EASING_IN,
         duration: OPACITY_ANIMATION_OUT_TIME,
@@ -353,19 +449,16 @@ class TouchableNativeFeedbackSafe extends React.Component {
   }
 }
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
   groupContainer: {
-    backgroundColor: '#fefefe',
-    borderColor: '#ffffff',
-    borderTopWidth: StyleSheet.hairlineWidth,
+    backgroundColor: '#ffffff',
     overflow: 'hidden',
-    paddingVertical: 8,
   },
   button: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    height: 48,
+    height: 56,
     paddingHorizontal: 16,
   },
   icon: {
@@ -375,12 +468,13 @@ let styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+    color: BLACK_87PC_TRANSPARENT,
     textAlignVertical: 'center',
   },
   rowSeparator: {
     backgroundColor: '#dddddd',
     height: 1,
-    flex: 1,
+    width: '100%',
   },
   overlay: {
     position: 'absolute',
@@ -404,5 +498,21 @@ let styles = StyleSheet.create({
   sheet: {
     flex: 1,
     backgroundColor: 'transparent',
+  },
+  titleContainer: {
+    alignItems: 'flex-start',
+    padding: 16,
+    paddingTop: 24,
+  },
+  title: {
+    fontSize: 16,
+    color: BLACK_54PC_TRANSPARENT,
+    textAlignVertical: 'center',
+  },
+  message: {
+    marginTop: 12,
+    fontSize: 14,
+    color: BLACK_54PC_TRANSPARENT,
+    textAlignVertical: 'center',
   },
 });
