@@ -1,19 +1,21 @@
 import hoistStatics from 'hoist-non-react-statics';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Consumer } from './Context';
 
 export default function connectActionSheet(WrappedComponent) {
   const ConnectedActionSheet = (props, context) => {
     return (
-      <WrappedComponent
-        {...props}
-        showActionSheetWithOptions={context.showActionSheetWithOptions}
-      />
+      <Consumer>
+        {(showActionSheetWithOptions) => (
+          <WrappedComponent
+            {...props}
+            showActionSheetWithOptions={showActionSheetWithOptions}
+          />
+        )}
+      </Consumer>
+      
     );
-  };
-
-  ConnectedActionSheet.contextTypes = {
-    showActionSheetWithOptions: PropTypes.func,
   };
 
   return hoistStatics(ConnectedActionSheet, WrappedComponent);
