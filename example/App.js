@@ -32,7 +32,7 @@ class App extends React.Component {
 
     return <Text style={styles.selectionText}>{text}</Text>
   }
-
+  
   _renderSectionHeader(text) {
     return <Text style={styles.sectionHeaderText}>{text}</Text>;
   }
@@ -116,24 +116,24 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   headerText: {
-    textAlign: 'center',
-    fontSize: 16,
+    textAlign: 'center', 
+    fontSize: 16, 
     marginBottom: 10,
   },
-  notes: {
+  notes: { 
     marginTop: 32,
   },
-  sectionHeaderText: {
-    color: 'orange',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginTop: 20,
+  sectionHeaderText: { 
+    color: '#000',
+    textAlign: 'center', 
+    fontWeight: 'bold', 
+    fontSize: 20, 
+    marginTop: 20, 
     marginBottom: 10,
   },
-  selectionText: {
-    textAlign: 'center',
-    color: 'blue',
+  selectionText: { 
+    textAlign: 'center', 
+    color: '#333', 
     fontSize: 16,
     marginTop: 20,
   },
