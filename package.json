@@ -18,6 +18,7 @@
     "ActionSheet.android.js",
     "ActionSheet.ios.js",
     "ActionSheetProvider.js",
+    "Context.js",
     "connectActionSheet.js",
     "index.js",
     "index.d.ts",
@@ -30,6 +31,7 @@
   },
   "homepage": "https://github.com/expo/react-native-action-sheet",
   "dependencies": {
+    "create-react-context": "0.2.3",
     "hoist-non-react-statics": "^2.2.2",
     "prop-types": "^15.5.10"
   },
