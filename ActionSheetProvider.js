@@ -21,7 +21,6 @@ export default class ActionSheetProvider extends React.Component {
   static defaultProps = {
     textStyle: {},
     tintIcons: true,
-    tintColor: null,
     titleTextStyle: {},
     messageTextStyle: {},
     showSeparators: false,
