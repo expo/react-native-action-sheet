@@ -41,5 +41,8 @@
     "flow-bin": "^0.26.0",
     "react": "^15.6.1",
     "react-native": "^0.28.0"
+  },
+  "engines" : { 
+    "node" : "<=v8.11.3" 
   }
 }
