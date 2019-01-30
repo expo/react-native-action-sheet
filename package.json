@@ -15,7 +15,7 @@
     "action-sheet"
   ],
   "files": [
-    "ActionSheet.android.js",
+    "ActionSheet.js",
     "ActionSheet.ios.js",
     "ActionSheetProvider.js",
     "connectActionSheet.js",
