@@ -421,9 +421,10 @@ ActionSheet.defaultProps = {
   useNativeDriver: true,
 };
 
-let TouchableComponent;
-
-TouchableComponent = Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback;
+let TouchableComponent = Platform.select({
+  web: TouchableOpacity,
+  default: Platform.Version <= 20 ? TouchableOpacity : TouchableNativeFeedback,
+});
 
 if (TouchableComponent !== TouchableNativeFeedback) {
   TouchableComponent.SelectableBackground = () => ({});
