@@ -353,7 +353,9 @@ export default class ActionSheet extends React.Component {
       return false;
     }
 
-    if (typeof options.cancelButtonIndex === 'number') {
+    if (typeof options.cancelButtonIndex === 'undefined') {
+      return;
+    } else if (typeof options.cancelButtonIndex === 'number') {
       return this._onSelect(options.cancelButtonIndex);
     } else {
       return this._animateOut();
