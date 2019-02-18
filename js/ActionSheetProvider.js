@@ -1,22 +1,20 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import ActionSheet from './ActionSheet';
 
-export default class ActionSheetProvider extends React.Component {
-  static propTypes = {
-    textStyle: PropTypes.object,
-    tintIcons: PropTypes.bool,
-    tintColor: PropTypes.string,
-    titleTextStyle: PropTypes.object,
-    messageTextStyle: PropTypes.object,
-    showSeparators: PropTypes.bool,
-    separatorStyle: PropTypes.object,
-    children: PropTypes.any.isRequired,
-  };
+type Props = {
+  textStyle: any,
+  tintIcons: boolean,
+  tintColor: string,
+  titleTextStyle: any,
+  messageTextStyle: any,
+  showSeparators: boolean,
+  separatorStyle: any,
+  children: any,
+}
 
-  static childContextTypes = {
-    showActionSheetWithOptions: PropTypes.func,
-  };
+export default class ActionSheetProvider extends React.Component<Props> {
+  _actionSheetRef: any = null
 
   static defaultProps = {
     textStyle: {},
@@ -27,13 +25,14 @@ export default class ActionSheetProvider extends React.Component {
     separatorStyle: {},
   };
 
+  // $FlowFixMe
   getNextValue = (config, propKey) => config[propKey] !== undefined ? config[propKey] : this.props[propKey];
-
+  // $FlowFixMe
   getNextObject = (config, propKey) => ({...this.props[propKey], ...config[propKey]});
 
   getChildContext() {
     return {
-      showActionSheetWithOptions: (...args) => {
+      showActionSheetWithOptions: (...args: any) => {
         const [config, ...rest] = args;
         const nextConfig = {
           ...config,
@@ -53,6 +52,7 @@ export default class ActionSheetProvider extends React.Component {
 
   render() {
     return (
+      // $FlowFixMe
       <ActionSheet ref={component => (this._actionSheetRef = component)}>
         {React.Children.only(this.props.children)}
       </ActionSheet>

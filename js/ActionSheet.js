@@ -1,7 +1,5 @@
 // @flow
-
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import {
   Animated,
   BackHandler,
@@ -16,53 +14,41 @@ import {
   View,
   ScrollView,
 } from 'react-native';
+import { type ActionSheetIOSOptions, type onSelectCallback } from './ActionSheet.ios'
 
-type ActionSheetOptions = {
-  options: Array<string>,
-  icons?: ?Array<number | React.Node>,
-  tintIcons?: ?boolean,
-  destructiveButtonIndex?: ?number,
-  cancelButtonIndex?: ?number,
-  textStyle?: ?any,
-  tintColor?: ?string,
+type ActionSheetAndroidOptions = {
+  icons?: Array<number | React.Node>,
+  tintIcons?: boolean,
+  textStyle?: any,
   title?: ?string,
-  titleTextStyle?: ?any,
-  message?: ?string,
-  messageTextStyle?: ?any,
-  showSeparators?: ?boolean,
-  separatorStyle?: ?any,
-};
+  titleTextStyle?: any,
+  messageTextStyle?: any,
+  showSeparators?: boolean,
+  separatorStyle?: any,
+}
 
-type ActionGroupProps = {
-  options: Array<string>,
-  icons: ?Array<number | React.Node>,
-  tintIcons: ?boolean,
-  destructiveButtonIndex: ?number,
-  onSelect: (i: number) => boolean,
+type ActionSheetOptions = ActionSheetIOSOptions & ActionSheetAndroidOptions
+
+type ActionGroupProps = ActionSheetOptions & {
+  onSelect: ?onSelectCallback,
   startIndex: number,
   length: number,
-  textStyle: ?any,
-  tintColor: ?string,
-  title: ?string,
-  titleTextStyle: ?any,
-  message: ?string,
-  messageTextStyle: ?any,
-  showSeparators: ?boolean,
-  separatorStyle: ?any,
-};
+  useNativeDriver?: boolean,
+  children?: any
+}
 
 type ActionSheetState = {
   isVisible: boolean,
   isAnimating: boolean,
   options: ?ActionSheetOptions,
-  onSelect: ?(i: number) => void,
+  onSelect: ?((i: number) => void),
   overlayOpacity: any,
   sheetOpacity: any,
 };
 
 type ActionSheetProps = {
   children: ?any,
-  useNativeDriver: ?boolean,
+  useNativeDriver?: boolean,
 };
 
 const OPACITY_ANIMATION_IN_TIME = 225;
@@ -73,11 +59,39 @@ const BLACK_54PC_TRANSPARENT = '#0000008a';
 const BLACK_87PC_TRANSPARENT = '#000000de';
 const DESTRUCTIVE_COLOR = '#d32f2f';
 
-class ActionGroup extends React.Component {
-  props: ActionGroupProps;
+class ActionGroup extends React.Component<ActionGroupProps> {
+  static defaultProps = {
+    title: null,
+    message: null,
+    showSeparators: false,
+    tintIcons: true,
+    textStyle: {},
+  };
+
+  _renderRowSeparator(key) {
+    return <View key={key ? `separator-${key}` : null} style={[styles.rowSeparator, this.props.separatorStyle]} />;
+  }
+
+  _renderTitleContent()  {
+    const { title, titleTextStyle, message, messageTextStyle, showSeparators } = this.props;
+
+    if (!title && !message) {
+      return null;
+    }
+
+    return (
+      <View>
+        <View style={[styles.titleContainer, { paddingBottom: showSeparators ? 24 : 16 }]}>
+          {!!title && <Text style={[styles.title, titleTextStyle]}>{title}</Text>}
+          {!!message && <Text style={[styles.message, messageTextStyle]}>{message}</Text>}
+        </View>
+        {!!showSeparators && this._renderRowSeparator('title')}
+      </View>
+    )
+  }
 
   render() {
-    let {
+    const {
       options,
       icons,
       tintIcons,
@@ -123,7 +137,7 @@ class ActionGroup extends React.Component {
           key={i}
           pressInDelay={0}
           background={nativeFeedbackBackground}
-          onPress={() => onSelect(i)}
+          onPress={() => onSelect && onSelect(i)}
           style={styles.button}>
           {iconElement}
           <Text style={[styles.text, textStyle, { color }]}>{options[i]}</Text>
@@ -142,64 +156,14 @@ class ActionGroup extends React.Component {
       </View>
     );
   }
-
-  _renderRowSeparator(key) {
-    return <View key={key ? `separator-${key}` : null} style={[styles.rowSeparator, this.props.separatorStyle]} />;
-  }
-
-  _renderTitleContent()  {
-    const { title, titleTextStyle, message, messageTextStyle, showSeparators } = this.props;
-
-    if (!title && !message) {
-      return null;
-    }
-
-    return (
-      <View>
-        <View style={[styles.titleContainer, { paddingBottom: showSeparators ? 24 : 16 }]}>
-          {!!title && <Text style={[styles.title, titleTextStyle]}>{title}</Text>}
-          {!!message && <Text style={[styles.message, messageTextStyle]}>{message}</Text>}
-        </View>
-        {!!showSeparators && this._renderRowSeparator('title')}
-      </View>
-    )
-  }
 }
 
-ActionGroup.propTypes = {
-  options: PropTypes.array.isRequired,
-  icons: PropTypes.array,
-  tintIcons: PropTypes.bool,
-  destructiveButtonIndex: PropTypes.number,
-  onSelect: PropTypes.func.isRequired,
-  startIndex: PropTypes.number.isRequired,
-  length: PropTypes.number.isRequired,
-  textStyle: Text.propTypes.style,
-  tintColor: PropTypes.string,
-  title: PropTypes.string,
-  titleTextStyle: Text.propTypes.style,
-  message: PropTypes.string,
-  messageTextStyle: Text.propTypes.style,
-  showSeparators: PropTypes.bool,
-  separatorStyle: PropTypes.object,
-};
-
-ActionGroup.defaultProps = {
-  title: null,
-  message: null,
-  showSeparators: false,
-  tintIcons: true,
-  textStyle: {},
-};
-
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
-export default class ActionSheet extends React.Component {
-  props: ActionSheetProps;
-
-  _actionSheetHeight = 360;
+export default class ActionSheet extends React.Component<ActionGroupProps, ActionSheetState> {
+  _actionSheetHeight: number = 360;
   _animateOutCallback: ?() => void = null;
 
-  state: ActionSheetState = {
+  state = {
     isVisible: false,
     isAnimating: false,
     options: null,
@@ -208,30 +172,12 @@ export default class ActionSheet extends React.Component {
     sheetOpacity: new Animated.Value(0),
   };
 
+  static defaultProps = {
+    useNativeDriver: true,
+  };
+
   _setActionSheetHeight = ({ nativeEvent }) =>
     this._actionSheetHeight = nativeEvent.layout.height;
-
-  render() {
-    const { isVisible, overlayOpacity } = this.state;
-    const overlay = !!isVisible && (
-      <Animated.View
-        style={[
-          styles.overlay,
-          {
-            opacity: overlayOpacity,
-          },
-        ]}
-      />
-    );
-
-    return (
-      <View style={{ flex: 1 }}>
-        {React.Children.only(this.props.children)}
-        {overlay}
-        {!!isVisible && this._renderSheet()}
-      </View>
-    );
-  }
 
   _renderSheet() {
     const { options, isAnimating, sheetOpacity } = this.state;
@@ -415,11 +361,213 @@ export default class ActionSheet extends React.Component {
 
     return true;
   };
-}
+  _renderSheet() {
+    const { options, isAnimating, sheetOpacity } = this.state;
 
-ActionSheet.defaultProps = {
-  useNativeDriver: true,
-};
+    if (!options) {
+      return null;
+    }
+
+    const {
+      options: optionsArray,
+      icons,
+      tintIcons,
+      destructiveButtonIndex,
+      textStyle,
+      tintColor,
+      title,
+      titleTextStyle,
+      message,
+      messageTextStyle,
+      showSeparators,
+      separatorStyle,
+    } = options;
+
+    return (
+      <TouchableWithoutFeedback onPress={this._selectCancelButton}>
+        <Animated.View
+          needsOffscreenAlphaCompositing={isAnimating}
+          style={[
+            styles.sheetContainer,
+            {
+              opacity: sheetOpacity,
+              transform: [
+                {
+                  translateY: sheetOpacity.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [this._actionSheetHeight, 0],
+                  }),
+                },
+              ],
+            },
+          ]}>
+          <View style={styles.sheet} onLayout={this._setActionSheetHeight}>
+            <ActionGroup
+              options={optionsArray}
+              icons={icons}
+              tintIcons={tintIcons === undefined ? true : tintIcons}
+              destructiveButtonIndex={destructiveButtonIndex}
+              onSelect={this._onSelect}
+              startIndex={0}
+              length={optionsArray.length}
+              textStyle={textStyle || {}}
+              tintColor={tintColor}
+              title={title || null}
+              titleTextStyle={titleTextStyle}
+              message={message || null}
+              messageTextStyle={messageTextStyle}
+              showSeparators={showSeparators}
+              separatorStyle={separatorStyle}
+            />
+          </View>
+        </Animated.View>
+      </TouchableWithoutFeedback>
+    );
+  }
+
+  showActionSheetWithOptions(
+    options: ActionSheetOptions,
+    onSelect: (i: number) => void,
+    onAnimateOut: () => void
+  ) {
+    const { isVisible, overlayOpacity, sheetOpacity } = this.state;
+
+    if (isVisible) {
+      return;
+    }
+
+    this.setState({
+      options,
+      onSelect,
+      isVisible: true,
+      isAnimating: true,
+    });
+
+    overlayOpacity.setValue(0);
+    sheetOpacity.setValue(0);
+
+    Animated.parallel([
+      Animated.timing(overlayOpacity, {
+        toValue: 0.32,
+        easing: EASING_OUT,
+        duration: OPACITY_ANIMATION_IN_TIME,
+        useNativeDriver: this.props.useNativeDriver,
+      }),
+      Animated.timing(sheetOpacity, {
+        toValue: 1,
+        easing: EASING_OUT,
+        duration: OPACITY_ANIMATION_IN_TIME,
+        useNativeDriver: this.props.useNativeDriver,
+      }),
+    ]).start(result => {
+      if (result.finished) {
+        this.setState({
+          isAnimating: false,
+        });
+      }
+    });
+
+    this._animateOutCallback = onAnimateOut;
+
+    BackHandler.addEventListener(
+      // $FlowFixMe
+      'actionSheetHardwareBackPress',
+      this._selectCancelButton
+    );
+  }
+
+  _selectCancelButton = () => {
+    const { options } = this.state;
+    if (!options) {
+      return false;
+    }
+
+    if (typeof options.cancelButtonIndex === 'number') {
+      return this._onSelect(options.cancelButtonIndex);
+    } else {
+      return this._animateOut();
+    }
+  };
+
+  _onSelect = (index: number): boolean => {
+    const { isAnimating, onSelect } = this.state;
+
+    if (isAnimating) {
+      return false;
+    }
+
+    onSelect && onSelect(index);
+    return this._animateOut();
+  };
+
+  _animateOut = (): boolean => {
+    const { isAnimating, overlayOpacity, sheetOpacity } = this.state;
+
+    if (isAnimating) {
+      return false;
+    }
+
+    BackHandler.removeEventListener(
+      // $FlowFixMe
+      'actionSheetHardwareBackPress',
+      this._selectCancelButton
+    );
+
+    this.setState({
+      isAnimating: true,
+    });
+
+    Animated.parallel([
+      Animated.timing(overlayOpacity, {
+        toValue: 0,
+        easing: EASING_IN,
+        duration: OPACITY_ANIMATION_OUT_TIME,
+        useNativeDriver: this.props.useNativeDriver,
+      }),
+      Animated.timing(sheetOpacity, {
+        toValue: 0,
+        easing: EASING_IN,
+        duration: OPACITY_ANIMATION_OUT_TIME,
+        useNativeDriver: this.props.useNativeDriver,
+      }),
+    ]).start(result => {
+      if (result.finished) {
+        this.setState({
+          isVisible: false,
+          isAnimating: false,
+        });
+        if (typeof this._animateOutCallback === 'function') {
+          this._animateOutCallback();
+          this._animateOutCallback = null;
+        }
+      }
+    });
+
+    return true;
+  };
+
+  render() {
+    const { isVisible, overlayOpacity } = this.state;
+    const overlay = !!isVisible && (
+      <Animated.View
+        style={[
+          styles.overlay,
+          {
+            opacity: overlayOpacity,
+          },
+        ]}
+      />
+    );
+
+    return (
+      <View style={{ flex: 1 }}>
+        {React.Children.only(this.props.children)}
+        {overlay}
+        {!!isVisible && this._renderSheet()}
+      </View>
+    );
+  }
+}
 
 let TouchableComponent = Platform.select({
   web: TouchableOpacity,
@@ -432,7 +580,7 @@ if (TouchableComponent !== TouchableNativeFeedback) {
   TouchableComponent.Ripple = (color, borderless) => ({});
 }
 
-class TouchableNativeFeedbackSafe extends React.Component {
+class TouchableNativeFeedbackSafe extends React.Component<any> {
   static SelectableBackground = TouchableComponent.SelectableBackground;
   static SelectableBackgroundBorderless = TouchableComponent.SelectableBackgroundBorderless;
   static Ripple = TouchableComponent.Ripple;

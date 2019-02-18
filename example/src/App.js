@@ -1,10 +1,9 @@
-import Expo from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
 import ShowActionSheetButton from './ShowActionSheetButton';
 
-export default class AppContainer extends React.Component {
+export default class AppContainer extends React.Component<void> {
   render() {
     return (
       <ActionSheetProvider>
@@ -14,8 +13,11 @@ export default class AppContainer extends React.Component {
   }
 }
 
-@connectActionSheet
-class App extends React.Component {
+type State = {
+  selectedIndex: number | null
+}
+
+class App extends React.Component<void, State> {
   state = {
     selectedIndex: null,
   };

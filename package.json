@@ -2,9 +2,14 @@
   "name": "@expo/react-native-action-sheet",
   "version": "2.0.1",
   "description": "A cross-platform ActionSheet for React Native",
-  "main": "index.js",
+  "main": "js/index.js",
+  "typings": "typings/index.d.ts",
   "scripts": {
-    "flow": "flow; test $? -eq 0 -o $? -eq 2"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "yarn test:eslint && yarn test:flow && yarn test:jest",
+    "test:eslint": "eslint 'js/**/*.js' 'example/**/*.js'",
+    "test:flow": "flow .",
+    "test:jest": "jest"
   },
   "repository": {
     "type": "git",
@@ -14,30 +19,28 @@
     "react-native",
     "action-sheet"
   ],
-  "files": [
-    "ActionSheet.js",
-    "ActionSheet.ios.js",
-    "ActionSheetProvider.js",
-    "connectActionSheet.js",
-    "index.js",
-    "index.d.ts",
-    "README.md"
-  ],
   "author": "Jesse Ruder <jesse@sixfivezero.net>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/expo/react-native-action-sheet/issues"
   },
   "homepage": "https://github.com/expo/react-native-action-sheet",
+  "peerDependencies": {
+    "react": "~16.6.3",
+    "react-native": "~0.58.4"
+  },
   "dependencies": {
-    "hoist-non-react-statics": "^2.2.2",
-    "prop-types": "^15.5.10"
+    "hoist-non-react-statics": "^3.3.0"
   },
   "devDependencies": {
-    "@types/react": "^16.4.6",
-    "@types/react-native": "^0.56.0",
-    "flow-bin": "^0.26.0",
-    "react": "^15.6.1",
-    "react-native": "^0.28.0"
+    "@babel/core": "^7.3.3",
+    "@expo/vector-icons": "^9.0.0",
+    "babel-plugin-module-resolver": "^3.1.3",
+    "babel-plugin-transform-react-jsx-source": "^6.22.0",
+    "babel-preset-expo": "^5.0.0",
+    "flow-bin": "0.86.0",
+    "metro-react-native-babel-preset": "0.51.1",
+    "react": "~16.6.3",
+    "react-native": "~0.58.4"
   }
 }

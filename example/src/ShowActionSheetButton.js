@@ -1,12 +1,22 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import PropTypes from 'prop-types';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
 const icon = (name) => <MaterialIcons key={name} name={name} size={24} />;
 
+type Props = {
+  title: string,
+  onSelection: ?Function,
+  showActionSheetWithOptions: Function,
+  withTitle: ?boolean,
+  withMessage: ?boolean,
+  withIcons: ?boolean,
+  withSeparators: ?boolean,
+  withCustomStyles: ?boolean,
+};
+
 // A custom button that shows examples of different share sheet configurations
-class ShowActionSheetButton extends React.PureComponent {
+class ShowActionSheetButton extends React.PureComponent<Props> {
   _showActionSheet = () => {
     const {
       withTitle,
@@ -66,17 +76,6 @@ class ShowActionSheetButton extends React.PureComponent {
     );
   }
 }
-
-ShowActionSheetButton.propTypes = {
-  title: PropTypes.string.isRequired,
-  onSelection: PropTypes.func,
-  showActionSheetWithOptions: PropTypes.func.isRequired,
-  withTitle: PropTypes.bool,
-  withMessage: PropTypes.bool,
-  withIcons: PropTypes.bool,
-  withSeparators: PropTypes.bool,
-  withCustomStyles: PropTypes.bool,
-};
 
 ShowActionSheetButton.defaultProps = {
   withTitle: false,
