@@ -44,4 +44,5 @@ buck-out/
 \.buckd/
 *.keystore
 
-archives
+# eslint
+.eslintcache
