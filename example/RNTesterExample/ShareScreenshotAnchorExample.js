@@ -10,7 +10,7 @@
 
 import * as React from 'react';
 import { Alert, takeSnapshot, Text, StyleSheet, View } from 'react-native';
-import ActionSheetIOS from '@expo/react-native-action-sheet';
+import { ActionSheetIOS } from '@expo/react-native-action-sheet';
 
 type State = {|
   text: string,

@@ -1,5 +1,5 @@
 
-# react-native-actionsheet
+# react-native-action-sheet
 
 ## Getting started
 

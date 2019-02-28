@@ -10,7 +10,7 @@
 
 import * as React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
-import ActionSheetIOS from '@expo/react-native-action-sheet';
+import { ActionSheetIOS } from '@expo/react-native-action-sheet';
 
 const BUTTONS = ['Option 0', 'Option 1', 'Option 2', 'Delete', 'Cancel'];
 const DESTRUCTIVE_INDEX = 3;
