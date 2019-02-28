@@ -1,6 +1,14 @@
+
 # OSX
 #
 .DS_Store
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+  
 
 # Xcode
 #
@@ -21,25 +29,19 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+      
 
-# Android/IJ
+# Android/IntelliJ
 #
+build/
 .idea
 .gradle
 local.properties
 *.iml
-/android/app/*.keystore
-/android/app/*.apk
-
-# node.js
-#
-node_modules/
-npm-debug.log
 
 # BUCK
 buck-out/
 \.buckd/
-android/app/libs
-android/keystores/debug.keystore
+*.keystore
 
-coverage
+archives

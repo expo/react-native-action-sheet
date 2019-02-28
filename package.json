@@ -2,9 +2,10 @@
   "name": "@expo/react-native-action-sheet",
   "version": "2.0.1",
   "description": "A cross-platform ActionSheet for React Native",
-  "main": "index.js",
   "scripts": {
-    "flow": "flow; test $? -eq 0 -o $? -eq 2"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:flow": "flow check",
+    "test:eslint": "eslint '{js,example}/**/*.js' --cache"
   },
   "repository": {
     "type": "git",
@@ -14,30 +15,34 @@
     "react-native",
     "action-sheet"
   ],
-  "files": [
-    "ActionSheet.js",
-    "ActionSheet.ios.js",
-    "ActionSheetProvider.js",
-    "connectActionSheet.js",
-    "index.js",
-    "index.d.ts",
-    "README.md"
-  ],
+  "files": [],
   "author": "Jesse Ruder <jesse@sixfivezero.net>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/expo/react-native-action-sheet/issues"
   },
   "homepage": "https://github.com/expo/react-native-action-sheet",
-  "dependencies": {
-    "hoist-non-react-statics": "^2.2.2",
-    "prop-types": "^15.5.10"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/react": "^16.4.6",
-    "@types/react-native": "^0.56.0",
-    "flow-bin": "^0.26.0",
-    "react": "^15.6.1",
-    "react-native": "^0.28.0"
+    "@babel/core": "^7.3.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "eslint": "^5.14.1",
+    "eslint-plugin-eslint-comments": "^3.1.1",
+    "eslint-plugin-flowtype": "^3.4.2",
+    "eslint-plugin-jest": "^22.3.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-native": "^3.6.0",
+    "flow-bin": "^0.86.0",
+    "jest": "^24.1.0",
+    "invariant": "^2.2.4",
+    "metro-react-native-babel-preset": "0.52.0",
+    "prettier": "^1.16.4",
+    "react": "16.6.3",
+    "react-native": "0.58.5",
+    "react-test-renderer": "16.6.3"
   }
 }

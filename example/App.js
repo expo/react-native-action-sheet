@@ -1,140 +1,62 @@
-import Expo from 'expo';
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
-import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
-import ShowActionSheetButton from './ShowActionSheetButton';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @flow
+ * @format
+ * @lint-ignore-every XPLATJSCOPYRIGHT1
+ */
 
-export default class AppContainer extends React.Component {
-  render() {
+import * as React from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import EXAMPLES from './RNTesterExample';
+
+export default class App extends React.Component<void> {
+  _renderExample = example => {
     return (
-      <ActionSheetProvider>
-        <App />
-      </ActionSheetProvider>
-    );
-  }
-}
-
-@connectActionSheet
-class App extends React.Component {
-  state = {
-    selectedIndex: null,
-  };
-
-  _updateSelectionText = (selectedIndex) => {
-    this.setState({ selectedIndex });
-  };
-
-  _renderSelectionText() {
-    const { selectedIndex } = this.state;
-    const text = selectedIndex === null
-      ? 'No Option Selected'
-      : `Option #${selectedIndex + 1} Selected`;
-
-    return <Text style={styles.selectionText}>{text}</Text>
-  }
-
-  _renderSectionHeader(text) {
-    return <Text style={styles.sectionHeaderText}>{text}</Text>;
-  }
-
-  _renderButtons() {
-    const { showActionSheetWithOptions } = this.props;
-    return (
-      <View style={{ alignItems: 'center' }}>
-        {this._renderSectionHeader('Universal Options')}
-        <ShowActionSheetButton
-          title="Options Only"
-          onSelection={this._updateSelectionText}
-          showActionSheetWithOptions={showActionSheetWithOptions} />
-        <ShowActionSheetButton
-          title="Title"
-          withTitle
-          onSelection={this._updateSelectionText}
-          showActionSheetWithOptions={showActionSheetWithOptions} />
-        <ShowActionSheetButton
-          title="Title & Message"
-          withTitle
-          withMessage
-          onSelection={this._updateSelectionText}
-          showActionSheetWithOptions={showActionSheetWithOptions} />
-        {this._renderSectionHeader('Android-Only Options')}
-        <ShowActionSheetButton
-          title="Icons"
-          withIcons
-          onSelection={this._updateSelectionText}
-          showActionSheetWithOptions={showActionSheetWithOptions} />
-        <ShowActionSheetButton
-          title="Title, Message, & Icons"
-          withTitle
-          withMessage
-          withIcons
-          onSelection={this._updateSelectionText}
-          showActionSheetWithOptions={showActionSheetWithOptions} />
-        <ShowActionSheetButton
-          title="Use Separators"
-          withTitle
-          withIcons
-          withSeparators
-          onSelection={this._updateSelectionText}
-          showActionSheetWithOptions={showActionSheetWithOptions} />
-        <ShowActionSheetButton
-          title="Custom Styles"
-          withTitle
-          withMessage
-          withIcons
-          withCustomStyles
-          onSelection={this._updateSelectionText}
-          showActionSheetWithOptions={showActionSheetWithOptions} />
+      <View key={example.title} style={styles.exampleContainer}>
+        <Text style={styles.exampleTitle}>{example.title}</Text>
+        <View style={styles.exampleInnerContainer}>{example.render()}</View>
       </View>
-    )
-  }
+    );
+  };
 
   render() {
     return (
-      <SafeAreaView style={styles.flex}>
-        <ScrollView style={styles.flex} contentContainerStyle={styles.contentContainer}>
-          <Text style={styles.headerText}>
-            {"Hello!\n\nThis is a simple example app to demonstrate @expo/react-native-action-sheet."}
-          </Text>
-          {this._renderButtons()}
-          {this._renderSelectionText()}
-          <Text style={styles.notes}>
-            Note: Icons and custom text styles are only available on Android. Separators can only be toggled on Android; they always show on iOS.
-          </Text>
-        </ScrollView>
-      </SafeAreaView>
+      <ScrollView style={styles.container}>
+        <SafeAreaView>
+          <Text style={styles.sectionTitle}>Examples</Text>
+          {EXAMPLES.map(this._renderExample)}
+        </SafeAreaView>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  flex: {
+  container: {
     flex: 1,
+    backgroundColor: '#F5FCFF',
   },
-  contentContainer: {
+  sectionTitle: {
+    fontSize: 24,
+    marginHorizontal: 8,
+    marginTop: 24,
+  },
+  exampleContainer: {
     padding: 16,
-    paddingVertical: 20,
+    marginVertical: 4,
+    backgroundColor: '#FFF',
+    borderColor: '#EEE',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
   },
-  headerText: {
-    textAlign: 'center',
-    fontSize: 16,
-    marginBottom: 10,
+  exampleTitle: {
+    fontSize: 18,
   },
-  notes: {
-    marginTop: 32,
-  },
-  sectionHeaderText: {
-    color: 'orange',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  selectionText: {
-    textAlign: 'center',
-    color: 'blue',
-    fontSize: 16,
-    marginTop: 20,
+  exampleInnerContainer: {
+    borderColor: '#EEE',
+    borderTopWidth: 1,
+    paddingTop: 16,
   },
 });
