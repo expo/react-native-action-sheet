@@ -51,7 +51,6 @@
     "eslint-plugin-react-native": "^3.6.0",
     "expo": "^32.0.6",
     "flow-bin": "^0.86.0",
-    "hoist-non-react-statics": "^3.3.0",
     "invariant": "^2.2.4",
     "jest": "^24.1.0",
     "metro-react-native-babel-preset": "0.52.0",
