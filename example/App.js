@@ -24,7 +24,7 @@ export default class App extends React.Component<void> {
     return (
       <View key={example.title} style={styles.exampleContainer}>
         <Text style={styles.exampleTitle}>{example.title}</Text>
-        <View style={styles.exampleInnerContainer}>{example.render()}</View>
+        <View style={styles.exampleInnerContainer}>{example.render}</View>
       </View>
     );
   };

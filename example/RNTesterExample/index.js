@@ -19,39 +19,27 @@ import ShareScreenshotExample from './ShareScreenshotExample';
 const EXAMPLES = [
   {
     title: 'Show Action Sheet',
-    render() {
-      return <ActionSheetExample />;
-    },
+    render: <ActionSheetExample />,
   },
   {
     title: 'Show Action Sheet with anchor',
-    render() {
-      return <ActionSheetAnchorExample />;
-    },
+    render: <ActionSheetAnchorExample />,
   },
   {
     title: 'Show Action Sheet with tinted buttons',
-    render() {
-      return <ActionSheetTintExample />;
-    },
+    render: <ActionSheetTintExample />,
   },
   {
     title: 'Show Share Action Sheet',
-    render() {
-      return <ShareActionSheetExample url="https://code.facebook.com" />;
-    },
+    render: <ShareActionSheetExample url="https://code.facebook.com" />,
   },
   {
     title: 'Share Screenshot',
-    render() {
-      return <ShareScreenshotExample />;
-    },
+    render: <ShareScreenshotExample />,
   },
   {
     title: 'Share Screenshot from Anchor',
-    render() {
-      return <ShareScreenshotAnchorExample />;
-    },
+    render: <ShareScreenshotAnchorExample />,
   },
 ];
 
