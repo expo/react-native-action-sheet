@@ -12,26 +12,13 @@
 import invariant from 'invariant';
 import { processColor } from 'react-native';
 import { EXActionsheet } from './nativeInterface';
-
-export type ActionSheetIOSOptions = {|
-  +options: string[],
-  +cancelButtonIndex?: number,
-  +destructiveButtonIndex?: number,
-  +message?: string,
-  +title?: string,
-  +tintColor?: string,
-|};
-
-export type ShareActionSheetIOSOptions = {|
-  +url?: string,
-  +message?: string,
-  +subject?: string,
-  /** The activities to exclude from the ActionSheet.
-   * For example: ['com.apple.UIKit.activity.PostToTwitter']
-   */
-  +excludedActivityTypes?: string[],
-  +tintColor?: string,
-|};
+import type {
+  ActionSheetIOSOptions,
+  ShareActionSheetIOSOptions,
+  OnSelectCallback,
+  FailureCallback,
+  SuccessCallback,
+} from '../ActionSheetTypes';
 
 /**
  * Display action sheets and share sheets on iOS.
@@ -57,7 +44,7 @@ const ActionSheetIOS = {
    */
   showActionSheetWithOptions(
     options: ActionSheetIOSOptions,
-    callback: (buttonIndex: number) => void,
+    callback: OnSelectCallback,
   ): void {
     invariant(
       typeof options === 'object' && options !== null,
@@ -96,8 +83,8 @@ const ActionSheetIOS = {
    */
   showShareActionSheetWithOptions(
     options: ShareActionSheetIOSOptions,
-    failureCallback: (error: Error) => void,
-    successCallback: (success: boolean, method: string) => void,
+    failureCallback: FailureCallback,
+    successCallback: SuccessCallback,
   ): void {
     invariant(
       typeof options === 'object' && options !== null,

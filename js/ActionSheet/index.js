@@ -13,23 +13,8 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import type {
-  ViewStyleProp,
-  TextStyleProp,
-} from 'react-native/Libraries/StyleSheet/StyleSheet';
 import ActionGroup from './ActionGroup';
-import type { ActionSheetIOSOptions } from '../ActionSheetIOS';
-
-export type ActionSheetOptions = ActionSheetIOSOptions & {
-  // Web Android only
-  +icons?: Array<number | React.Node>,
-  +tintIcons?: boolean,
-  +textStyle?: TextStyleProp,
-  +titleTextStyle?: TextStyleProp,
-  +messageTextStyle?: TextStyleProp,
-  +showSeparators?: boolean,
-  +separatorStyle?: ViewStyleProp,
-};
+import type { ActionSheetOptions, OnSelectCallback } from '../ActionSheetTypes';
 
 type ActionSheetState = {|
   +isVisible: boolean,
@@ -37,7 +22,7 @@ type ActionSheetState = {|
   +overlayOpacity: any,
   +sheetOpacity: any,
   +options: ?ActionSheetOptions,
-  +onSelect: ?(i: number) => void,
+  +onSelect: ?OnSelectCallback,
 |};
 
 type ActionSheetProps = $ReadOnly<{|
@@ -162,7 +147,7 @@ export default class ActionSheet extends React.Component<
 
   showActionSheetWithOptions(
     options: ActionSheetOptions,
-    onSelect: (i: number) => void,
+    onSelect: OnSelectCallback,
     onAnimateOut: () => void,
   ) {
     const { isVisible, overlayOpacity, sheetOpacity } = this.state;

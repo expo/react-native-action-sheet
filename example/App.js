@@ -8,8 +8,16 @@
  */
 
 import * as React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import EXAMPLES from './RNTesterExample';
+import ActionSheetExample from './ActionSheetExample';
 
 export default class App extends React.Component<void> {
   _renderExample = example => {
@@ -25,8 +33,14 @@ export default class App extends React.Component<void> {
     return (
       <ScrollView style={styles.container}>
         <SafeAreaView>
-          <Text style={styles.sectionTitle}>Examples</Text>
-          {EXAMPLES.map(this._renderExample)}
+          <Text style={styles.sectionTitle}> ActionSheet Examples</Text>
+          <ActionSheetExample />
+          {Platform.OS === 'ios' ? (
+            <React.Fragment>
+              <Text style={styles.sectionTitle}> RNTester Examples</Text>
+              {EXAMPLES.map(this._renderExample)}
+            </React.Fragment>
+          ) : null}
         </SafeAreaView>
       </ScrollView>
     );

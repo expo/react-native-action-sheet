@@ -2,10 +2,14 @@
   "name": "@expo/react-native-action-sheet",
   "version": "2.0.1",
   "description": "A cross-platform ActionSheet for React Native",
+  "main": "js/index.js",
+  "typings": "typings/index.d.ts",
   "scripts": {
+    "start": "react-native start",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:eslint": "eslint '{js,example}/**/*.js' --cache",
     "test:flow": "flow check",
-    "test:eslint": "eslint '{js,example}/**/*.js' --cache"
+    "test:tsc": "tsc --project ./"
   },
   "repository": {
     "type": "git",
@@ -22,11 +26,18 @@
     "url": "https://github.com/expo/react-native-action-sheet/issues"
   },
   "homepage": "https://github.com/expo/react-native-action-sheet",
+  "peerDependencies": {
+    "react": "^16.6.0",
+    "react-native": ">=0.57 <0.59"
+  },
   "dependencies": {
     "hoist-non-react-statics": "^3.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
+    "@expo/vector-icons": "^9.0.0",
+    "@types/react": "^16.8.6",
+    "@types/react-native": "^0.57.38",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
@@ -38,14 +49,19 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-native": "^3.6.0",
+    "expo": "^32.0.6",
     "flow-bin": "^0.86.0",
-    "jest": "^24.1.0",
     "hoist-non-react-statics": "^3.3.0",
     "invariant": "^2.2.4",
+    "jest": "^24.1.0",
     "metro-react-native-babel-preset": "0.52.0",
     "prettier": "^1.16.4",
     "react": "16.6.3",
     "react-native": "0.58.5",
-    "react-test-renderer": "16.6.3"
+    "react-test-renderer": "16.6.3",
+    "typescript": "^3.3.3333"
+  },
+  "resolutions": {
+    "react-native-reanimated": "1.0.0-alpha.12"
   }
 }

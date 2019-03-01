@@ -7,7 +7,10 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import ActionSheetIOS from '../ActionSheetIOS';
-import type { ActionSheetIOSOptions } from '../ActionSheetIOS';
+import type {
+  ActionSheetIOSOptions,
+  OnSelectCallback,
+} from '../ActionSheetTypes';
 
 type Props = $ReadOnly<{|
   +children?: any,
@@ -16,7 +19,7 @@ type Props = $ReadOnly<{|
 export default class ActionSheet extends React.Component<Props> {
   showActionSheetWithOptions = (
     options: ActionSheetIOSOptions,
-    onSelect: (buttonIndex: number) => void,
+    onSelect: OnSelectCallback,
   ): void => {
     const iosOptions: ActionSheetIOSOptions = {
       ...options,

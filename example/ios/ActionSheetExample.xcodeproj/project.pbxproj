@@ -38,7 +38,7 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		CCD86C872227A743002CF66D /* libEXActionsheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD86C592227A705002CF66D /* libEXActionsheet.a */; };
+		CCD86C8E2228D460002CF66D /* libEXActionsheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD86C8D2228D455002CF66D /* libEXActionsheet.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
@@ -289,13 +289,6 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
-		CCD86C582227A705002CF66D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CCD86C542227A704002CF66D /* EXActionsheet.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = EXActionsheet;
-		};
 		CCD86C7F2227A705002CF66D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -323,6 +316,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = ED296FEE214C9CF800B7C4FE;
 			remoteInfo = "jsiexecutor-tvOS";
+		};
+		CCD86C8C2228D455002CF66D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CCD86C882228D455002CF66D /* EXActionsheet.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = EXActionsheet;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -353,7 +353,7 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		CCD86C542227A704002CF66D /* EXActionsheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EXActionsheet.xcodeproj; path = ../../ios/EXActionsheet.xcodeproj; sourceTree = "<group>"; };
+		CCD86C882228D455002CF66D /* EXActionsheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EXActionsheet.xcodeproj; path = ../../ios/EXActionsheet.xcodeproj; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -371,7 +371,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCD86C872227A743002CF66D /* libEXActionsheet.a in Frameworks */,
+				CCD86C8E2228D460002CF66D /* libEXActionsheet.a in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
@@ -562,7 +562,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				CCD86C542227A704002CF66D /* EXActionsheet.xcodeproj */,
+				CCD86C882228D455002CF66D /* EXActionsheet.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -622,10 +622,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CCD86C552227A704002CF66D /* Products */ = {
+		CCD86C892228D455002CF66D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CCD86C592227A705002CF66D /* libEXActionsheet.a */,
+				CCD86C8D2228D455002CF66D /* libEXActionsheet.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -742,8 +742,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = CCD86C552227A704002CF66D /* Products */;
-					ProjectRef = CCD86C542227A704002CF66D /* EXActionsheet.xcodeproj */;
+					ProductGroup = CCD86C892228D455002CF66D /* Products */;
+					ProjectRef = CCD86C882228D455002CF66D /* EXActionsheet.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1036,13 +1036,6 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CCD86C592227A705002CF66D /* libEXActionsheet.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libEXActionsheet.a;
-			remoteRef = CCD86C582227A705002CF66D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		CCD86C802227A705002CF66D /* libjsi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1069,6 +1062,13 @@
 			fileType = archive.ar;
 			path = "libjsiexecutor-tvOS.a";
 			remoteRef = CCD86C852227A705002CF66D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CCD86C8D2228D455002CF66D /* libEXActionsheet.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libEXActionsheet.a;
+			remoteRef = CCD86C8C2228D455002CF66D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

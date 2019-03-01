@@ -9,7 +9,7 @@ import type {
   TextStyleProp,
 } from 'react-native/Libraries/StyleSheet/StyleSheet';
 import ActionSheet from './ActionSheet';
-import type { ActionSheetOptions } from './ActionSheet';
+import type { ActionSheetOptions } from './ActionSheetTypes';
 
 type Props = $ReadOnly<{|
   +tintIcons?: boolean,
