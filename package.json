@@ -2,27 +2,23 @@
   "name": "@expo/react-native-action-sheet",
   "version": "2.0.1",
   "description": "A cross-platform ActionSheet for React Native",
-  "main": "index.js",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
-    "flow": "flow; test $? -eq 0 -o $? -eq 2"
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "lint:prettier": "yarn prettier src/**/*.{ts,tsx} --write"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/expo/react-native-action-sheet.git"
   },
   "keywords": [
+    "expo",
     "react-native",
     "action-sheet"
   ],
-  "files": [
-    "ActionSheet.js",
-    "ActionSheet.ios.js",
-    "ActionSheetProvider.js",
-    "connectActionSheet.js",
-    "index.js",
-    "index.d.ts",
-    "README.md"
-  ],
+  "files": [],
   "author": "Jesse Ruder <jesse@sixfivezero.net>",
   "license": "MIT",
   "bugs": {
@@ -30,14 +26,15 @@
   },
   "homepage": "https://github.com/expo/react-native-action-sheet",
   "dependencies": {
-    "hoist-non-react-statics": "^2.2.2",
-    "prop-types": "^15.5.10"
+    "hoist-non-react-statics": "^3.3.0"
   },
   "devDependencies": {
-    "@types/react": "^16.4.6",
-    "@types/react-native": "^0.56.0",
-    "flow-bin": "^0.26.0",
-    "react": "^15.6.1",
-    "react-native": "^0.28.0"
+    "@types/hoist-non-react-statics": "^3.3.0",
+    "@types/react": "^16.8.8",
+    "@types/react-native": "^0.57.41",
+    "expo-module-scripts": "^1.0.0",
+    "prettier": "^1.16.4",
+    "react": "^16.8.4",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
   }
 }

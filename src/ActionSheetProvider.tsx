@@ -1,23 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { TextStyle, ViewStyle } from 'react-native';
 import ActionSheet from './ActionSheet';
 
-export default class ActionSheetProvider extends React.Component {
-  static propTypes = {
-    textStyle: PropTypes.object,
-    tintIcons: PropTypes.bool,
-    tintColor: PropTypes.string,
-    titleTextStyle: PropTypes.object,
-    messageTextStyle: PropTypes.object,
-    showSeparators: PropTypes.bool,
-    separatorStyle: PropTypes.object,
-    children: PropTypes.any.isRequired,
-  };
+type Props = {
+  icons?: Array<React.ReactNode>;
+  tintIcons?: boolean;
+  textStyle?: TextStyle;
+  titleTextStyle?: TextStyle;
+  messageTextStyle?: TextStyle;
+  showSeparators?: boolean;
+  separatorStyle?: ViewStyle;
+  children: any;
+};
 
-  static childContextTypes = {
-    showActionSheetWithOptions: PropTypes.func,
-  };
-
+export default class ActionSheetProvider extends React.Component<Props> {
   static defaultProps = {
     textStyle: {},
     tintIcons: true,
@@ -27,9 +23,11 @@ export default class ActionSheetProvider extends React.Component {
     separatorStyle: {},
   };
 
-  getNextValue = (config, propKey) => config[propKey] !== undefined ? config[propKey] : this.props[propKey];
+  _actionSheetRef: any;
 
-  getNextObject = (config, propKey) => ({...this.props[propKey], ...config[propKey]});
+  getNextValue = (config, propKey) =>
+    config[propKey] !== undefined ? config[propKey] : this.props[propKey];
+  getNextObject = (config, propKey) => ({ ...this.props[propKey], ...config[propKey] });
 
   getChildContext() {
     return {
