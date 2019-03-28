@@ -1,14 +1,28 @@
 {
   "name": "example",
-  "version": "0.0.0",
-  "description": "Hello Expo!",
-  "author": "support@expo.io",
+  "version": "0.0.1",
+  "description": "Hello react native action sheet!!",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "lint": "yarn lint:prettier && yarn lint:tsc",
+    "lint:prettier": "../node_modules/.bin/prettier ./*.{ts,tsx} -c ../.prettierrc --write",
+    "lint:tsc": "../node_modules/.bin/tsc"
+  },
   "dependencies": {
-    "@expo/react-native-action-sheet": "../",
-    "expo": "^25.0.0",
-    "react": "16.2.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz"
+    "@expo/react-native-action-sheet": "../build",
+    "@expo/vector-icons": "^10.0.1",
+    "expo": "^32.0.6",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
+  },
+  "devDependencies": {
+    "@types/expo": "^32.0.9",
+    "@types/react": "^16.8.8",
+    "@types/react-native": "^0.57.41",
+    "babel-preset-expo": "^5.1.1"
   }
 }
