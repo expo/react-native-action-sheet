@@ -37,7 +37,7 @@ export default class TouchableNativeFeedbackSafe extends React.Component<Props> 
         </TouchableComponent>
       );
     } else {
-      // @ts-ignore
+      // @ts-ignore: JSX element type 'TouchableComponent' does not have any construct or call signatures
       return <TouchableComponent {...this.props}>{this.props.children}</TouchableComponent>;
     }
   }

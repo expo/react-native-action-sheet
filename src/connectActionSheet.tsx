@@ -1,22 +1,16 @@
 import * as React from 'react';
-import hoistNonReactStatic from 'hoist-non-react-statics';
+import { Consumer, Context } from './ActionSheetProvider';
 
-type Context = {
-  showActionSheetWithOptions: () => any;
+const connectActionSheet = (WrappedComponent: React.ComponentType<any>) => (props: any) => {
+  return (
+    <Consumer>
+      {({ showActionSheetWithOptions }) => {
+        return (
+          <WrappedComponent {...props} showActionSheetWithOptions={showActionSheetWithOptions} />
+        )
+      }}
+    </Consumer>
+  );
 };
 
-export default function connectActionSheet<WrappedComponentProps>(
-  WrappedComponent: React.ComponentType<any>
-) {
-  const ConnectedActionSheet = (props: WrappedComponentProps, context: Context) => {
-    return (
-      <WrappedComponent
-        {...props}
-        showActionSheetWithOptions={context.showActionSheetWithOptions}
-      />
-    );
-  };
-
-  // @ts-ignore
-  return hoistNonReactStatic(ConnectedActionSheet, WrappedComponent);
-}
+export default connectActionSheet

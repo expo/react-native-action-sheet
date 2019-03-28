@@ -20,7 +20,7 @@ type ActionSheetState = {
 };
 
 type ActionSheetProps = {
-  useNativeDriver: boolean | undefined;
+  readonly useNativeDriver: boolean | undefined;
 };
 
 const OPACITY_ANIMATION_IN_TIME = 225;
