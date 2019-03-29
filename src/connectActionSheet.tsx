@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Consumer, Context } from './ActionSheetProvider';
+import { Consumer } from './ActionSheetProvider';
 
 const connectActionSheet = (WrappedComponent: React.ComponentType<any>) => (props: any) => {
   return (

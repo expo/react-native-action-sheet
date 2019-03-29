@@ -3,7 +3,7 @@ import { StyleSheet, Text, Image, View, ScrollView } from 'react-native';
 import TouchableNativeFeedbackSafe from './TouchableNativeFeedbackSafe';
 import { ActionSheetOptions } from '../types';
 
-type ActionGroupProps = ActionSheetOptions & {
+type Props = ActionSheetOptions & {
   tintIcons: boolean | null;
   onSelect: (i: number) => boolean;
   startIndex: number;
@@ -14,7 +14,7 @@ const BLACK_54PC_TRANSPARENT = '#0000008a';
 const BLACK_87PC_TRANSPARENT = '#000000de';
 const DESTRUCTIVE_COLOR = '#d32f2f';
 
-export default class ActionGroup extends React.Component<ActionGroupProps> {
+export default class ActionGroup extends React.Component<Props> {
   static defaultProps = {
     title: null,
     message: null,

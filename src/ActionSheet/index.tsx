@@ -10,7 +10,7 @@ import {
 import ActionGroup from './ActionGroup';
 import { ActionSheetOptions } from '../types';
 
-type ActionSheetState = {
+type State = {
   isVisible: boolean;
   isAnimating: boolean;
   options: ActionSheetOptions | null;
@@ -19,7 +19,7 @@ type ActionSheetState = {
   sheetOpacity: any;
 };
 
-type ActionSheetProps = {
+type Props = {
   readonly useNativeDriver: boolean | undefined;
 };
 
@@ -29,7 +29,7 @@ const EASING_OUT = Easing.bezier(0.25, 0.46, 0.45, 0.94);
 const EASING_IN = Easing.out(EASING_OUT);
 
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
-export default class ActionSheet extends React.Component<ActionSheetProps, ActionSheetState> {
+export default class ActionSheet extends React.Component<Props, State> {
   static defaultProps = {
     useNativeDriver: true,
   };
@@ -37,7 +37,7 @@ export default class ActionSheet extends React.Component<ActionSheetProps, Actio
   _actionSheetHeight = 360;
   _animateOutCallback: (() => void) | null = null;
 
-  state: ActionSheetState = {
+  state: State = {
     isVisible: false,
     isAnimating: false,
     options: null,
@@ -51,7 +51,7 @@ export default class ActionSheet extends React.Component<ActionSheetProps, Actio
 
   render() {
     const { isVisible, overlayOpacity } = this.state;
-    const overlay = !!isVisible && (
+    const overlay = isVisible ? (
       <Animated.View
         style={[
           styles.overlay,
@@ -60,7 +60,7 @@ export default class ActionSheet extends React.Component<ActionSheetProps, Actio
           },
         ]}
       />
-    );
+    ) : null
     return (
       <View
         style={{
@@ -68,7 +68,7 @@ export default class ActionSheet extends React.Component<ActionSheetProps, Actio
         }}>
         {React.Children.only(this.props.children)}
         {overlay}
-        {!!isVisible && this._renderSheet()}
+        {isVisible ? this._renderSheet() : null}
       </View>
     );
   }
