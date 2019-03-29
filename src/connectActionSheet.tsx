@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { Consumer } from './ActionSheetProvider';
+import { Consumer, Context } from './ActionSheetProvider';
 
-const connectActionSheet = (WrappedComponent: React.ComponentType<any>) => (props: any) => {
-  return (
-    <Consumer>
-      {({ showActionSheetWithOptions }) => {
-        return (
-          <WrappedComponent {...props} showActionSheetWithOptions={showActionSheetWithOptions} />
-        )
-      }}
-    </Consumer>
-  );
-};
-
-export default connectActionSheet
+export default function connectActionSheet<OwnProps = any>(
+  WrappedComponent: React.ComponentType<OwnProps & Context>
+) {
+  return (props: OwnProps) => {
+    return (
+      <Consumer>
+        {({ showActionSheetWithOptions }) => {
+          return (
+            <WrappedComponent {...props} showActionSheetWithOptions={showActionSheetWithOptions} />
+          );
+        }}
+      </Consumer>
+    );
+  };
+}

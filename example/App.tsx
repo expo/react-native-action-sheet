@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
-import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
+import {
+  ActionSheetProvider,
+  connectActionSheet,
+  ActionSheetOptions,
+} from '@expo/react-native-action-sheet';
 import ShowActionSheetButton from './ShowActionSheetButton';
 
 type Props = {
-  showActionSheetWithOptions: any;
+  showActionSheetWithOptions: (options: ActionSheetOptions, callback: (i: number) => void) => void;
 };
 
 type State = {
@@ -116,11 +120,15 @@ class App extends React.Component<Props, State> {
   }
 }
 
-const ConnectedApp = connectActionSheet(App)
+const ConnectedApp = connectActionSheet<{}>(App);
 
 export default class AppContainer extends React.Component {
   render() {
-    return <ActionSheetProvider><ConnectedApp /></ActionSheetProvider>;
+    return (
+      <ActionSheetProvider>
+        <ConnectedApp />
+      </ActionSheetProvider>
+    );
   }
 }
 

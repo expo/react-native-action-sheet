@@ -60,7 +60,7 @@ export default class ActionSheet extends React.Component<Props, State> {
           },
         ]}
       />
-    ) : null
+    ) : null;
     return (
       <View
         style={{
