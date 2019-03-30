@@ -17,12 +17,18 @@ type Props = {
 };
 
 export default class ActionSheetProvider extends React.Component<Props> {
-  _actionSheetRef: any;
+  _actionSheetRef: React.RefObject<ActionSheet>;
+
+  constructor(props: Props) {
+    super(props);
+    this._actionSheetRef = React.createRef();
+  }
 
   getContext = () => {
     return {
-      showActionSheetWithOptions: (...args) => {
-        this._actionSheetRef.showActionSheetWithOptions(...args);
+      showActionSheetWithOptions: (options: ActionSheetOptions, callback: (i: number) => void) => {
+        this._actionSheetRef.current !== null &&
+          this._actionSheetRef.current.showActionSheetWithOptions(options, callback);
       },
     };
   };
@@ -30,7 +36,7 @@ export default class ActionSheetProvider extends React.Component<Props> {
   render() {
     return (
       <Provider value={this.getContext()}>
-        <ActionSheet ref={component => (this._actionSheetRef = component)}>
+        <ActionSheet ref={this._actionSheetRef}>
           {React.Children.only(this.props.children)}
         </ActionSheet>
       </Provider>

@@ -35,7 +35,6 @@ export default class ActionSheet extends React.Component<Props, State> {
   };
 
   _actionSheetHeight = 360;
-  _animateOutCallback: (() => void) | null = null;
 
   state: State = {
     isVisible: false,
@@ -139,7 +138,6 @@ export default class ActionSheet extends React.Component<Props, State> {
   showActionSheetWithOptions(
     options: ActionSheetOptions,
     onSelect: (i: number) => void,
-    onAnimateOut: () => void
   ) {
     const { isVisible, overlayOpacity, sheetOpacity } = this.state;
 
@@ -175,7 +173,6 @@ export default class ActionSheet extends React.Component<Props, State> {
         });
       }
     });
-    this._animateOutCallback = onAnimateOut;
     // @ts-ignore: Argument of type '"actionSheetHardwareBackPress"' is not assignable to parameter of type '"hardwareBackPress"'
     BackHandler.addEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
   }
@@ -236,12 +233,6 @@ export default class ActionSheet extends React.Component<Props, State> {
           isVisible: false,
           isAnimating: false,
         });
-
-        if (typeof this._animateOutCallback === 'function') {
-          this._animateOutCallback();
-
-          this._animateOutCallback = null;
-        }
       }
     });
     return true;
