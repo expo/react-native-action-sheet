@@ -14,7 +14,7 @@ yarn add @expo/react-native-action-sheet
 
 ## A basic ActionSheet Setup
 
-1. import connectActionSheet function and connect your component which uses showActionSheetWithOptions. 
+### 1. import connectActionSheet function and connect your component which uses showActionSheetWithOptions. 
 ```es6
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 
@@ -49,7 +49,7 @@ _onOpenActionSheet = () => {
 };
 ```
 
-2. import ActionSheetProvider and wrap your top-level component with `<ActionSheetProvider />`
+### 2. import ActionSheetProvider and wrap your top-level component with `<ActionSheetProvider />`
 
 ```es6
 
