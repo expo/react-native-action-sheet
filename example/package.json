@@ -1,6 +1,6 @@
 {
   "name": "example",
-  "version": "0.0.1",
+  "version": "3.0.0",
   "description": "Hello react native action sheet!!",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
