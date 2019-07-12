@@ -1,6 +1,6 @@
 {
   "name": "@expo/react-native-action-sheet",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "A cross-platform ActionSheet for React Native",
   "main": "build/index.js",
   "types": "build/index.d.ts",

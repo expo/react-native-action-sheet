@@ -3,7 +3,6 @@ import ActionSheet from './ActionSheet';
 import { Provider } from './context'
 import { ActionSheetOptions } from './types';
 
-
 type Props = {
   children: React.ReactNode;
 };
