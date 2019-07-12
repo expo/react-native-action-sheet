@@ -5,44 +5,29 @@ ActionSheet is a cross-platform React Native component that uses the native UIAc
 ## Installation
 
 ```
-npm install @expo/react-native-action-sheet
+npm install @expo/react-native-action-sheet -S
+```
+or 
+```
+yarn add @expo/react-native-action-sheet
 ```
 
 ## A basic ActionSheet Setup
 
-import ActionSheetProvider & connectActionSheet
-
+### 1. import connectActionSheet function and connect your component which uses showActionSheetWithOptions. 
 ```es6
-import {
-  ActionSheetProvider,
-  connectActionSheet,
-} from '@expo/react-native-action-sheet';
-```
+import { connectActionSheet } from '@expo/react-native-action-sheet';
 
-wrap your top-level component with `<ActionSheetProvider />`
-
-```es6
-class AppContainer extends React.Component {
-  render() {
-    return (
-      <ActionSheetProvider>
-        <App />
-      </ActionSheetProvider>
-    );
-  }
-}
-```
-
-decorate the component you want to use the action sheet with `@connectActionSheet`
-
-```es6
-@connectActionSheet
 class App extends React.Component {
   /* ... */
 }
+
+const ConnectedApp = connectActionSheet(App)
+
+export default ConnectedApp
 ```
 
-access actionSheet method as `this.props.showActionSheetWithOptions`
+`App` component can access actionSheet method as `this.props.showActionSheetWithOptions`
 
 ```es6
 _onOpenActionSheet = () => {
@@ -64,6 +49,25 @@ _onOpenActionSheet = () => {
 };
 ```
 
+### 2. import ActionSheetProvider and wrap your top-level component with `<ActionSheetProvider />`
+
+```es6
+
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+class AppContainer extends React.Component {
+  render() {
+    return (
+      <ActionSheetProvider>
+        <ConnectedApp />
+      </ActionSheetProvider>
+    );
+  }
+}
+```
+
+## Web Setup
+WIP
+
 ## Options
 
 The goal of this library is to mimic the native iOS and Android ActionSheets as closely as possible.
@@ -74,22 +78,54 @@ This library can also be used with on web with Expo.
 
 The same options available on React Native's [ActionSheetIOS](https://facebook.github.io/react-native/docs/actionsheetios.html#showactionsheetwithoptions) component exist for both iOS and Android in this library.
 
-### Android-Only Props
+### Android/Web-Only Props
 
 The below props allow modification of the Android ActionSheet. They have no effect on the look on iOS as the native iOS Action Sheet does not have options for modifying these options.
 
-- `icons` (array of required images or icons; optional): Show icons to go along with each option. If image source paths are provided via `require`, images will be rendered for you. Alternatively, you can provide an array of elements such as vector icons, pre-rendered Images, etc.
-- `tintIcons` (boolean; optional; default: `true`): Icons by default will be tinted to match the text color. When set to false, the icons will be the color of the source image. This is useful if you want to use multicolor icons. If you provide your own nodes/pre-rendered icons rather than required images in the `icons` array, you will need to tint them appropriately before providing them in the array of `icons`; `tintColor` will not be applied to icons unless they are images from a required source.
-- `textStyle` (Text.propTypes.style; optional): Apply any text style props to the options. If the `tintColor` option is provided, it takes precedence over a color text style prop.
-- `titleTextStyle` (Text.propTypes.style; optional): Apply any text style props to the title if present.
-- `messageTextStyle` (Text.propTypes.style; optional): Apply any text style props to the message if present.
-- `showSeparators`: (boolean; optional; default: false): Show separators between items. On iOS, separators always show so this prop has no effect.
-- `separatorStyle`: (View.propTypes.style; optional): Modify the look of the separators rather than use the default look.
+
+| Name             | Type                              | Required | Default |
+| -----------------| ----------------------------------| -------- | ------- |
+| icons            | array of required images or icons | No       |         |
+| tintIcons        | boolean                           | No       |  true   |
+| textStyle        | TextStyle                         | No       |         |
+| titleTextStyle   | TextStyle                         | No       |         |
+| messageTextStyle | TextStyle                         | No       |         |
+| showSeparators   | boolean                           | No       |  false  |
+| separatorStyle   | ViewStyle                         | No       |         |
+
+#### `icons` (optional)
+
+Show icons to go along with each option. If image source paths are provided via `require`, images will be rendered for you. Alternatively, you can provide an array of elements such as vector icons, pre-rendered Images, etc.
+
+#### `tintIcons` (optional)
+ Icons by default will be tinted to match the text color. When set to false, the icons will be the color of the source image. This is useful if you want to use multicolor icons. If you provide your own nodes/pre-rendered icons rather than required images in the `icons` array, you will need to tint them appropriately before providing them in the array of `icons`; `tintColor` will not be applied to icons unless they are images from a required source.
+
+#### `textStyle` (optional)
+Apply any text style props to the options. If the `tintColor` option is provided, it takes precedence over a color text style prop.
+
+#### `titleTextStyle` (optional)
+Apply any text style props to the title if present.
+
+#### `messageTextStyle` (optional)
+Apply any text style props to the message if present.
+
+#### `showSeparators`: (optional)
+Show separators between items. On iOS, separators always show so this prop has no effect.
+
+#### `separatorStyle`: (optional)
+Modify the look of the separators rather than use the default look.
 
 ## Try it out
 
 Try it in Expo: https://expo.io/@community/react-native-action-sheet-example
 
-## Usage
+## Example
 
 See the [example app](https://github.com/expo/react-native-action-sheet/tree/master/example) for examples of how to apply different options.
+
+### Usage
+```
+$ cd exmaple 
+$ yarn 
+$ yarn ios
+```
