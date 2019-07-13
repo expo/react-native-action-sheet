@@ -2,9 +2,9 @@ import * as React from 'react';
 import { ActionSheetIOS, View } from 'react-native';
 import { ActionSheetIOSOptions } from '../types';
 
-type Props = {
+interface Props {
   readonly children: React.ReactNode;
-};
+}
 
 type onSelect = (buttonIndex: number) => void;
 

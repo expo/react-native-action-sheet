@@ -1,11 +1,11 @@
 import * as React from 'react';
 import ActionSheet from './ActionSheet';
-import { Provider } from './context'
+import { Provider } from './context';
 import { ActionSheetOptions } from './types';
 
-type Props = {
+interface Props {
   children: React.ReactNode;
-};
+}
 
 export default class ActionSheetProvider extends React.Component<Props> {
   _actionSheetRef: React.RefObject<ActionSheet>;

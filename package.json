@@ -2,12 +2,19 @@
   "name": "@expo/react-native-action-sheet",
   "version": "3.0.1",
   "description": "A cross-platform ActionSheet for React Native",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "react-native": "src/index.ts",
+  "types": "lib/typescript/src/index.d.ts",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "files": [
+    "lib/",
+    "src/"
+  ],
   "scripts": {
-    "build": "expo-module build",
-    "clean": "expo-module clean",
-    "lint:prettier": "yarn prettier src/**/*.{ts,tsx} --write"
+    "build": "bob build",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx --fix",
+    "fmt": "prettier --write \"{src,example}/**/*.{ts,tsx}\""
   },
   "repository": {
     "type": "git",
@@ -25,14 +32,44 @@
   },
   "homepage": "https://github.com/expo/react-native-action-sheet",
   "devDependencies": {
-    "@types/react": "^16.8.8",
-    "@types/react-native": "^0.57.41",
-    "expo-module-scripts": "^1.0.0",
-    "prettier": "^1.16.4",
-    "react": "^16.8.4",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
+    "@react-native-community/bob": "^0.6.1",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "@types/react": "^16.8.23",
+    "@types/react-native": "^0.57.65",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "3.1.0",
+    "husky": "^3.0.0",
+    "lint-staged": "^9.2.0",
+    "prettier": "^1.18.2",
+    "react": "^16.8.6",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "typescript": "^3.5.3"
   },
   "peerDependencies": {
     "react": ">=16.3.0"
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "yarn lint",
+      "yarn fmt",
+      "git add"
+    ]
   }
 }

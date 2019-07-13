@@ -2,21 +2,27 @@
 
 ActionSheet is a cross-platform React Native component that uses the native UIActionSheet on iOS and a JS implementation on Android. Almost a drop in replacement for [ActionSheetIOS](https://facebook.github.io/react-native/docs/actionsheetios.html) except it cannot be called statically.
 
+
+| iOS                       | Android                   | Web                       |
+|---------------------------|---------------------------|---------------------------|
+| <img  src="https://raw.githubusercontent.com/expo/react-native-action-sheet/master/gif/ios.gif" width="200" height="400"/> | <img  src="https://raw.githubusercontent.com/expo/react-native-action-sheet/master/gif/android.gif" width="200" height="400"/> | <img  src="https://raw.githubusercontent.com/expo/react-native-action-sheet/master/gif/web.gif" width="300" height="400"/> |
+
+
 ## Installation
 
 ```
-npm install @expo/react-native-action-sheet -S
+$ npm install @expo/react-native-action-sheet -S
 ```
 or 
 ```
-yarn add @expo/react-native-action-sheet
+$ yarn add @expo/react-native-action-sheet
 ```
 
 ## A basic ActionSheet Setup
 
-### 1. import connectActionSheet function and connect your component which uses showActionSheetWithOptions. 
+### 1. Connect your component which uses showActionSheetWithOptions. 
 ```es6
-import { connectActionSheet } from '@expo/react-native-action-sheet';
+import { connectActionSheet } from '@expo/react-native-action-sheet'
 
 class App extends React.Component {
   /* ... */
@@ -27,7 +33,7 @@ const ConnectedApp = connectActionSheet(App)
 export default ConnectedApp
 ```
 
-`App` component can access actionSheet method as `this.props.showActionSheetWithOptions`
+`App` component can access the actionSheet method as `this.props.showActionSheetWithOptions`
 
 ```es6
 _onOpenActionSheet = () => {
@@ -49,11 +55,12 @@ _onOpenActionSheet = () => {
 };
 ```
 
-### 2. import ActionSheetProvider and wrap your top-level component with `<ActionSheetProvider />`
+### 2. Wrap your top-level component with `<ActionSheetProvider />`
 
 ```es6
 
-import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet'
+
 class AppContainer extends React.Component {
   render() {
     return (
@@ -64,9 +71,6 @@ class AppContainer extends React.Component {
   }
 }
 ```
-
-## Web Setup
-WIP
 
 ## Options
 
@@ -121,11 +125,44 @@ Try it in Expo: https://expo.io/@community/react-native-action-sheet-example
 
 ## Example
 
-See the [example app](https://github.com/expo/react-native-action-sheet/tree/master/example) for examples of how to apply different options.
+See the [example app](https://github.com/expo/react-native-action-sheet/tree/master/example). 
 
 ### Usage
 ```
-$ cd exmaple 
-$ yarn 
+$ cd example
+$ yarn
+
+// build simulator
 $ yarn ios
+$ yarn android
+
+// web
+$ yarn web
+```
+
+## Development
+
+### Setup
+```
+$ git clone git@github.com:expo/react-native-action-sheet.git
+$ cd react-native-action-sheet
+$ yarn install
+```
+
+### Build
+We use [bob](https://github.com/react-native-community/bob). 
+```
+$ yarn build
+```
+
+### Lint & Format
+```
+// tsc
+$ yarn type-check
+
+// ESLint
+$ yarn lint
+
+// prettier
+$ yarn fmt
 ```

@@ -7,13 +7,13 @@ import {
 } from '@expo/react-native-action-sheet';
 import ShowActionSheetButton from './ShowActionSheetButton';
 
-type Props = {
+interface Props {
   showActionSheetWithOptions: (options: ActionSheetOptions, callback: (i: number) => void) => void;
-};
+}
 
-type State = {
+interface State {
   selectedIndex: number | null;
-};
+}
 
 class App extends React.Component<Props, State> {
   state: State = {

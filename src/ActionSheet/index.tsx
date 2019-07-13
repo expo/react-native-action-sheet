@@ -10,18 +10,18 @@ import {
 import ActionGroup from './ActionGroup';
 import { ActionSheetOptions } from '../types';
 
-type State = {
+interface State {
   isVisible: boolean;
   isAnimating: boolean;
   options: ActionSheetOptions | null;
   onSelect: ((i: number) => void) | null;
   overlayOpacity: any;
   sheetOpacity: any;
-};
+}
 
-type Props = {
+interface Props {
   readonly useNativeDriver: boolean | undefined;
-};
+}
 
 const OPACITY_ANIMATION_IN_TIME = 225;
 const OPACITY_ANIMATION_OUT_TIME = 195;
@@ -45,7 +45,7 @@ export default class ActionSheet extends React.Component<Props, State> {
     sheetOpacity: new Animated.Value(0),
   };
 
-  _setActionSheetHeight = ({ nativeEvent }) =>
+  _setActionSheetHeight = ({ nativeEvent }: any) =>
     (this._actionSheetHeight = nativeEvent.layout.height);
 
   render() {
