@@ -18,7 +18,6 @@
     "react-native",
     "action-sheet"
   ],
-  "files": [],
   "author": "Jesse Ruder <jesse@sixfivezero.net>",
   "license": "MIT",
   "bugs": {
