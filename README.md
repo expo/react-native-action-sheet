@@ -13,14 +13,14 @@ ActionSheet is a cross-platform React Native component that uses the native UIAc
 ```
 $ npm install @expo/react-native-action-sheet -S
 ```
-or 
+or
 ```
 $ yarn add @expo/react-native-action-sheet
 ```
 
 ## A basic ActionSheet Setup
 
-### 1. Connect your component which uses showActionSheetWithOptions. 
+### 1. Connect your component which uses showActionSheetWithOptions.
 ```es6
 import { connectActionSheet } from '@expo/react-native-action-sheet'
 
@@ -53,6 +53,17 @@ _onOpenActionSheet = () => {
     },
   );
 };
+```
+
+You can use a hook instead of the higher order component if you are on React 16.6 or newer.
+
+```es6
+import { useActionSheet } from '@expo/react-native-action-sheet'
+
+export default function App () {
+  const { showActionSheetWithOptions } = useActionSheet();
+  /* ... */
+}
 ```
 
 ### 2. Wrap your top-level component with `<ActionSheetProvider />`
@@ -125,7 +136,7 @@ Try it in Expo: https://expo.io/@community/react-native-action-sheet-example
 
 ## Example
 
-See the [example app](https://github.com/expo/react-native-action-sheet/tree/master/example). 
+See the [example app](https://github.com/expo/react-native-action-sheet/tree/master/example).
 
 ### Usage
 ```
@@ -150,7 +161,7 @@ $ yarn install
 ```
 
 ### Build
-We use [bob](https://github.com/react-native-community/bob). 
+We use [bob](https://github.com/react-native-community/bob).
 ```
 $ yarn build
 ```
