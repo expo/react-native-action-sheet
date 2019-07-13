@@ -5,7 +5,7 @@ import { ActionSheetOptions } from '@expo/react-native-action-sheet';
 
 const icon = name => <MaterialIcons key={name} name={name} size={24} />;
 
-type Props = {
+interface Props {
   title: string;
   showActionSheetWithOptions: (
     optons: ActionSheetOptions,
@@ -17,7 +17,7 @@ type Props = {
   withIcons?: boolean;
   withSeparators?: boolean;
   withCustomStyles?: boolean;
-};
+}
 
 // A custom button that shows examples of different share sheet configurations
 export default class ShowActionSheetButton extends React.PureComponent<Props> {
@@ -52,27 +52,27 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       : undefined;
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 3;
-    const textStyle = withCustomStyles
-      ? ({
+    const textStyle: TextStyle | undefined = withCustomStyles
+      ? {
           fontSize: 20,
           fontWeight: '500',
           color: 'blue',
-        } as TextStyle)
+        }
       : undefined;
-    const titleTextStyle = withCustomStyles
-      ? ({
+    const titleTextStyle: TextStyle | undefined = withCustomStyles
+      ? {
           fontSize: 24,
           textAlign: 'center',
           fontWeight: '700',
           color: 'orange',
-        } as TextStyle)
+        }
       : undefined;
-    const messageTextStyle = withCustomStyles
-      ? ({
+    const messageTextStyle: TextStyle | undefined = withCustomStyles
+      ? {
           fontSize: 12,
           color: 'purple',
           textAlign: 'right',
-        } as TextStyle)
+        }
       : undefined;
     showActionSheetWithOptions(
       {
