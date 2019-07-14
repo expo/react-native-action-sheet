@@ -149,7 +149,7 @@ $ yarn web
 ```
 $ git clone git@github.com:expo/react-native-action-sheet.git
 $ cd react-native-action-sheet
-$ yarn install
+$ yarn
 ```
 
 ### Build
