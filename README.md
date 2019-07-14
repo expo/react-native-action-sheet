@@ -1,4 +1,7 @@
-# react-native-action-sheet [![Slack](https://slack.expo.io/badge.svg)](https://slack.expo.io)
+# react-native-action-sheet
+[![npm](https://img.shields.io/npm/v/@expo/react-native-action-sheet.svg?style=flat-square)](https://www.npmjs.com/package/@expo/react-native-action-sheet)
+[![License: MIT](https://img.shields.io/github/license/nd-02110114/goofi-mobile.svg)](https://opensource.org/licenses/MIT)
+[![Slack](https://slack.expo.io/badge.svg)](https://slack.expo.io)
 
 ActionSheet is a cross-platform React Native component that uses the native UIActionSheet on iOS and a JS implementation on Android. Almost a drop in replacement for [ActionSheetIOS](https://facebook.github.io/react-native/docs/actionsheetios.html) except it cannot be called statically.
 
