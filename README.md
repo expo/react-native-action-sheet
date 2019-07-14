@@ -8,7 +8,7 @@ ActionSheet is a cross-platform React Native component that uses the native UIAc
 
 | iOS                       | Android                   | Web                       |
 |---------------------------|---------------------------|---------------------------|
-| <img  src="https://raw.githubusercontent.com/expo/react-native-action-sheet/master/gif/ios.gif" width="200" height="400"/> | <img  src="https://raw.githubusercontent.com/expo/react-native-action-sheet/master/gif/android.gif" width="200" height="400"/> | <img  src="https://raw.githubusercontent.com/expo/react-native-action-sheet/master/gif/web.gif" width="300" height="400"/> |
+| <img  src="https://raw.githubusercontent.com/expo/react-native-action-sheet/master/gif/ios.gif" width="200" height="400"/> | <img  src="https://raw.githubusercontent.com/expo/react-native-action-sheet/master/gif/android.gif" width="200" height="400"/> | <img  src="https://raw.githubusercontent.com/expo/react-native-action-sheet/master/gif/web.gif" width="400" height="400"/> |
 
 
 ## Installation
