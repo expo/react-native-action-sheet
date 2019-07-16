@@ -2,13 +2,12 @@
   "name": "@expo/react-native-action-sheet",
   "version": "3.0.2",
   "description": "A cross-platform ActionSheet for React Native",
-  "react-native": "src/index.ts",
-  "types": "lib/typescript/src/index.d.ts",
+  "react-native": "lib/module/index.js",
+  "types": "lib/typescript/index.d.ts",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "files": [
-    "lib/",
-    "src/"
+    "lib/"
   ],
   "scripts": {
     "build": "bob build",

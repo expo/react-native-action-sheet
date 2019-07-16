@@ -3,7 +3,7 @@ import { Text, View, TextStyle } from 'react-native';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { ActionSheetOptions } from '@expo/react-native-action-sheet';
 
-const icon = name => <MaterialIcons key={name} name={name} size={24} />;
+const icon = (name: string) => <MaterialIcons key={name} name={name} size={24} />;
 
 interface Props {
   title: string;
