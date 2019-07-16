@@ -7,8 +7,7 @@
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "files": [
-    "lib/",
-    "src/"
+    "lib/"
   ],
   "scripts": {
     "build": "bob build",
