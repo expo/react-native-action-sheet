@@ -55,7 +55,7 @@ _onOpenActionSheet = () => {
 };
 ```
 
-You can use a hook instead of the higher order component if you are on React 16.6 or newer.
+You can use a hook instead of the higher order component if you are on React 16.8 or newer.
 
 ```es6
 import { useActionSheet } from '@expo/react-native-action-sheet'
