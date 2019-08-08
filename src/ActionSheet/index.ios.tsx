@@ -1,16 +1,21 @@
 import * as React from 'react';
-import { ActionSheetIOS, View } from 'react-native';
+import { ActionSheetIOS, View, ViewProps } from 'react-native';
 import { ActionSheetIOSOptions } from '../types';
 
 interface Props {
   readonly children: React.ReactNode;
+  readonly pointerEvents?: ViewProps['pointerEvents'];
 }
 
 type onSelect = (buttonIndex: number) => void;
 
 export default class ActionSheet extends React.Component<Props> {
   render() {
-    return <View style={{ flex: 1 }}>{React.Children.only(this.props.children)}</View>;
+    return (
+      <View pointerEvents={this.props.pointerEvents} style={{ flex: 1 }}>
+        {React.Children.only(this.props.children)}
+      </View>
+    );
   }
 
   showActionSheetWithOptions(options: ActionSheetIOSOptions, onSelect: onSelect) {
