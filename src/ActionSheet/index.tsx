@@ -135,7 +135,7 @@ export default class ActionSheet extends React.Component<Props, State> {
     );
   }
 
-  showActionSheetWithOptions(options: ActionSheetOptions, onSelect: (i: number) => void) {
+  showActionSheetWithOptions = (options: ActionSheetOptions, onSelect: (i: number) => void) => {
     const { isVisible, overlayOpacity, sheetOpacity } = this.state;
 
     if (isVisible) {
