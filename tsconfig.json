@@ -6,7 +6,8 @@
     "strict": true,
     "moduleResolution": "node",
     "lib": ["es2015", "es2016", "esnext"],
-    "jsx": "react-native"
+    "jsx": "react-native",
+    "esModuleInterop": true
   },
   "exclude": ["node_modules"]
 }
