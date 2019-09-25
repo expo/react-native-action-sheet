@@ -172,7 +172,7 @@ export default class ActionSheet extends React.Component<Props, State> {
     });
     // @ts-ignore: Argument of type '"actionSheetHardwareBackPress"' is not assignable to parameter of type '"hardwareBackPress"'
     BackHandler.addEventListener('actionSheetHardwareBackPress', this._selectCancelButton);
-  }
+  };
 
   _selectCancelButton = () => {
     const { options } = this.state;
