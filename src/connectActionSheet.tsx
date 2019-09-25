@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Consumer, Context } from './context';
+import hoistNonReactStatic from 'hoist-non-react-statics';
 
 export default function connectActionSheet<OwnProps = any>(
   WrappedComponent: React.ComponentType<OwnProps & Context>
 ) {
-  return (props: OwnProps) => {
+  const ConnectedActionSheet = (props: OwnProps) => {
     return (
       <Consumer>
         {({ showActionSheetWithOptions }) => {
@@ -15,4 +16,6 @@ export default function connectActionSheet<OwnProps = any>(
       </Consumer>
     );
   };
+
+  return hoistNonReactStatic(ConnectedActionSheet, WrappedComponent);
 }
