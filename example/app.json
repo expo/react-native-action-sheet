@@ -4,7 +4,7 @@
     "description": "A cross-platform ActionSheet component. https://github.com/expo/react-native-action-sheet",
     "slug": "react-native-action-sheet-example",
     "privacy": "public",
-    "sdkVersion": "33.0.0",
+    "sdkVersion": "35.0.0",
     "version": "3.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",

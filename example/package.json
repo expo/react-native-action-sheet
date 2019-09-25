@@ -13,17 +13,18 @@
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "../src",
-    "@expo/vector-icons": "^10.0.3",
-    "expo": "^33.0.7",
+    "@expo/vector-icons": "^10.0.0",
+    "expo": "^35.0.0",
+    "hoist-non-react-statics": "^3.3.0",
     "react": "16.8.3",
     "react-dom": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-web": "^0.11.5"
   },
   "devDependencies": {
     "@types/react": "^16.8.23",
     "@types/react-native": "^0.57.65",
-    "babel-preset-expo": "^5.2.0",
+    "babel-preset-expo": "^7.0.0",
     "typescript": "^3.5.3"
   }
 }
