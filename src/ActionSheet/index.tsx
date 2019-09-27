@@ -45,6 +45,8 @@ export default class ActionSheet extends React.Component<Props, State> {
     sheetOpacity: new Animated.Value(0),
   };
 
+  _deferNextShow?: () => void = undefined;
+
   _setActionSheetHeight = ({ nativeEvent }: any) =>
     (this._actionSheetHeight = nativeEvent.layout.height);
 
@@ -136,7 +138,12 @@ export default class ActionSheet extends React.Component<Props, State> {
   }
 
   showActionSheetWithOptions = (options: ActionSheetOptions, onSelect: (i: number) => void) => {
-    const { isVisible, overlayOpacity, sheetOpacity } = this.state;
+    const { isVisible, isAnimating, overlayOpacity, sheetOpacity } = this.state;
+
+    if (isVisible && isAnimating) {
+      this._deferNextShow = this.showActionSheetWithOptions.bind(this, options, onSelect);
+      return;
+    }
 
     if (isVisible) {
       return;
@@ -168,6 +175,7 @@ export default class ActionSheet extends React.Component<Props, State> {
         this.setState({
           isAnimating: false,
         });
+        this._deferNextShow = undefined;
       }
     });
     // @ts-ignore: Argument of type '"actionSheetHardwareBackPress"' is not assignable to parameter of type '"hardwareBackPress"'
@@ -230,6 +238,10 @@ export default class ActionSheet extends React.Component<Props, State> {
           isVisible: false,
           isAnimating: false,
         });
+
+        if (this._deferNextShow) {
+          this._deferNextShow();
+        }
       }
     });
     return true;
