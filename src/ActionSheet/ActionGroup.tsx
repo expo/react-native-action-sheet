@@ -34,10 +34,7 @@ export default class ActionGroup extends React.Component<Props> {
 
   _renderRowSeparator = (key: string | number) => {
     return (
-      <View
-        key={key && `separator-${key}`}
-        style={[styles.rowSeparator, this.props.separatorStyle]}
-      />
+      <View key={`separator-${key}`} style={[styles.rowSeparator, this.props.separatorStyle]} />
     );
   };
 
