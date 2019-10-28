@@ -14,7 +14,8 @@
     "build": "bob build",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx --fix",
-    "fmt": "prettier --write \"{src,example}/**/*.{ts,tsx}\""
+    "fmt": "prettier --write \"{src,example}/**/*.{ts,tsx}\"",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
   "devDependencies": {
     "@react-native-community/bob": "^0.6.1",
     "@react-native-community/eslint-config": "^0.0.5",
+    "@semantic-release/changelog": "^3.0.5",
     "@types/react": "^16.8.23",
     "@types/react-native": "^0.57.65",
     "@typescript-eslint/eslint-plugin": "^1.12.0",
@@ -46,6 +48,7 @@
     "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "semantic-release": "^15.13.28",
     "typescript": "^3.5.3"
   },
   "peerDependencies": {
