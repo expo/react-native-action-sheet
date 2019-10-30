@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Consumer, Context } from './context';
+import { Consumer } from './context';
 import hoistNonReactStatic from 'hoist-non-react-statics';
+import { ActionSheetProps } from './types';
 
 export default function connectActionSheet<OwnProps = any>(
-  WrappedComponent: React.ComponentType<OwnProps & Context>
+  WrappedComponent: React.ComponentType<OwnProps & ActionSheetProps>
 ) {
   const ConnectedActionSheet = (props: OwnProps) => {
     return (

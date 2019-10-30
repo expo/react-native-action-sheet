@@ -4,12 +4,11 @@ import {
   ActionSheetProvider,
   connectActionSheet,
   ActionSheetOptions,
+  ActionSheetProps,
 } from '@expo/react-native-action-sheet';
 import ShowActionSheetButton from './ShowActionSheetButton';
 
-interface Props {
-  showActionSheetWithOptions: (options: ActionSheetOptions, callback: (i: number) => void) => void;
-}
+type Props = ActionSheetProps;
 
 interface State {
   selectedIndex: number | null;

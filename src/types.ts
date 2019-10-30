@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { TextStyle, ViewStyle } from 'react-native';
 
+export interface ActionSheetProps {
+  showActionSheetWithOptions: (options: ActionSheetOptions, callback: (i: number) => void) => void;
+}
+
 // for iOS
 export interface ActionSheetIOSOptions {
   options: string[];
