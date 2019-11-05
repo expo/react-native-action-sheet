@@ -62,6 +62,22 @@ class App extends React.Component<Props, State> {
           onSelection={this._updateSelectionText}
           showActionSheetWithOptions={showActionSheetWithOptions}
         />
+        <ShowActionSheetButton
+          title="Nested Action Sheets"
+          onSelection={index => {
+            if (index < 3) {
+              showActionSheetWithOptions(
+                {
+                  title: 'Sub Action Sheet',
+                  options: ['One', 'Two', 'Three', 'Done'],
+                  cancelButtonIndex: 3,
+                },
+                this._updateSelectionText
+              );
+            }
+          }}
+          showActionSheetWithOptions={showActionSheetWithOptions}
+        />
         {this._renderSectionHeader('Android-Only Options')}
         <ShowActionSheetButton
           title="Icons"

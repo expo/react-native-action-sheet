@@ -140,12 +140,8 @@ export default class ActionSheet extends React.Component<Props, State> {
   showActionSheetWithOptions = (options: ActionSheetOptions, onSelect: (i: number) => void) => {
     const { isVisible, isAnimating, overlayOpacity, sheetOpacity } = this.state;
 
-    if (isVisible && isAnimating) {
-      this._deferNextShow = this.showActionSheetWithOptions.bind(this, options, onSelect);
-      return;
-    }
-
     if (isVisible) {
+      this._deferNextShow = this.showActionSheetWithOptions.bind(this, options, onSelect);
       return;
     }
 
