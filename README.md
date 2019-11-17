@@ -109,6 +109,7 @@ The below props allow modification of the Android ActionSheet. They have no effe
 | titleTextStyle   | TextStyle                         | No       |         |
 | messageTextStyle | TextStyle                         | No       |         |
 | showSeparators   | boolean                           | No       |  false  |
+| containerStyle   | ViewStyle                         | No       |         |
 | separatorStyle   | ViewStyle                         | No       |         |
 
 #### `icons` (optional)
