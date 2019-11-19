@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
+  ViewProps,
 } from 'react-native';
 import ActionGroup from './ActionGroup';
 import { ActionSheetOptions } from '../types';
@@ -21,6 +22,7 @@ interface State {
 
 interface Props {
   readonly useNativeDriver: boolean | undefined;
+  readonly pointerEvents?: ViewProps['pointerEvents'];
 }
 
 const OPACITY_ANIMATION_IN_TIME = 225;
@@ -64,6 +66,7 @@ export default class ActionSheet extends React.Component<Props, State> {
     ) : null;
     return (
       <View
+        pointerEvents={this.props.pointerEvents}
         style={{
           flex: 1,
         }}>
