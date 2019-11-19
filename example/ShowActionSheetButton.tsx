@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, TextStyle } from 'react-native';
+import { Text, View, TextStyle, ViewStyle } from 'react-native';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { ActionSheetOptions } from '@expo/react-native-action-sheet';
 
@@ -74,6 +74,12 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
           textAlign: 'right',
         }
       : undefined;
+    const containerStyle: ViewStyle | undefined = withCustomStyles
+      ? {
+          backgroundColor: 'lightgrey',
+        }
+      : undefined;
+
     showActionSheetWithOptions(
       {
         options,
@@ -91,7 +97,9 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
         // Android only
         titleTextStyle,
         // Android only
-        messageTextStyle, // Android only
+        messageTextStyle,
+        // Android only,
+        containerStyle,
       },
       buttonIndex => {
         // Do something here depending on the button index selected
