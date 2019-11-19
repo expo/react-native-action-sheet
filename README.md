@@ -131,6 +131,9 @@ Apply any text style props to the message if present.
 #### `showSeparators`: (optional)
 Show separators between items. On iOS, separators always show so this prop has no effect.
 
+#### `containerStyle`: (optional)
+Apply any view style props to the container rather than use the default look (e.g. dark mode).
+
 #### `separatorStyle`: (optional)
 Modify the look of the separators rather than use the default look.
 
