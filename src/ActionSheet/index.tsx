@@ -96,6 +96,7 @@ export default class ActionSheet extends React.Component<Props, State> {
       message,
       messageTextStyle,
       showSeparators,
+      containerStyle,
       separatorStyle,
     } = options;
     return (
@@ -132,6 +133,7 @@ export default class ActionSheet extends React.Component<Props, State> {
               message={message || undefined}
               messageTextStyle={messageTextStyle}
               showSeparators={showSeparators}
+              containerStyle={containerStyle}
               separatorStyle={separatorStyle}
             />
           </View>

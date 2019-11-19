@@ -109,6 +109,7 @@ The below props allow modification of the Android ActionSheet. They have no effe
 | titleTextStyle   | TextStyle                         | No       |         |
 | messageTextStyle | TextStyle                         | No       |         |
 | showSeparators   | boolean                           | No       |  false  |
+| containerStyle   | ViewStyle                         | No       |         |
 | separatorStyle   | ViewStyle                         | No       |         |
 
 #### `icons` (optional)
@@ -129,6 +130,9 @@ Apply any text style props to the message if present.
 
 #### `showSeparators`: (optional)
 Show separators between items. On iOS, separators always show so this prop has no effect.
+
+#### `containerStyle`: (optional)
+Apply any view style props to the container rather than use the default look (e.g. dark mode).
 
 #### `separatorStyle`: (optional)
 Modify the look of the separators rather than use the default look.

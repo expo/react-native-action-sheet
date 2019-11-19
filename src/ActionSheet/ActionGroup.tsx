@@ -25,7 +25,7 @@ export default class ActionGroup extends React.Component<Props> {
 
   render() {
     return (
-      <View style={styles.groupContainer}>
+      <View style={[styles.groupContainer, this.props.containerStyle]}>
         {this._renderTitleContent()}
         <ScrollView>{this._renderOptionViews()}</ScrollView>
       </View>
