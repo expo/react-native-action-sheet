@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import { ActionSheetIOS, View, ViewProps } from 'react-native';
+
 import { ActionSheetIOSOptions } from '../types';
 
 interface Props {
@@ -18,12 +20,17 @@ export default class ActionSheet extends React.Component<Props> {
     );
   }
 
-  showActionSheetWithOptions(options: ActionSheetIOSOptions, onSelect: onSelect) {
+  showActionSheetWithOptions(dataOptions: ActionSheetIOSOptions, onSelect: onSelect) {
+    // ...dataOptions include other keys which use in android and web, thats why `Android-Only options` Crash on IOS
+    const { cancelButtonIndex, destructiveButtonIndex, options, tintColor } = dataOptions;
     const iosOptions: ActionSheetIOSOptions = {
-      ...options,
+      cancelButtonIndex,
+      destructiveButtonIndex,
+      options,
+      tintColor,
       // A null title or message on iOS causes a crash
-      title: options.title || undefined,
-      message: options.message || undefined,
+      title: dataOptions.title || undefined,
+      message: dataOptions.message || undefined,
     };
     ActionSheetIOS.showActionSheetWithOptions(iosOptions, onSelect);
   }
