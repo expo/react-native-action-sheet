@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useCallback, useRef } from 'react';
 import ActionSheet from './ActionSheet';
 import { Provider } from './context';
 import { ActionSheetOptions } from './types';
@@ -7,30 +7,23 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default class ActionSheetProvider extends React.Component<Props> {
-  _actionSheetRef: React.RefObject<ActionSheet>;
-
-  constructor(props: Props) {
-    super(props);
-    this._actionSheetRef = React.createRef();
-  }
-
-  getContext = () => {
-    return {
+const ActionSheetProvider = ({ children }: Props) => {
+  const actionSheetRef = useRef<ActionSheet>(null);
+  const getContext = useCallback(
+    () => ({
       showActionSheetWithOptions: (options: ActionSheetOptions, callback: (i: number) => void) => {
-        this._actionSheetRef.current !== null &&
-          this._actionSheetRef.current.showActionSheetWithOptions(options, callback);
+        actionSheetRef.current !== null &&
+          actionSheetRef.current.showActionSheetWithOptions(options, callback);
       },
-    };
-  };
+    }),
+    [actionSheetRef]
+  );
 
-  render() {
-    return (
-      <Provider value={this.getContext()}>
-        <ActionSheet ref={this._actionSheetRef}>
-          {React.Children.only(this.props.children)}
-        </ActionSheet>
-      </Provider>
-    );
-  }
-}
+  return (
+    <Provider value={getContext()}>
+      <ActionSheet ref={actionSheetRef}>{React.Children.only(children)}</ActionSheet>
+    </Provider>
+  );
+};
+
+export default ActionSheetProvider;
