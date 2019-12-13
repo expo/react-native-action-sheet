@@ -1,4 +1,4 @@
-Changelog
+# Changelog
 
 ## [3.4.1](https://github.com/expo/react-native-action-sheet/compare/v3.4.0...v3.4.1) (2019-12-13)
 
@@ -6,8 +6,6 @@ Changelog
 ### Bug Fixes
 
 * **iOS:** crash when using Android only options ([#144](https://github.com/expo/react-native-action-sheet/issues/144)) ([8016008](https://github.com/expo/react-native-action-sheet/commit/8016008781cbe418dc03f04a324d5e5ef5bcdaa7))
-
-# Changelog
 
 # [3.4.0](https://github.com/expo/react-native-action-sheet/compare/v3.3.2...v3.4.0) (2019-11-19)
 
