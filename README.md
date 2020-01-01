@@ -90,7 +90,7 @@ class AppContainer extends React.Component {
 
 The goal of this library is to mimic the native iOS and Android ActionSheets as closely as possible.
 
-This library can also be used with on web with Expo.
+This library can also be used in the browser with Expo for web.
 
 ### Universal Props
 
