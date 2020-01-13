@@ -31,6 +31,7 @@ export default class ActionSheet extends React.Component<Props> {
       // A null title or message on iOS causes a crash
       title: dataOptions.title || undefined,
       message: dataOptions.message || undefined,
+      anchor: dataOptions.anchor || undefined,
     };
     ActionSheetIOS.showActionSheetWithOptions(iosOptions, onSelect);
   }
