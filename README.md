@@ -96,6 +96,15 @@ This library can also be used in the browser with Expo for web.
 
 The same options available on React Native's [ActionSheetIOS](https://facebook.github.io/react-native/docs/actionsheetios.html#showactionsheetwithoptions) component exist for both iOS and Android in this library.
 
+### iOS Only Props
+
+| Name             | Type   | Required | Default |
+| -----------------| -------| -------- | ------- |
+| anchor           | number | No       |         |
+
+#### `anchor` (optional) 
+iPad only option that allows for docking the action sheet to a node. See [ShowActionSheetButton.tsx](/example/ShowActionSheetButton.tsx) for an example on how to implement this.
+
 ### Android/Web-Only Props
 
 The below props allow modification of the Android ActionSheet. They have no effect on the look on iOS as the native iOS Action Sheet does not have options for modifying these options.
