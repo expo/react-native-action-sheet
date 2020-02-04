@@ -63,6 +63,13 @@ class App extends React.Component<Props, State> {
           showActionSheetWithOptions={showActionSheetWithOptions}
         />
         <ShowActionSheetButton
+          title="iPad Anchor"
+          withAnchor
+          withTitle
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={showActionSheetWithOptions}
+        />
+        <ShowActionSheetButton
           title="Nested Action Sheets"
           onSelection={index => {
             if (index < 3) {
