@@ -1,5 +1,12 @@
 # Changelog
 
+# [3.5.0](https://github.com/expo/react-native-action-sheet/compare/v3.4.1...v3.5.0) (2020-02-04)
+
+
+### Features
+
+* add anchor option for iPads ([#155](https://github.com/expo/react-native-action-sheet/issues/155)) ([370e6e8](https://github.com/expo/react-native-action-sheet/commit/370e6e855fbacbfc683cc6ab16304f26c159e6b5))
+
 ## [3.4.1](https://github.com/expo/react-native-action-sheet/compare/v3.4.0...v3.4.1) (2019-12-13)
 
 
