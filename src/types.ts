@@ -13,6 +13,7 @@ export interface ActionSheetIOSOptions {
   tintColor?: string;
   cancelButtonIndex?: number;
   destructiveButtonIndex?: number;
+  anchor?: number;
 }
 
 // for Android or Web
