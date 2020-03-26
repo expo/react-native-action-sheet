@@ -8,10 +8,14 @@ import {
 } from 'react-native';
 
 // This TouchableOpacity has the same staic method of TouchableNativeFeedback
-class CustomTouchableOpacity extends TouchableOpacity {
+class CustomTouchableOpacity extends React.Component {
   static SelectableBackground = () => ({});
   static SelectableBackgroundBorderless = () => ({});
   static Ripple = (color: string, borderless?: boolean) => ({});
+
+  render() {
+    return <TouchableOpacity {...this.props}>{this.props.children}</TouchableOpacity>;
+  }
 }
 
 const TouchableComponent = Platform.select({
