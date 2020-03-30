@@ -1,5 +1,17 @@
 # Changelog
 
+# [3.6.0](https://github.com/expo/react-native-action-sheet/compare/v3.5.0...v3.6.0) (2020-03-30)
+
+
+### Bug Fixes
+
+* Android 'Super expression must either be null or a function' ([37156da](https://github.com/expo/react-native-action-sheet/commit/37156dacf114aa5146da153db9ee00c1aea8eaca))
+
+
+### Features
+
+* Add accessibility label to Action options ([#158](https://github.com/expo/react-native-action-sheet/issues/158)) ([bc3c27d](https://github.com/expo/react-native-action-sheet/commit/bc3c27d767a5657032b73f70aa1aacfea0481f66))
+
 # [3.5.0](https://github.com/expo/react-native-action-sheet/compare/v3.4.1...v3.5.0) (2020-02-04)
 
 
