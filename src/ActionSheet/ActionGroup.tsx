@@ -101,7 +101,8 @@ export default class ActionGroup extends React.Component<Props> {
           pressInDelay={0}
           background={nativeFeedbackBackground}
           onPress={() => onSelect(i)}
-          style={styles.button}>
+          style={styles.button}
+          accessibilityLabel={options[i]}>
           {this._renderIconElement(iconSource, color)}
           <Text style={[styles.text, textStyle, { color }]}>{options[i]}</Text>
         </TouchableNativeFeedbackSafe>
