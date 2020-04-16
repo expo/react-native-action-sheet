@@ -1,5 +1,15 @@
 import * as React from 'react';
-import { StyleSheet, Text, Image, View, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  ScrollView,
+  findNodeHandle,
+  AccessibilityInfo,
+  Platform,
+  UIManager,
+} from 'react-native';
 import TouchableNativeFeedbackSafe from './TouchableNativeFeedbackSafe';
 import { ActionSheetOptions } from '../types';
 
@@ -13,6 +23,28 @@ type Props = ActionSheetOptions & {
 const BLACK_54PC_TRANSPARENT = '#0000008a';
 const BLACK_87PC_TRANSPARENT = '#000000de';
 const DESTRUCTIVE_COLOR = '#d32f2f';
+
+/**
+ * Can be used as a React ref for a component to auto-focus for accessibility on render.
+ * @param ref The component to auto-focus
+ */
+const focusViewOnRender = (ref: React.Component | null) => {
+  if (ref) {
+    const reactTag = findNodeHandle(ref);
+    if (reactTag) {
+      if (Platform.OS === 'android') {
+        // @ts-ignore: sendAccessibilityEvent is missing from @types/react-native
+        UIManager.sendAccessibilityEvent(
+          reactTag,
+          // @ts-ignore: AccessibilityEventTypes is missing from @types/react-native
+          UIManager.AccessibilityEventTypes.typeViewFocused
+        );
+      } else {
+        AccessibilityInfo.setAccessibilityFocus(reactTag);
+      }
+    }
+  }
+};
 
 export default class ActionGroup extends React.Component<Props> {
   static defaultProps = {
@@ -97,11 +129,13 @@ export default class ActionGroup extends React.Component<Props> {
 
       optionViews.push(
         <TouchableNativeFeedbackSafe
+          ref={i === 0 ? focusViewOnRender : undefined}
           key={i}
           pressInDelay={0}
           background={nativeFeedbackBackground}
           onPress={() => onSelect(i)}
           style={styles.button}
+          accessibilityRole="button"
           accessibilityLabel={options[i]}>
           {this._renderIconElement(iconSource, color)}
           <Text style={[styles.text, textStyle, { color }]}>{options[i]}</Text>
