@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewProps,
+  ViewStyle,
 } from 'react-native';
 import ActionGroup from './ActionGroup';
 import { ActionSheetOptions } from '../types';
@@ -25,6 +26,7 @@ interface Props {
   readonly pointerEvents?: ViewProps['pointerEvents'];
 }
 
+const FLEX_ONE_STYLE: ViewStyle = { flex: 1 };
 const OPACITY_ANIMATION_IN_TIME = 225;
 const OPACITY_ANIMATION_OUT_TIME = 195;
 const EASING_OUT = Easing.bezier(0.25, 0.46, 0.45, 0.94);
@@ -64,13 +66,19 @@ export default class ActionSheet extends React.Component<Props, State> {
         ]}
       />
     ) : null;
-    return (
+
+    // While the sheet is visible, hide the rest of the app's content from screen readers.
+    const appContent = (
       <View
-        pointerEvents={this.props.pointerEvents}
-        style={{
-          flex: 1,
-        }}>
+        style={FLEX_ONE_STYLE}
+        importantForAccessibility={isVisible ? 'no-hide-descendants' : 'auto'}>
         {React.Children.only(this.props.children)}
+      </View>
+    );
+
+    return (
+      <View pointerEvents={this.props.pointerEvents} style={FLEX_ONE_STYLE}>
+        {appContent}
         {overlay}
         {isVisible ? this._renderSheet() : null}
       </View>
@@ -100,7 +108,7 @@ export default class ActionSheet extends React.Component<Props, State> {
       separatorStyle,
     } = options;
     return (
-      <TouchableWithoutFeedback onPress={this._selectCancelButton}>
+      <TouchableWithoutFeedback importantForAccessibility="yes" onPress={this._selectCancelButton}>
         <Animated.View
           needsOffscreenAlphaCompositing={isAnimating}
           style={[
