@@ -132,13 +132,7 @@ class App extends React.Component<Props, State> {
         />
         {this._renderSectionHeader('Special Cases')}
         <TouchableOpacity onPress={this._toggleModal}>
-          <Text
-            style={{
-              fontSize: 15,
-              textDecorationLine: 'underline',
-            }}>
-            Open Modal
-          </Text>
+          <Text style={styles.link}>Open Modal</Text>
         </TouchableOpacity>
         {this.state.isModalOpen && (
           <Modal>
@@ -150,13 +144,7 @@ class App extends React.Component<Props, State> {
               />
 
               <TouchableOpacity onPress={this._toggleModal}>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    textDecorationLine: 'underline',
-                  }}>
-                  Close Modal
-                </Text>
+                <Text style={styles.link}>Close Modal</Text>
               </TouchableOpacity>
             </View>
           </Modal>
@@ -227,5 +215,9 @@ const styles = StyleSheet.create({
     color: 'blue',
     fontSize: 16,
     marginTop: 20,
+  },
+  link: {
+    fontSize: 15,
+    textDecorationLine: 'underline',
   },
 });
