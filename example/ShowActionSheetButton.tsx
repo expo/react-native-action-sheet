@@ -8,7 +8,7 @@ const icon = (name: string) => <MaterialIcons key={name} name={name} size={24} /
 interface Props {
   title: string;
   showActionSheetWithOptions: (
-    optons: ActionSheetOptions,
+    options: ActionSheetOptions,
     callback: (buttonIndex: number) => void
   ) => void;
   onSelection: (index: number) => void;
@@ -18,6 +18,7 @@ interface Props {
   withSeparators?: boolean;
   withCustomStyles?: boolean;
   withAnchor?: boolean;
+  useModal?: boolean;
 }
 
 // A custom button that shows examples of different share sheet configurations
@@ -30,6 +31,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
     withCustomStyles: false,
     withAnchor: false,
     onSelection: null,
+    useModal: false,
   };
 
   _anchorRef = React.createRef<Button>();
@@ -44,6 +46,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       withCustomStyles,
       onSelection,
       showActionSheetWithOptions,
+      useModal,
     } = this.props;
 
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
@@ -110,6 +113,8 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
         messageTextStyle,
         // Android only,
         containerStyle,
+        // Android only,
+        useModal,
       },
       (buttonIndex: number) => {
         // Do something here depending on the button index selected

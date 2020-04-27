@@ -138,6 +138,7 @@ class App extends React.Component<Props, State> {
           <Modal>
             <View style={{ flex: 1, padding: 30 }}>
               <ShowActionSheetButton
+                useModal
                 title="Options Only"
                 onSelection={this._updateSelectionText}
                 showActionSheetWithOptions={showActionSheetWithOptions}
