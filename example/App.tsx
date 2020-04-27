@@ -1,9 +1,16 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
+import {
+  Modal,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import {
   ActionSheetProvider,
   connectActionSheet,
-  ActionSheetOptions,
   ActionSheetProps,
 } from '@expo/react-native-action-sheet';
 import ShowActionSheetButton from './ShowActionSheetButton';
@@ -12,11 +19,13 @@ type Props = ActionSheetProps;
 
 interface State {
   selectedIndex: number | null;
+  isModalOpen: boolean;
 }
 
 class App extends React.Component<Props, State> {
   state: State = {
     selectedIndex: null,
+    isModalOpen: false,
   };
 
   _updateSelectionText = (selectedIndex: number) => {
@@ -34,6 +43,10 @@ class App extends React.Component<Props, State> {
 
   _renderSectionHeader = (text: string) => {
     return <Text style={styles.sectionHeaderText}>{text}</Text>;
+  };
+
+  _toggleModal = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
   };
 
   _renderButtons() {
@@ -117,6 +130,37 @@ class App extends React.Component<Props, State> {
           onSelection={this._updateSelectionText}
           showActionSheetWithOptions={showActionSheetWithOptions}
         />
+        {this._renderSectionHeader('Special Cases')}
+        <TouchableOpacity onPress={this._toggleModal}>
+          <Text
+            style={{
+              fontSize: 15,
+              textDecorationLine: 'underline',
+            }}>
+            Open Modal
+          </Text>
+        </TouchableOpacity>
+        {this.state.isModalOpen && (
+          <Modal>
+            <View style={{ flex: 1, padding: 30 }}>
+              <ShowActionSheetButton
+                title="Options Only"
+                onSelection={this._updateSelectionText}
+                showActionSheetWithOptions={showActionSheetWithOptions}
+              />
+
+              <TouchableOpacity onPress={this._toggleModal}>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    textDecorationLine: 'underline',
+                  }}>
+                  Close Modal
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+        )}
       </View>
     );
   }
