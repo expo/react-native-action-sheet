@@ -3,6 +3,7 @@ import {
   Animated,
   BackHandler,
   Easing,
+  Modal,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
@@ -71,8 +72,13 @@ export default class ActionSheet extends React.Component<Props, State> {
           flex: 1,
         }}>
         {React.Children.only(this.props.children)}
-        {overlay}
-        {isVisible ? this._renderSheet() : null}
+
+        {isVisible && (
+          <Modal animationType="none" transparent={true} onRequestClose={this._selectCancelButton}>
+            {overlay}
+            {isVisible ? this._renderSheet() : null}
+          </Modal>
+        )}
       </View>
     );
   }
@@ -143,7 +149,7 @@ export default class ActionSheet extends React.Component<Props, State> {
   }
 
   showActionSheetWithOptions = (options: ActionSheetOptions, onSelect: (i: number) => void) => {
-    const { isVisible, isAnimating, overlayOpacity, sheetOpacity } = this.state;
+    const { isVisible, overlayOpacity, sheetOpacity } = this.state;
 
     if (isVisible) {
       this._deferNextShow = this.showActionSheetWithOptions.bind(this, options, onSelect);
