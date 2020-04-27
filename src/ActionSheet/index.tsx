@@ -54,7 +54,8 @@ export default class ActionSheet extends React.Component<Props, State> {
     (this._actionSheetHeight = nativeEvent.layout.height);
 
   render() {
-    const { isVisible, overlayOpacity } = this.state;
+    const { isVisible, overlayOpacity, options } = this.state;
+    const useModal = options && options.useModal;
     const overlay = isVisible ? (
       <Animated.View
         style={[
@@ -72,11 +73,16 @@ export default class ActionSheet extends React.Component<Props, State> {
           flex: 1,
         }}>
         {React.Children.only(this.props.children)}
-
-        {isVisible && (
+        {isVisible && !useModal && (
+          <React.Fragment>
+            {overlay}
+            {this._renderSheet()}
+          </React.Fragment>
+        )}
+        {isVisible && useModal && (
           <Modal animationType="none" transparent={true} onRequestClose={this._selectCancelButton}>
             {overlay}
-            {isVisible ? this._renderSheet() : null}
+            {this._renderSheet()}
           </Modal>
         )}
       </View>
