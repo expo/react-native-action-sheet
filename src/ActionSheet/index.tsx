@@ -26,7 +26,6 @@ interface Props {
   readonly pointerEvents?: ViewProps['pointerEvents'];
 }
 
-const FLEX_ONE_STYLE: ViewStyle = { flex: 1 };
 const OPACITY_ANIMATION_IN_TIME = 225;
 const OPACITY_ANIMATION_OUT_TIME = 195;
 const EASING_OUT = Easing.bezier(0.25, 0.46, 0.45, 0.94);
@@ -70,14 +69,14 @@ export default class ActionSheet extends React.Component<Props, State> {
     // While the sheet is visible, hide the rest of the app's content from screen readers.
     const appContent = (
       <View
-        style={FLEX_ONE_STYLE}
+        style={styles.flexContainer}
         importantForAccessibility={isVisible ? 'no-hide-descendants' : 'auto'}>
         {React.Children.only(this.props.children)}
       </View>
     );
 
     return (
-      <View pointerEvents={this.props.pointerEvents} style={FLEX_ONE_STYLE}>
+      <View pointerEvents={this.props.pointerEvents} style={styles.flexContainer}>
         {appContent}
         {overlay}
         {isVisible ? this._renderSheet() : null}
@@ -260,6 +259,9 @@ export default class ActionSheet extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
+  flexContainer: {
+    flex: 1,
+  },
   overlay: {
     position: 'absolute',
     top: 0,

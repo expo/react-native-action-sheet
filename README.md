@@ -117,6 +117,7 @@ The below props allow modification of the Android ActionSheet. They have no effe
 | textStyle        | TextStyle                         | No       |         |
 | titleTextStyle   | TextStyle                         | No       |         |
 | messageTextStyle | TextStyle                         | No       |         |
+| autoFocus        | boolean                           | No       |  false  |
 | showSeparators   | boolean                           | No       |  false  |
 | containerStyle   | ViewStyle                         | No       |         |
 | separatorStyle   | ViewStyle                         | No       |         |
@@ -136,6 +137,10 @@ Apply any text style props to the title if present.
 
 #### `messageTextStyle` (optional)
 Apply any text style props to the message if present.
+
+#### `autoFocus`: (optional)
+If true, will give the first option screen reader focus automatically when the action sheet becomes visible.
+On iOS, this is the default behavior of the native action sheet.
 
 #### `showSeparators`: (optional)
 Show separators between items. On iOS, separators always show so this prop has no effect.

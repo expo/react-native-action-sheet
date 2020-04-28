@@ -112,6 +112,7 @@ export default class ActionGroup extends React.Component<Props> {
       length,
       textStyle,
       tintColor,
+      autoFocus,
       showSeparators,
     } = this.props;
     const optionViews: React.ReactNode[] = [];
@@ -129,7 +130,7 @@ export default class ActionGroup extends React.Component<Props> {
 
       optionViews.push(
         <TouchableNativeFeedbackSafe
-          ref={i === 0 ? focusViewOnRender : undefined}
+          ref={autoFocus && i === 0 ? focusViewOnRender : undefined}
           key={i}
           pressInDelay={0}
           background={nativeFeedbackBackground}
