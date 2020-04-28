@@ -55,7 +55,7 @@ export default class ActionSheet extends React.Component<Props, State> {
 
   render() {
     const { isVisible, overlayOpacity, options } = this.state;
-    const useModal = options && options.useModal;
+    const useModal = options ? options.useModal === true : false;
     const overlay = isVisible ? (
       <Animated.View
         style={[
