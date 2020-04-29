@@ -102,7 +102,7 @@ The same options available on React Native's [ActionSheetIOS](https://facebook.g
 | -----------------| -------| -------- | ------- |
 | anchor           | number | No       |         |
 
-#### `anchor` (optional) 
+#### `anchor` (optional)
 iPad only option that allows for docking the action sheet to a node. See [ShowActionSheetButton.tsx](/example/ShowActionSheetButton.tsx) for an example on how to implement this.
 
 ### Android/Web-Only Props
@@ -120,6 +120,7 @@ The below props allow modification of the Android ActionSheet. They have no effe
 | showSeparators   | boolean                           | No       |  false  |
 | containerStyle   | ViewStyle                         | No       |         |
 | separatorStyle   | ViewStyle                         | No       |         |
+| useModal         | boolean                           | No       |  false  |
 
 #### `icons` (optional)
 
@@ -145,6 +146,9 @@ Apply any view style props to the container rather than use the default look (e.
 
 #### `separatorStyle`: (optional)
 Modify the look of the separators rather than use the default look.
+
+#### `useModal`: (optional)
+Wrap the ActionSheet with a Modal, in order to show in front of other Modals that were already opened ([issue reference](https://github.com/expo/react-native-action-sheet/issues/164)).
 
 ## Try it out
 
