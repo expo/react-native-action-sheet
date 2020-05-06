@@ -1,5 +1,12 @@
 # Changelog
 
+# [3.7.0](https://github.com/expo/react-native-action-sheet/compare/v3.6.0...v3.7.0) (2020-05-06)
+
+
+### Features
+
+* adds `useModal` prop wrap action sheet in a modal ([9ed955d](https://github.com/expo/react-native-action-sheet/commit/9ed955dbba7259cbcf5e31ef3d4ed091ae4a3145)), closes [#169](https://github.com/expo/react-native-action-sheet/issues/169)
+
 # [3.6.0](https://github.com/expo/react-native-action-sheet/compare/v3.5.0...v3.6.0) (2020-03-30)
 
 

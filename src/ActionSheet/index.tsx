@@ -3,11 +3,11 @@ import {
   Animated,
   BackHandler,
   Easing,
+  Modal,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
   ViewProps,
-  ViewStyle,
 } from 'react-native';
 import ActionGroup from './ActionGroup';
 import { ActionSheetOptions } from '../types';
@@ -54,7 +54,8 @@ export default class ActionSheet extends React.Component<Props, State> {
     (this._actionSheetHeight = nativeEvent.layout.height);
 
   render() {
-    const { isVisible, overlayOpacity } = this.state;
+    const { isVisible, overlayOpacity, options } = this.state;
+    const useModal = options ? options.useModal === true : false;
     const overlay = isVisible ? (
       <Animated.View
         style={[
@@ -78,8 +79,18 @@ export default class ActionSheet extends React.Component<Props, State> {
     return (
       <View pointerEvents={this.props.pointerEvents} style={styles.flexContainer}>
         {appContent}
-        {overlay}
-        {isVisible ? this._renderSheet() : null}
+        {isVisible && !useModal && (
+          <React.Fragment>
+            {overlay}
+            {this._renderSheet()}
+          </React.Fragment>
+        )}
+        {isVisible && useModal && (
+          <Modal animationType="none" transparent={true} onRequestClose={this._selectCancelButton}>
+            {overlay}
+            {this._renderSheet()}
+          </Modal>
+        )}
       </View>
     );
   }
@@ -150,7 +161,7 @@ export default class ActionSheet extends React.Component<Props, State> {
   }
 
   showActionSheetWithOptions = (options: ActionSheetOptions, onSelect: (i: number) => void) => {
-    const { isVisible, isAnimating, overlayOpacity, sheetOpacity } = this.state;
+    const { isVisible, overlayOpacity, sheetOpacity } = this.state;
 
     if (isVisible) {
       this._deferNextShow = this.showActionSheetWithOptions.bind(this, options, onSelect);
