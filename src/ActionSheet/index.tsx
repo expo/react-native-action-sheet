@@ -113,6 +113,7 @@ export default class ActionSheet extends React.Component<Props, State> {
       titleTextStyle,
       message,
       messageTextStyle,
+      autoFocus,
       showSeparators,
       containerStyle,
       separatorStyle,
@@ -150,6 +151,7 @@ export default class ActionSheet extends React.Component<Props, State> {
               titleTextStyle={titleTextStyle}
               message={message || undefined}
               messageTextStyle={messageTextStyle}
+              autoFocus={autoFocus}
               showSeparators={showSeparators}
               containerStyle={containerStyle}
               separatorStyle={separatorStyle}
