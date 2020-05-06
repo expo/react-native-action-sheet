@@ -26,4 +26,5 @@ export interface ActionSheetOptions extends ActionSheetIOSOptions {
   showSeparators?: boolean;
   containerStyle?: ViewStyle;
   separatorStyle?: ViewStyle;
+  useModal?: boolean;
 }
