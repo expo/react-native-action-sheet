@@ -120,7 +120,7 @@ The below props allow modification of the Android ActionSheet. They have no effe
 | showSeparators   | boolean                           | No       |  false  |
 | containerStyle   | ViewStyle                         | No       |         |
 | separatorStyle   | ViewStyle                         | No       |         |
-| useModal         | boolean                           | No       |  false  |
+| destructiveColor | string                            | No       | #d32f2f |
 
 #### `icons` (optional)
 
@@ -149,6 +149,9 @@ Modify the look of the separators rather than use the default look.
 
 #### `useModal`: (optional)
 Wrap the ActionSheet with a Modal, in order to show in front of other Modals that were already opened ([issue reference](https://github.com/expo/react-native-action-sheet/issues/164)).
+
+#### `destructiveColor`: (optional)
+Modify color for text of destructive option.
 
 ## Try it out
 

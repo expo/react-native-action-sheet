@@ -27,4 +27,5 @@ export interface ActionSheetOptions extends ActionSheetIOSOptions {
   containerStyle?: ViewStyle;
   separatorStyle?: ViewStyle;
   useModal?: boolean;
+  destructiveColor?: string;
 }
