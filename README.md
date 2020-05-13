@@ -120,6 +120,7 @@ The below props allow modification of the Android ActionSheet. They have no effe
 | showSeparators   | boolean                           | No       |  false  |
 | containerStyle   | ViewStyle                         | No       |         |
 | separatorStyle   | ViewStyle                         | No       |         |
+| useModal         | boolean                           | No       | false   |
 | destructiveColor | string                            | No       | #d32f2f |
 
 #### `icons` (optional)
