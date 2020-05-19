@@ -66,13 +66,19 @@ export default class ActionSheet extends React.Component<Props, State> {
         ]}
       />
     ) : null;
-    return (
+
+    // While the sheet is visible, hide the rest of the app's content from screen readers.
+    const appContent = (
       <View
-        pointerEvents={this.props.pointerEvents}
-        style={{
-          flex: 1,
-        }}>
+        style={styles.flexContainer}
+        importantForAccessibility={isVisible ? 'no-hide-descendants' : 'auto'}>
         {React.Children.only(this.props.children)}
+      </View>
+    );
+
+    return (
+      <View pointerEvents={this.props.pointerEvents} style={styles.flexContainer}>
+        {appContent}
         {isVisible && !useModal && (
           <React.Fragment>
             {overlay}
@@ -107,12 +113,13 @@ export default class ActionSheet extends React.Component<Props, State> {
       titleTextStyle,
       message,
       messageTextStyle,
+      autoFocus,
       showSeparators,
       containerStyle,
       separatorStyle,
     } = options;
     return (
-      <TouchableWithoutFeedback onPress={this._selectCancelButton}>
+      <TouchableWithoutFeedback importantForAccessibility="yes" onPress={this._selectCancelButton}>
         <Animated.View
           needsOffscreenAlphaCompositing={isAnimating}
           style={[
@@ -144,6 +151,7 @@ export default class ActionSheet extends React.Component<Props, State> {
               titleTextStyle={titleTextStyle}
               message={message || undefined}
               messageTextStyle={messageTextStyle}
+              autoFocus={autoFocus}
               showSeparators={showSeparators}
               containerStyle={containerStyle}
               separatorStyle={separatorStyle}
@@ -264,6 +272,9 @@ export default class ActionSheet extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
+  flexContainer: {
+    flex: 1,
+  },
   overlay: {
     position: 'absolute',
     top: 0,
