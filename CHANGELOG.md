@@ -1,5 +1,13 @@
 # Changelog
 
+# [3.8.0](https://github.com/expo/react-native-action-sheet/compare/v3.7.0...v3.8.0) (2020-05-19)
+
+
+### Features
+
+* Add destructiveColor option ([#171](https://github.com/expo/react-native-action-sheet/issues/171)) ([5549e36](https://github.com/expo/react-native-action-sheet/commit/5549e36a92d8afcc0ce2bf6a601e83209b5ce080))
+* Improvements to Android accessibility ([#168](https://github.com/expo/react-native-action-sheet/issues/168)) ([b605fb8](https://github.com/expo/react-native-action-sheet/commit/b605fb8a3b6421c244f7f18d934bb5ea0753d461))
+
 # [3.7.0](https://github.com/expo/react-native-action-sheet/compare/v3.6.0...v3.7.0) (2020-05-06)
 
 
