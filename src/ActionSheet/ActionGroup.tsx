@@ -107,6 +107,7 @@ export default class ActionGroup extends React.Component<Props> {
       options,
       icons,
       destructiveButtonIndex,
+      destructiveColor = DESTRUCTIVE_COLOR,
       onSelect,
       startIndex,
       length,
@@ -125,7 +126,7 @@ export default class ActionGroup extends React.Component<Props> {
       const defaultColor = tintColor
         ? tintColor
         : (textStyle || {}).color || BLACK_87PC_TRANSPARENT;
-      const color = i === destructiveButtonIndex ? DESTRUCTIVE_COLOR : defaultColor;
+      const color = i === destructiveButtonIndex ? destructiveColor : defaultColor;
       const iconSource = icons != null ? icons[i] : null;
 
       optionViews.push(

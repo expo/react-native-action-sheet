@@ -107,6 +107,7 @@ export default class ActionSheet extends React.Component<Props, State> {
       icons,
       tintIcons,
       destructiveButtonIndex,
+      destructiveColor,
       textStyle,
       tintColor,
       title,
@@ -142,6 +143,7 @@ export default class ActionSheet extends React.Component<Props, State> {
               icons={icons}
               tintIcons={tintIcons === undefined ? true : tintIcons}
               destructiveButtonIndex={destructiveButtonIndex}
+              destructiveColor={destructiveColor}
               onSelect={this._onSelect}
               startIndex={0}
               length={optionsArray.length}
