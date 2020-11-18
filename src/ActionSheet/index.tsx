@@ -24,6 +24,7 @@ interface State {
 interface Props {
   readonly useNativeDriver: boolean | undefined;
   readonly pointerEvents?: ViewProps['pointerEvents'];
+  readonly initialHeight?: number;
 }
 
 const OPACITY_ANIMATION_IN_TIME = 225;
@@ -37,7 +38,7 @@ export default class ActionSheet extends React.Component<Props, State> {
     useNativeDriver: true,
   };
 
-  _actionSheetHeight = 360;
+  _actionSheetHeight = this.props.initialHeight || 300;
 
   state: State = {
     isVisible: false,
