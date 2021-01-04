@@ -111,6 +111,7 @@ export default class ActionSheet extends React.Component<Props, State> {
       textStyle,
       tintColor,
       title,
+      renderTitle,
       titleTextStyle,
       message,
       messageTextStyle,
@@ -150,6 +151,7 @@ export default class ActionSheet extends React.Component<Props, State> {
               textStyle={textStyle || {}}
               tintColor={tintColor}
               title={title || undefined}
+              renderTitle={renderTitle}
               titleTextStyle={titleTextStyle}
               message={message || undefined}
               messageTextStyle={messageTextStyle}

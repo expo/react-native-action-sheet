@@ -71,13 +71,22 @@ export default class ActionGroup extends React.Component<Props> {
   };
 
   _renderTitleContent = () => {
-    const { title, titleTextStyle, message, messageTextStyle, showSeparators } = this.props;
+    const {
+      title,
+      renderTitle,
+      titleTextStyle,
+      message,
+      messageTextStyle,
+      showSeparators,
+    } = this.props;
 
-    if (!title && !message) {
+    if (!title && !message && !renderTitle) {
       return null;
     }
 
-    return (
+    return renderTitle ? (
+      renderTitle()
+    ) : (
       <View>
         <View style={[styles.titleContainer, { paddingBottom: showSeparators ? 24 : 16 }]}>
           {!!title && <Text style={[styles.title, titleTextStyle]}>{title}</Text>}

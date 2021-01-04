@@ -25,6 +25,7 @@ export interface ActionSheetOptions extends ActionSheetIOSOptions {
   tintIcons?: boolean;
   textStyle?: TextStyle;
   titleTextStyle?: TextStyle;
+  renderTitle?: () => React.ReactNode;
   messageTextStyle?: TextStyle;
   autoFocus?: boolean;
   showSeparators?: boolean;
