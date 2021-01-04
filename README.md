@@ -113,6 +113,7 @@ The below props allow modification of the Android ActionSheet. They have no effe
 | Name             | Type                              | Required | Default |
 | -----------------| ----------------------------------| -------- | ------- |
 | icons            | array of required images or icons | No       |         |
+| renderTitle      | React component                   | No       |         |
 | tintIcons        | boolean                           | No       |  true   |
 | textStyle        | TextStyle                         | No       |         |
 | titleTextStyle   | TextStyle                         | No       |         |
@@ -127,6 +128,10 @@ The below props allow modification of the Android ActionSheet. They have no effe
 #### `icons` (optional)
 
 Show icons to go along with each option. If image source paths are provided via `require`, images will be rendered for you. Alternatively, you can provide an array of elements such as vector icons, pre-rendered Images, etc.
+
+#### `renderTitle` (optional)
+
+Define custom title rendering. This overrides `title` and `titleTextStyle`.
 
 #### `tintIcons` (optional)
  Icons by default will be tinted to match the text color. When set to false, the icons will be the color of the source image. This is useful if you want to use multicolor icons. If you provide your own nodes/pre-rendered icons rather than required images in the `icons` array, you will need to tint them appropriately before providing them in the array of `icons`; `tintColor` will not be applied to icons unless they are images from a required source.

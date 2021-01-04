@@ -13,6 +13,7 @@ interface Props {
   ) => void;
   onSelection: (index: number) => void;
   withTitle?: boolean;
+  withCustomTitle?: boolean;
   withMessage?: boolean;
   withIcons?: boolean;
   withSeparators?: boolean;
@@ -25,6 +26,7 @@ interface Props {
 export default class ShowActionSheetButton extends React.PureComponent<Props> {
   static defaultProps = {
     withTitle: false,
+    withCustomTitle: false,
     withMessage: false,
     withIcons: false,
     withSeparators: false,
@@ -40,6 +42,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
     const {
       withAnchor,
       withTitle,
+      withCustomTitle,
       withMessage,
       withIcons,
       withSeparators,
@@ -55,6 +58,18 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       ? [icon('delete'), icon('save'), icon('share'), icon('cancel')]
       : undefined;
     const title = withTitle ? 'Choose An Action' : undefined;
+    const renderTitle = withCustomTitle
+      ? () => (
+          <View
+            style={{
+              width: '100%',
+              height: 50,
+              backgroundColor: 'palegreen',
+            }}>
+            <Text>Custom React Native component</Text>
+          </View>
+        )
+      : undefined;
     const message = withMessage
       ? 'This library tries to mimic the native share sheets as close as possible.'
       : undefined;
@@ -97,6 +112,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
         cancelButtonIndex,
         destructiveButtonIndex,
         title,
+        renderTitle,
         message,
         icons,
         //iPad only
