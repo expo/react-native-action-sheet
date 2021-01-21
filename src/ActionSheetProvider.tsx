@@ -3,11 +3,10 @@ import ActionSheet from './ActionSheet';
 import { Provider } from './context';
 import { ActionSheetOptions } from './types';
 
-type Props = {
+interface Props {
   children: React.ReactNode;
   useNativeDriver?: boolean;
-  initialHeight?: number;
-} & Record<string, unknown>;
+}
 
 export default class ActionSheetProvider extends React.Component<Props> {
   _actionSheetRef: React.RefObject<ActionSheet>;
@@ -27,11 +26,10 @@ export default class ActionSheetProvider extends React.Component<Props> {
   };
 
   render() {
-    const { children, ...rest } = this.props;
     return (
       <Provider value={this.getContext()}>
-        <ActionSheet ref={this._actionSheetRef} {...rest}>
-          {React.Children.only(children)}
+        <ActionSheet ref={this._actionSheetRef} useNativeDriver={this.props.useNativeDriver}>
+          {React.Children.only(this.props.children)}
         </ActionSheet>
       </Provider>
     );
