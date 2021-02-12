@@ -159,6 +159,14 @@ Wrap the ActionSheet with a Modal, in order to show in front of other Modals tha
 #### `destructiveColor`: (optional)
 Modify color for text of destructive option.
 
+## ActionSheetProvider Props
+
+The following props can be set directly on the `ActionSheetProvider`
+
+#### `useNativeDriver` (optional)
+Windows only option that provides the option to disable the [native animation](https://reactnative.dev/docs/animated#using-the-native-driver) driver for React Native Windows projects targeting _Windows 10 Version-1809 ; Build-10.0.17763.0_ and earlier. `useNativeDriver` is [supported in Version-1903 and later](https://microsoft.github.io/react-native-windows/docs/win10-compat) so if your project is targeting that, you don't need to set this prop.
+
+
 ## Try it out
 
 Try it in Expo: https://expo.io/@community/react-native-action-sheet-example

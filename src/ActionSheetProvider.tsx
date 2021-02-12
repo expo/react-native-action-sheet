@@ -5,6 +5,7 @@ import { ActionSheetOptions } from './types';
 
 interface Props {
   children: React.ReactNode;
+  useNativeDriver?: boolean;
 }
 
 export default class ActionSheetProvider extends React.Component<Props> {
@@ -27,7 +28,7 @@ export default class ActionSheetProvider extends React.Component<Props> {
   render() {
     return (
       <Provider value={this.getContext()}>
-        <ActionSheet ref={this._actionSheetRef}>
+        <ActionSheet ref={this._actionSheetRef} useNativeDriver={this.props.useNativeDriver}>
           {React.Children.only(this.props.children)}
         </ActionSheet>
       </Provider>
