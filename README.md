@@ -98,16 +98,13 @@ The same options available on React Native's [ActionSheetIOS](https://facebook.g
 
 ### iOS Only Props
 
-| Name             | Type   | Required | Default |
-| -----------------| -------| -------- | ------- |
-| anchor           | number | No       |         |
+| Name               | Type   | Required | Default |
+| -------------------| -------| -------- | ------- |
+| anchor             | number | No       |         |
+| userInterfaceStyle | string | No       |         |
 
 #### `anchor` (optional)
 iPad only option that allows for docking the action sheet to a node. See [ShowActionSheetButton.tsx](/example/ShowActionSheetButton.tsx) for an example on how to implement this.
-
-| Name               | Type   | Required | Default |
-| -------------------| -------| -------- | ------- |
-| userInterfaceStyle | string | No       |         |
 
 #### `userInterfaceStyle` (optional)
 The interface style used for the action sheet, can be set to `light` or `dark`, otherwise the default system style will be used.
