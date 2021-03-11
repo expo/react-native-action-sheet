@@ -32,6 +32,7 @@ export default class ActionSheet extends React.Component<Props> {
       title: dataOptions.title || undefined,
       message: dataOptions.message || undefined,
       anchor: dataOptions.anchor || undefined,
+      userInterfaceStyle: dataOptions.userInterfaceStyle || undefined,
     };
     ActionSheetIOS.showActionSheetWithOptions(iosOptions, onSelect);
   }
