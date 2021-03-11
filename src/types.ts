@@ -14,6 +14,7 @@ export interface ActionSheetIOSOptions {
   cancelButtonIndex?: number;
   destructiveButtonIndex?: number;
   anchor?: number;
+  userInterfaceStyle?: string;
 }
 
 // for Android or Web

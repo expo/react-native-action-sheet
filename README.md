@@ -105,6 +105,13 @@ The same options available on React Native's [ActionSheetIOS](https://facebook.g
 #### `anchor` (optional)
 iPad only option that allows for docking the action sheet to a node. See [ShowActionSheetButton.tsx](/example/ShowActionSheetButton.tsx) for an example on how to implement this.
 
+| Name               | Type   | Required | Default |
+| -------------------| -------| -------- | ------- |
+| userInterfaceStyle | string | No       |         |
+
+#### `userInterfaceStyle` (optional)
+The interface style used for the action sheet, can be set to `light` or `dark`, otherwise the default system style will be used.
+
 ### Android/Web-Only Props
 
 The below props allow modification of the Android ActionSheet. They have no effect on the look on iOS as the native iOS Action Sheet does not have options for modifying these options.
