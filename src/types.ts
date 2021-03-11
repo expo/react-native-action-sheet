@@ -14,7 +14,7 @@ export interface ActionSheetIOSOptions {
   cancelButtonIndex?: number;
   destructiveButtonIndex?: number;
   anchor?: number;
-  userInterfaceStyle?: string;
+  userInterfaceStyle?: 'light' | 'dark';
 }
 
 // for Android or Web
