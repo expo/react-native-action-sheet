@@ -1,5 +1,18 @@
 # Changelog
 
+# [3.9.0](https://github.com/expo/react-native-action-sheet/compare/v3.8.0...v3.9.0) (2021-03-12)
+
+
+### Bug Fixes
+
+* allow callback to be async ([#183](https://github.com/expo/react-native-action-sheet/issues/183)) ([d0d5182](https://github.com/expo/react-native-action-sheet/commit/d0d518278028556a80deec3d9b57c332b82ba28d))
+* center icons with titles ([#188](https://github.com/expo/react-native-action-sheet/issues/188)) ([d48c323](https://github.com/expo/react-native-action-sheet/commit/d48c323e4563363c8683c427d1803e1ff4cddcb5))
+
+
+### Features
+
+* add `userInterfaceStyle` option for iOS ([#206](https://github.com/expo/react-native-action-sheet/issues/206)) ([735cfa5](https://github.com/expo/react-native-action-sheet/commit/735cfa54ba1bfd90139671489aca525fdbd59626))
+
 # [3.8.0](https://github.com/expo/react-native-action-sheet/compare/v3.7.0...v3.8.0) (2020-05-19)
 
 
