@@ -34,6 +34,7 @@ export default class ActionSheet extends React.Component<Props> {
       anchor: dataOptions.anchor || undefined,
       userInterfaceStyle: dataOptions.userInterfaceStyle || undefined,
     };
+    // @ts-ignore: Even though ActionSheetIOS supports array of numbers for `destructiveIndex` the types are not yet updated. See https://github.com/facebook/react-native/pull/18254.
     ActionSheetIOS.showActionSheetWithOptions(iosOptions, onSelect);
   }
 }
