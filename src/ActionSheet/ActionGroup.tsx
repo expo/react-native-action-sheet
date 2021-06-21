@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
+  AccessibilityInfo,
+  findNodeHandle,
+  Image,
+  Platform,
+  ScrollView,
   StyleSheet,
   Text,
-  Image,
-  View,
-  ScrollView,
-  findNodeHandle,
-  AccessibilityInfo,
-  Platform,
   UIManager,
+  View,
 } from 'react-native';
 import TouchableNativeFeedbackSafe from './TouchableNativeFeedbackSafe';
 import { ActionSheetOptions } from '../types';
@@ -44,6 +44,14 @@ const focusViewOnRender = (ref: React.Component | null) => {
       }
     }
   }
+};
+
+const isIndexDestructive = (index: number, destructiveIndex?: number | number[]) => {
+  if (Array.isArray(destructiveIndex)) {
+    return destructiveIndex.includes(index);
+  }
+
+  return index === destructiveIndex;
 };
 
 export default class ActionGroup extends React.Component<Props> {
@@ -126,7 +134,7 @@ export default class ActionGroup extends React.Component<Props> {
       const defaultColor = tintColor
         ? tintColor
         : (textStyle || {}).color || BLACK_87PC_TRANSPARENT;
-      const color = i === destructiveButtonIndex ? destructiveColor : defaultColor;
+      const color = isIndexDestructive(i, destructiveButtonIndex) ? destructiveColor : defaultColor;
       const iconSource = icons != null ? icons[i] : null;
 
       optionViews.push(
@@ -169,7 +177,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     marginRight: 32,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   message: {
     marginTop: 12,
