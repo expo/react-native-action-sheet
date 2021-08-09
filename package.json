@@ -35,8 +35,8 @@
   "devDependencies": {
     "@react-native-community/bob": "^0.6.1",
     "@react-native-community/eslint-config": "^0.0.5",
-    "@semantic-release/changelog": "^3.0.5",
-    "@semantic-release/git": "^7.0.18",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@types/react": "^16.8.23",
     "@types/react-native": "^0.57.65",
     "@typescript-eslint/eslint-plugin": "^1.12.0",
@@ -49,7 +49,7 @@
     "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
-    "semantic-release": "^17.3.0",
+    "semantic-release": "^17.4.4",
     "typescript": "^3.5.3"
   },
   "peerDependencies": {
