@@ -1,5 +1,17 @@
 # Changelog
 
+# [3.11.0](https://github.com/expo/react-native-action-sheet/compare/v3.10.0...v3.11.0) (2021-09-07)
+
+
+### Bug Fixes
+
+* yarn lock issues ([#238](https://github.com/expo/react-native-action-sheet/issues/238)) ([22fc214](https://github.com/expo/react-native-action-sheet/commit/22fc2144b3ce3b5fc1892eefd86f484dc1af58e9))
+
+
+### Features
+
+* default useModal to true when autoFocus is set ([688fd47](https://github.com/expo/react-native-action-sheet/commit/688fd47227dab6994b59ed85af622cb04ebed220))
+
 # [3.10.0](https://github.com/expo/react-native-action-sheet/compare/v3.8.0...v3.10.0) (2021-08-09)
 
 ### Features
