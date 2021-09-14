@@ -1,6 +1,7 @@
-import * as React from 'react';
-import { Consumer } from './context';
 import hoistNonReactStatic from 'hoist-non-react-statics';
+import * as React from 'react';
+
+import { Consumer } from './context';
 import { ActionSheetProps } from './types';
 
 export default function connectActionSheet<OwnProps = any>(

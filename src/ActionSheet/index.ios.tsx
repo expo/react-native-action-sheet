@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { ActionSheetIOS, View, ViewProps } from 'react-native';
 
 import { ActionSheetIOSOptions } from '../types';

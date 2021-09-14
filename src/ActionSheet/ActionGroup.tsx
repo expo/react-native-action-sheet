@@ -10,8 +10,9 @@ import {
   UIManager,
   View,
 } from 'react-native';
-import TouchableNativeFeedbackSafe from './TouchableNativeFeedbackSafe';
+
 import { ActionSheetOptions } from '../types';
+import TouchableNativeFeedbackSafe from './TouchableNativeFeedbackSafe';
 
 type Props = ActionSheetOptions & {
   tintIcons: boolean | null;
