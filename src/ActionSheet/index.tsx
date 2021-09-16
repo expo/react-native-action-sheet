@@ -9,8 +9,9 @@ import {
   View,
   ViewProps,
 } from 'react-native';
-import ActionGroup from './ActionGroup';
+
 import { ActionSheetOptions } from '../types';
+import ActionGroup from './ActionGroup';
 
 interface State {
   isVisible: boolean;
@@ -80,13 +81,13 @@ export default class ActionSheet extends React.Component<Props, State> {
       <View pointerEvents={this.props.pointerEvents} style={styles.flexContainer}>
         {appContent}
         {isVisible && !useModal && (
-          <React.Fragment>
+          <>
             {overlay}
             {this._renderSheet()}
-          </React.Fragment>
+          </>
         )}
         {isVisible && useModal && (
-          <Modal animationType="none" transparent={true} onRequestClose={this._selectCancelButton}>
+          <Modal animationType="none" transparent onRequestClose={this._selectCancelButton}>
             {overlay}
             {this._renderSheet()}
           </Modal>
@@ -193,7 +194,7 @@ export default class ActionSheet extends React.Component<Props, State> {
         duration: OPACITY_ANIMATION_IN_TIME,
         useNativeDriver: this.props.useNativeDriver,
       }),
-    ]).start(result => {
+    ]).start((result) => {
       if (result.finished) {
         this.setState({
           isAnimating: false,
@@ -213,7 +214,7 @@ export default class ActionSheet extends React.Component<Props, State> {
     }
 
     if (typeof options.cancelButtonIndex === 'undefined') {
-      return;
+      return false;
     } else if (typeof options.cancelButtonIndex === 'number') {
       return this._onSelect(options.cancelButtonIndex);
     } else {
@@ -257,7 +258,7 @@ export default class ActionSheet extends React.Component<Props, State> {
         duration: OPACITY_ANIMATION_OUT_TIME,
         useNativeDriver: this.props.useNativeDriver,
       }),
-    ]).start(result => {
+    ]).start((result) => {
       if (result.finished) {
         this.setState({
           isVisible: false,

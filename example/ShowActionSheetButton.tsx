@@ -1,7 +1,7 @@
+import { ActionSheetOptions } from '@expo/react-native-action-sheet';
+import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import * as React from 'react';
 import { Text, View, TextStyle, ViewStyle, findNodeHandle, Button } from 'react-native';
-import { MaterialIcons, Entypo } from '@expo/vector-icons';
-import { ActionSheetOptions } from '@expo/react-native-action-sheet';
 
 const icon = (name: string) => <MaterialIcons key={name} name={name} size={24} />;
 

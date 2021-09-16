@@ -1,3 +1,8 @@
+import {
+  ActionSheetProvider,
+  connectActionSheet,
+  ActionSheetProps,
+} from '@expo/react-native-action-sheet';
 import * as React from 'react';
 import {
   Modal,
@@ -8,11 +13,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import {
-  ActionSheetProvider,
-  connectActionSheet,
-  ActionSheetProps,
-} from '@expo/react-native-action-sheet';
+
 import ShowActionSheetButton from './ShowActionSheetButton';
 
 type Props = ActionSheetProps;
@@ -46,7 +47,7 @@ class App extends React.Component<Props, State> {
   };
 
   _toggleModal = () => {
-    this.setState({ isModalOpen: !this.state.isModalOpen });
+    this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
   };
 
   _renderButtons() {
@@ -84,7 +85,7 @@ class App extends React.Component<Props, State> {
         />
         <ShowActionSheetButton
           title="Nested Action Sheets"
-          onSelection={index => {
+          onSelection={(index) => {
             if (index < 3) {
               showActionSheetWithOptions(
                 {
@@ -175,7 +176,7 @@ class App extends React.Component<Props, State> {
   }
 }
 
-const ConnectedApp = connectActionSheet<{}>(App);
+const ConnectedApp = connectActionSheet<object>(App);
 
 export default class AppContainer extends React.Component {
   render() {
