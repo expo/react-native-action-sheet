@@ -212,9 +212,6 @@ $ yarn build
 // tsc
 $ yarn type-check
 
-// ESLint
+// ESLint + Prettier
 $ yarn lint
-
-// prettier
-$ yarn fmt
 ```
