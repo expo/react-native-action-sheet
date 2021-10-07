@@ -19,7 +19,7 @@ import ShowActionSheetButton from './ShowActionSheetButton';
 type Props = ActionSheetProps;
 
 interface State {
-  selectedIndex: number | null;
+  selectedIndex?: number | null;
   isModalOpen: boolean;
 }
 
@@ -29,7 +29,7 @@ class App extends React.Component<Props, State> {
     isModalOpen: false,
   };
 
-  _updateSelectionText = (selectedIndex: number) => {
+  _updateSelectionText = (selectedIndex?: number) => {
     this.setState({
       selectedIndex,
     });
@@ -38,7 +38,9 @@ class App extends React.Component<Props, State> {
   _renderSelectionText = () => {
     const { selectedIndex } = this.state;
     const text =
-      selectedIndex === null ? 'No Option Selected' : `Option #${selectedIndex + 1} Selected`;
+      selectedIndex === null || selectedIndex === undefined
+        ? 'No Option Selected'
+        : `Option #${selectedIndex + 1} Selected`;
     return <Text style={styles.selectionText}>{text}</Text>;
   };
 
@@ -86,7 +88,7 @@ class App extends React.Component<Props, State> {
         <ShowActionSheetButton
           title="Nested Action Sheets"
           onSelection={(index) => {
-            if (index < 3) {
+            if (index && index < 3) {
               showActionSheetWithOptions(
                 {
                   title: 'Sub Action Sheet',
@@ -98,6 +100,18 @@ class App extends React.Component<Props, State> {
             }
           }}
           showActionSheetWithOptions={showActionSheetWithOptions}
+        />
+        <ShowActionSheetButton
+          title="No Cancel Button"
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={() =>
+            showActionSheetWithOptions(
+              {
+                options: ['Option 1', 'Option 2'],
+              },
+              this._updateSelectionText
+            )
+          }
         />
         {this._renderSectionHeader('Android-Only Options')}
         <ShowActionSheetButton

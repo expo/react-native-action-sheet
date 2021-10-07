@@ -9,9 +9,9 @@ interface Props {
   title: string;
   showActionSheetWithOptions: (
     options: ActionSheetOptions,
-    callback: (buttonIndex: number) => void
+    callback: (buttonIndex?: number) => void
   ) => void;
-  onSelection: (index: number) => void;
+  onSelection: (index?: number) => void;
   withTitle?: boolean;
   withMessage?: boolean;
   withIcons?: boolean;
@@ -116,7 +116,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
         // Android only,
         useModal,
       },
-      (buttonIndex: number) => {
+      (buttonIndex?: number) => {
         // Do something here depending on the button index selected
         onSelection(buttonIndex);
       }

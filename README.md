@@ -113,6 +113,8 @@ The interface style used for the action sheet, can be set to `light` or `dark`, 
 
 The below props allow modification of the Android ActionSheet. They have no effect on the look on iOS as the native iOS Action Sheet does not have options for modifying these options.
 
+**Regarding Cancelling**: Unlike iOS, Android and Web allow you to render an action sheet _without_ a dedicated cancel button. The action sheet can then be closed by tapping in the background, or using the hardware back button. When the screen is closed in this way, your `buttonIndex` param will be `undefined`. Note that this will not work in iOS and the screen will be "stuck", forcing the user to select one of the options.
+
 
 | Name             | Type                              | Required | Default |
 | -----------------| ----------------------------------| -------- | ------- |

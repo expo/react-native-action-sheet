@@ -17,7 +17,7 @@ interface State {
   isVisible: boolean;
   isAnimating: boolean;
   options: ActionSheetOptions | null;
-  onSelect: ((i: number) => void) | null;
+  onSelect: ((i?: number) => void) | null;
   overlayOpacity: any;
   sheetOpacity: any;
 }
@@ -165,7 +165,7 @@ export default class ActionSheet extends React.Component<Props, State> {
     );
   }
 
-  showActionSheetWithOptions = (options: ActionSheetOptions, onSelect: (i: number) => void) => {
+  showActionSheetWithOptions = (options: ActionSheetOptions, onSelect: (i?: number) => void) => {
     const { isVisible, overlayOpacity, sheetOpacity } = this.state;
 
     if (isVisible) {
@@ -208,21 +208,12 @@ export default class ActionSheet extends React.Component<Props, State> {
 
   _selectCancelButton = () => {
     const { options } = this.state;
+    const cancelButtonIndex = options === null ? undefined : options.cancelButtonIndex;
 
-    if (!options) {
-      return false;
-    }
-
-    if (typeof options.cancelButtonIndex === 'undefined') {
-      return false;
-    } else if (typeof options.cancelButtonIndex === 'number') {
-      return this._onSelect(options.cancelButtonIndex);
-    } else {
-      return this._animateOut();
-    }
+    return this._onSelect(cancelButtonIndex);
   };
 
-  _onSelect = (index: number): boolean => {
+  _onSelect = (index?: number): boolean => {
     const { isAnimating, onSelect } = this.state;
 
     if (isAnimating) {
