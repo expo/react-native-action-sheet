@@ -21,12 +21,14 @@ export default class ActionSheet extends React.Component<Props> {
 
   showActionSheetWithOptions(dataOptions: ActionSheetIOSOptions, onSelect: onSelect) {
     // ...dataOptions include other keys which use in android and web, thats why `Android-Only options` Crash on IOS
-    const { cancelButtonIndex, destructiveButtonIndex, options, tintColor } = dataOptions;
+    const { cancelButtonIndex, destructiveButtonIndex, options, tintColor, disabledButtonIndices } =
+      dataOptions;
     const iosOptions: ActionSheetIOSOptions = {
       cancelButtonIndex,
       destructiveButtonIndex,
       options,
       tintColor,
+      disabledButtonIndices,
       // A null title or message on iOS causes a crash
       title: dataOptions.title || undefined,
       message: dataOptions.message || undefined,
