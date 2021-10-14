@@ -55,6 +55,10 @@ const isIndexDestructive = (index: number, destructiveIndex?: number | number[])
   return index === destructiveIndex;
 };
 
+const isIndexDisabled = (index: number, disabledButtonIndices: number[] = []) => {
+  return disabledButtonIndices.includes(index);
+};
+
 export default class ActionGroup extends React.Component<Props> {
   static defaultProps = {
     title: null,
@@ -116,6 +120,7 @@ export default class ActionGroup extends React.Component<Props> {
       options,
       icons,
       destructiveButtonIndex,
+      disabledButtonIndices,
       destructiveColor = DESTRUCTIVE_COLOR,
       onSelect,
       startIndex,
@@ -135,6 +140,7 @@ export default class ActionGroup extends React.Component<Props> {
       const defaultColor = tintColor
         ? tintColor
         : (textStyle || {}).color || BLACK_87PC_TRANSPARENT;
+      const disabled = isIndexDisabled(i, disabledButtonIndices);
       const color = isIndexDestructive(i, destructiveButtonIndex) ? destructiveColor : defaultColor;
       const iconSource = icons != null ? icons[i] : null;
 
@@ -144,8 +150,9 @@ export default class ActionGroup extends React.Component<Props> {
           key={i}
           pressInDelay={0}
           background={nativeFeedbackBackground}
+          disabled={disabled}
           onPress={() => onSelect(i)}
-          style={styles.button}
+          style={[styles.button, disabled && styles.disabledButton]}
           accessibilityRole="button"
           accessibilityLabel={options[i]}>
           {this._renderIconElement(iconSource, color)}
@@ -169,6 +176,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 56,
     paddingHorizontal: 16,
+  },
+  disabledButton: {
+    opacity: 0.5,
   },
   groupContainer: {
     backgroundColor: '#ffffff',

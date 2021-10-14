@@ -18,6 +18,7 @@ export interface ActionSheetIOSOptions {
   destructiveButtonIndex?: number | number[];
   anchor?: number;
   userInterfaceStyle?: 'light' | 'dark';
+  disabledButtonIndices?: number[];
 }
 
 // for Android or Web

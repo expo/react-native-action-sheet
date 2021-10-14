@@ -1,9 +1,11 @@
 import { ActionSheetOptions } from '@expo/react-native-action-sheet';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import * as React from 'react';
-import { Text, View, TextStyle, ViewStyle, findNodeHandle, Button } from 'react-native';
+import { Text, View, TextStyle, ViewStyle, findNodeHandle } from 'react-native';
 
-const icon = (name: string) => <MaterialIcons key={name} name={name} size={24} />;
+const icon = (name: React.ComponentProps<typeof MaterialIcons>['name']) => (
+  <MaterialIcons key={name} name={name} size={24} />
+);
 
 interface Props {
   title: string;
@@ -34,7 +36,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
     useModal: false,
   };
 
-  _anchorRef = React.createRef<Button>();
+  _anchorRef = React.createRef<any>();
 
   _showActionSheet = () => {
     const {
@@ -50,7 +52,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
     } = this.props;
 
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
-    const options = ['Delete', 'Save', 'Share', 'Cancel'];
+    const options = ['Delete', 'Disabled', 'Save', 'Share', 'Cancel'];
     const icons = withIcons
       ? [icon('delete'), icon('save'), icon('share'), icon('cancel')]
       : undefined;
@@ -59,7 +61,8 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       ? 'This library tries to mimic the native share sheets as close as possible.'
       : undefined;
     const destructiveButtonIndex = 0;
-    const cancelButtonIndex = 3;
+    const disabledButtonIndices = [1];
+    const cancelButtonIndex = 4;
     const textStyle: TextStyle | undefined = withCustomStyles
       ? {
           fontSize: 20,
@@ -96,6 +99,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
         options,
         cancelButtonIndex,
         destructiveButtonIndex,
+        disabledButtonIndices,
         title,
         message,
         icons,
