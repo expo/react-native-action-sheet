@@ -4,6 +4,7 @@ import {
   BackHandler,
   Easing,
   Modal,
+  Platform,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
@@ -31,6 +32,7 @@ const OPACITY_ANIMATION_IN_TIME = 225;
 const OPACITY_ANIMATION_OUT_TIME = 195;
 const EASING_OUT = Easing.bezier(0.25, 0.46, 0.45, 0.94);
 const EASING_IN = Easing.out(EASING_OUT);
+const ESCAPE_KEY = 'Escape';
 
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
 export default class ActionSheet extends React.Component<Props, State> {
@@ -50,6 +52,25 @@ export default class ActionSheet extends React.Component<Props, State> {
   };
 
   _deferNextShow?: () => void = undefined;
+
+  componentDidMount() {
+    if (Platform.OS === 'web') {
+      document.addEventListener('keydown', this._handleWebKeyDown);
+    }
+  }
+
+  componentWillUnmount() {
+    if (Platform.OS === 'web') {
+      document.removeEventListener('keydown', this._handleWebKeyDown);
+    }
+  }
+
+  _handleWebKeyDown = (event: KeyboardEvent): void => {
+    if (event.key === ESCAPE_KEY && this.state.isVisible) {
+      event.preventDefault();
+      this._selectCancelButton();
+    }
+  };
 
   _setActionSheetHeight = ({ nativeEvent }: any) =>
     (this._actionSheetHeight = nativeEvent.layout.height);
