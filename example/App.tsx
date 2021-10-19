@@ -12,6 +12,7 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
+  Share,
 } from 'react-native';
 
 import ShowActionSheetButton from './ShowActionSheetButton';
@@ -19,7 +20,7 @@ import ShowActionSheetButton from './ShowActionSheetButton';
 type Props = ActionSheetProps;
 
 interface State {
-  selectedIndex: number | null;
+  selectedIndex?: number | null;
   isModalOpen: boolean;
 }
 
@@ -29,7 +30,7 @@ class App extends React.Component<Props, State> {
     isModalOpen: false,
   };
 
-  _updateSelectionText = (selectedIndex: number) => {
+  _updateSelectionText = (selectedIndex?: number) => {
     this.setState({
       selectedIndex,
     });
@@ -38,7 +39,9 @@ class App extends React.Component<Props, State> {
   _renderSelectionText = () => {
     const { selectedIndex } = this.state;
     const text =
-      selectedIndex === null ? 'No Option Selected' : `Option #${selectedIndex + 1} Selected`;
+      selectedIndex === null || selectedIndex === undefined
+        ? 'No Option Selected'
+        : `Option #${selectedIndex + 1} Selected`;
     return <Text style={styles.selectionText}>{text}</Text>;
   };
 
@@ -49,6 +52,23 @@ class App extends React.Component<Props, State> {
   _toggleModal = () => {
     this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
   };
+
+  async _onShare() {
+    try {
+      const result = await Share.share({
+        message: 'React Native | A framework for building native apps using React',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {}
+  }
 
   _renderButtons() {
     const { showActionSheetWithOptions } = this.props;
@@ -86,7 +106,7 @@ class App extends React.Component<Props, State> {
         <ShowActionSheetButton
           title="Nested Action Sheets"
           onSelection={(index) => {
-            if (index < 3) {
+            if (!index || index < 3) {
               showActionSheetWithOptions(
                 {
                   title: 'Sub Action Sheet',
@@ -98,6 +118,21 @@ class App extends React.Component<Props, State> {
             }
           }}
           showActionSheetWithOptions={showActionSheetWithOptions}
+        />
+        <ShowActionSheetButton
+          title="Share Menu"
+          showActionSheetWithOptions={() =>
+            showActionSheetWithOptions(
+              {
+                title: 'Share Menu',
+                options: ['Share', 'Cancel'],
+                cancelButtonIndex: 1,
+              },
+              (i) => {
+                i === 0 && this._onShare();
+              }
+            )
+          }
         />
         {this._renderSectionHeader('Android-Only Options')}
         <ShowActionSheetButton

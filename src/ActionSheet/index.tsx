@@ -49,7 +49,7 @@ export default class ActionSheet extends React.Component<Props, State> {
     sheetOpacity: new Animated.Value(0),
   };
 
-  _deferNextShow?: () => void = undefined;
+  _deferAfterAnimation?: () => void = undefined;
 
   _setActionSheetHeight = ({ nativeEvent }: any) =>
     (this._actionSheetHeight = nativeEvent.layout.height);
@@ -171,7 +171,7 @@ export default class ActionSheet extends React.Component<Props, State> {
     const { isVisible, overlayOpacity, sheetOpacity } = this.state;
 
     if (isVisible) {
-      this._deferNextShow = this.showActionSheetWithOptions.bind(this, options, onSelect);
+      this._deferAfterAnimation = this.showActionSheetWithOptions.bind(this, options, onSelect);
       return;
     }
 
@@ -201,7 +201,7 @@ export default class ActionSheet extends React.Component<Props, State> {
         this.setState({
           isAnimating: false,
         });
-        this._deferNextShow = undefined;
+        this._deferAfterAnimation = undefined;
       }
     });
     // @ts-ignore: Argument of type '"actionSheetHardwareBackPress"' is not assignable to parameter of type '"hardwareBackPress"'
@@ -231,7 +231,10 @@ export default class ActionSheet extends React.Component<Props, State> {
       return false;
     }
 
-    onSelect && onSelect(index);
+    if (onSelect) {
+      this._deferAfterAnimation = onSelect.bind(this, index);
+    }
+
     return this._animateOut();
   };
 
@@ -267,8 +270,8 @@ export default class ActionSheet extends React.Component<Props, State> {
           isAnimating: false,
         });
 
-        if (this._deferNextShow) {
-          this._deferNextShow();
+        if (this._deferAfterAnimation) {
+          this._deferAfterAnimation();
         }
       }
     });

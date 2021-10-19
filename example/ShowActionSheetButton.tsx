@@ -11,9 +11,9 @@ interface Props {
   title: string;
   showActionSheetWithOptions: (
     options: ActionSheetOptions,
-    callback: (buttonIndex: number) => void
+    callback: (buttonIndex?: number) => void
   ) => void;
-  onSelection: (index: number) => void;
+  onSelection: (index?: number) => void;
   withTitle?: boolean;
   withMessage?: boolean;
   withIcons?: boolean;
@@ -52,7 +52,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
     } = this.props;
 
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
-    const options = ['Delete', 'Disabled', 'Save', 'Share', 'Cancel'];
+    const options = ['Delete', 'Disabled', 'Save', 'Cancel'];
     const icons = withIcons
       ? [icon('delete'), icon('save'), icon('share'), icon('cancel')]
       : undefined;
@@ -62,7 +62,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       : undefined;
     const destructiveButtonIndex = 0;
     const disabledButtonIndices = [1];
-    const cancelButtonIndex = 4;
+    const cancelButtonIndex = 3;
     const textStyle: TextStyle | undefined = withCustomStyles
       ? {
           fontSize: 20,
@@ -120,7 +120,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
         // Android only,
         useModal,
       },
-      (buttonIndex: number) => {
+      (buttonIndex?: number) => {
         // Do something here depending on the button index selected
         onSelection(buttonIndex);
       }
