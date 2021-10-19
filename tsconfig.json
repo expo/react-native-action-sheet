@@ -5,9 +5,10 @@
     "module": "commonjs",
     "strict": true,
     "moduleResolution": "node",
-    "lib": ["es2015", "es2016", "esnext"],
+    "lib": ["dom", "es2015", "es2016", "esnext"],
     "jsx": "react-native",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "exclude": ["node_modules"]
 }
