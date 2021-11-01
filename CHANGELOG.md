@@ -10,7 +10,7 @@
 
 ### Features
 
-* adds support for disabledButtonIndicies ([#246](https://github.com/expo/react-native-action-sheet/issues/246)) ([feed1f7](https://github.com/expo/react-native-action-sheet/commit/feed1f78b4c85855d48c1742fe9f8a67c0604609)), closes [#224](https://github.com/expo/react-native-action-sheet/issues/224)
+* adds support for disabledButtonIndices ([#246](https://github.com/expo/react-native-action-sheet/issues/246)) ([feed1f7](https://github.com/expo/react-native-action-sheet/commit/feed1f78b4c85855d48c1742fe9f8a67c0604609)), closes [#224](https://github.com/expo/react-native-action-sheet/issues/224)
 
 # [3.11.0](https://github.com/expo/react-native-action-sheet/compare/v3.10.0...v3.11.0) (2021-09-07)
 

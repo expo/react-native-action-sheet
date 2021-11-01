@@ -95,7 +95,7 @@ This library can also be used in the browser with Expo for web.
 
 ### Universal Props
 
-The same options available on React Native's [ActionSheetIOS](https://reactnative.dev/docs/0.64/actionsheetios#showactionsheetwithoptions) component exist for both iOS and Android in this library. Note: `disabledButtonIndicies` is only available for iOS in Expo 43+ or RN 0.64.0+.
+The same options available on React Native's [ActionSheetIOS](https://reactnative.dev/docs/0.64/actionsheetios#showactionsheetwithoptions) component exist for both iOS and Android in this library. Note: `disabledButtonIndices` is only available for iOS in Expo 43+ or RN 0.64.0+.
 
 ### iOS Only Props
 
