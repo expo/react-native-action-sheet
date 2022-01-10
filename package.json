@@ -14,6 +14,7 @@
     "build": "bob build",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --fix",
+    "lint-check": "eslint",
     "semantic-release": "semantic-release"
   },
   "repository": {
