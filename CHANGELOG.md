@@ -1,5 +1,18 @@
 # Changelog
 
+# [3.13.0](https://github.com/expo/react-native-action-sheet/compare/v3.12.0...v3.13.0) (2022-01-10)
+
+
+### Bug Fixes
+
+* defer calling onSelect until after animation ([#248](https://github.com/expo/react-native-action-sheet/issues/248)) ([1fb3411](https://github.com/expo/react-native-action-sheet/commit/1fb3411f575b4fa1cb762a804fc38cf3e2a5c73b)), closes [#203](https://github.com/expo/react-native-action-sheet/issues/203)
+* stabilize the identity of the context provider value ([#251](https://github.com/expo/react-native-action-sheet/issues/251)) ([55005ba](https://github.com/expo/react-native-action-sheet/commit/55005ba0fb4bc6aff546390cf324619bf2e0ed2a))
+
+
+### Features
+
+* support closing actionsheet with Esc key on web ([#247](https://github.com/expo/react-native-action-sheet/issues/247)) ([c4c3f8b](https://github.com/expo/react-native-action-sheet/commit/c4c3f8b873d76ff40daf8d2061d9f43346a3577f)), closes [#194](https://github.com/expo/react-native-action-sheet/issues/194)
+
 # [3.12.0](https://github.com/expo/react-native-action-sheet/compare/v3.11.0...v3.12.0) (2021-10-14)
 
 
