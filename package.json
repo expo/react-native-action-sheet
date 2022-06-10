@@ -45,7 +45,7 @@
     "prettier": "^2.3.2",
     "react": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
-    "semantic-release": "^17.4.4",
+    "semantic-release": "^19.0.3",
     "typescript": "^3.5.3"
   },
   "peerDependencies": {
