@@ -6,7 +6,7 @@ import { ActionSheetProps } from './types';
 
 export default function connectActionSheet<OwnProps = any>(
   WrappedComponent: React.ComponentType<OwnProps & ActionSheetProps>
-) {
+): React.FunctionComponent<OwnProps & ActionSheetProps> {
   const ConnectedActionSheet = (props: OwnProps) => {
     return (
       <Consumer>
