@@ -1,5 +1,12 @@
 # Changelog
 
+# [3.14.0](https://github.com/expo/react-native-action-sheet/compare/v3.13.1...v3.14.0) (2022-10-03)
+
+
+### Features
+
+* support cancelButtonTintColor ([#278](https://github.com/expo/react-native-action-sheet/issues/278)) ([2dcd54c](https://github.com/expo/react-native-action-sheet/commit/2dcd54c56f35a64c66f8d9a7d09a9475801cf037))
+
 ## [3.13.1](https://github.com/expo/react-native-action-sheet/compare/v3.13.0...v3.13.1) (2022-10-03)
 
 
