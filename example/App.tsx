@@ -97,6 +97,12 @@ class App extends React.Component<Props, State> {
           showActionSheetWithOptions={showActionSheetWithOptions}
         />
         <ShowActionSheetButton
+          title="Cancel Button Tint Color"
+          withCancelButtonTintColor
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={showActionSheetWithOptions}
+        />
+        <ShowActionSheetButton
           title="iPad Anchor"
           withAnchor
           withTitle

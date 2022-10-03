@@ -15,6 +15,7 @@ export interface ActionSheetIOSOptions {
   message?: string;
   tintColor?: string;
   cancelButtonIndex?: number;
+  cancelButtonTintColor?: string;
   destructiveButtonIndex?: number | number[];
   anchor?: number;
   userInterfaceStyle?: 'light' | 'dark';
