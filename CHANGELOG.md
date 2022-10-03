@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.13.1](https://github.com/expo/react-native-action-sheet/compare/v3.13.0...v3.13.1) (2022-10-03)
+
+
+### Bug Fixes
+
+* add return type to connectActionSheet ([#273](https://github.com/expo/react-native-action-sheet/issues/273)) ([f46a5cf](https://github.com/expo/react-native-action-sheet/commit/f46a5cfc473807478c558a733c8adb1440941017))
+
 # [3.13.0](https://github.com/expo/react-native-action-sheet/compare/v3.12.0...v3.13.0) (2022-01-10)
 
 
