@@ -141,6 +141,8 @@ export default class ActionSheet extends React.Component<Props, State> {
       showSeparators,
       containerStyle,
       separatorStyle,
+      cancelButtonIndex,
+      cancelButtonTintColor,
     } = options;
     return (
       <TouchableWithoutFeedback importantForAccessibility="yes" onPress={this._selectCancelButton}>
@@ -165,6 +167,8 @@ export default class ActionSheet extends React.Component<Props, State> {
               options={optionsArray}
               icons={icons}
               tintIcons={tintIcons === undefined ? true : tintIcons}
+              cancelButtonIndex={cancelButtonIndex}
+              cancelButtonTintColor={cancelButtonTintColor}
               destructiveButtonIndex={destructiveButtonIndex}
               destructiveColor={destructiveColor}
               disabledButtonIndices={disabledButtonIndices}

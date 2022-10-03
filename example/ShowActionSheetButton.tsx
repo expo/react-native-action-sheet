@@ -19,6 +19,7 @@ interface Props {
   withIcons?: boolean;
   withSeparators?: boolean;
   withCustomStyles?: boolean;
+  withCancelButtonTintColor?: boolean;
   withAnchor?: boolean;
   useModal?: boolean;
 }
@@ -32,6 +33,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
     withSeparators: false,
     withCustomStyles: false,
     withAnchor: false,
+    withCancelButtonTintColor: false,
     onSelection: null,
     useModal: false,
   };
@@ -46,6 +48,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       withIcons,
       withSeparators,
       withCustomStyles,
+      withCancelButtonTintColor,
       onSelection,
       showActionSheetWithOptions,
       useModal,
@@ -98,6 +101,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       {
         options,
         cancelButtonIndex,
+        cancelButtonTintColor: withCancelButtonTintColor ? '#D93F0B' : undefined,
         destructiveButtonIndex,
         disabledButtonIndices,
         title,
