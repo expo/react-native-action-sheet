@@ -122,7 +122,7 @@ This library can also be used in the browser with Expo for web.
 | `anchor`             | number | iPad only option that allows for docking the action sheet to a node. See [ShowActionSheetButton.tsx](/example/ShowActionSheetButton.tsx) for an example on how to implement this. |
 | `userInterfaceStyle` | string | The interface style used for the action sheet, can be set to `light` or `dark`, otherwise the default system style will be used.                                                  |
 
-### Android/Web-Only Props
+### Custom Action Sheet Only (Android/Web) Props
 
 The below props allow modification of the Android ActionSheet. They have no effect on the look on iOS as the native iOS Action Sheet does not have options for modifying these options.
 
@@ -144,9 +144,21 @@ The below props allow modification of the Android ActionSheet. They have no effe
 
 The following props can be set directly on the `ActionSheetProvider`
 
-| Name              | Type    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ----------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `useNativeDriver` | boolean | Windows only option that provides the option to disable the [native animation](https://reactnative.dev/docs/animated#using-the-native-driver) driver for React Native Windows projects targeting _Windows 10 Version-1809 ; Build-10.0.17763.0_ and earlier. `useNativeDriver` is [supported in Version-1903 and later](https://microsoft.github.io/react-native-windows/docs/win10-compat) so if your project is targeting that, you don't need to set this prop. |
+| Name                   | Type    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `useCustomActionSheet` | boolean | iOS only prop that uses the custom pure JS action sheet (Android/Web version) instead of the native ActionSheetIOS component. Defaults to `false`.                                                                                                                                                                                                                                                                                                                 |
+| `useNativeDriver`      | boolean | Windows only option that provides the option to disable the [native animation](https://reactnative.dev/docs/animated#using-the-native-driver) driver for React Native Windows projects targeting _Windows 10 Version-1809 ; Build-10.0.17763.0_ and earlier. `useNativeDriver` is [supported in Version-1903 and later](https://microsoft.github.io/react-native-windows/docs/win10-compat) so if your project is targeting that, you don't need to set this prop. |
+
+```jsx
+// example of using useCustomActionSheet on iOS
+export default function AppContainer() {
+  return (
+    <ActionSheetProvider useCustomActionSheet={true}>
+      <App />
+    </ActionSheetProvider>
+  );
+}
+```
 
 ## Callback
 
