@@ -3,7 +3,9 @@ import {
   connectActionSheet,
   ActionSheetProps,
 } from '@expo/react-native-action-sheet';
+import { Entypo } from '@expo/vector-icons';
 import * as React from 'react';
+import { useState } from 'react';
 import {
   Modal,
   StyleSheet,
@@ -13,11 +15,15 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Share,
+  Platform,
 } from 'react-native';
 
 import ShowActionSheetButton from './ShowActionSheetButton';
 
-type Props = ActionSheetProps;
+type Props = ActionSheetProps & {
+  useCustomActionSheet: boolean;
+  setUseCustomActionSheet: (next: boolean) => void;
+};
 
 interface State {
   selectedIndex?: number | null;
@@ -77,6 +83,35 @@ class App extends React.Component<Props, State> {
         style={{
           alignItems: 'center',
         }}>
+        <View
+          style={{
+            alignItems: 'center',
+            display: Platform.OS === 'ios' ? 'block' : 'none',
+          }}>
+          {this._renderSectionHeader('Use Custom Action Sheet')}
+          <Text style={{ marginBottom: 10 }}>
+            On iOS the default action sheet will be the native UI. However, you can optionally
+            enable the custom JS action sheet by setting the useCustomActionSheet prop on the
+            provider.
+          </Text>
+          <Entypo.Button
+            backgroundColor={this.props.useCustomActionSheet ? '#3e3e3e' : 'white'}
+            name={this.props.useCustomActionSheet ? 'check' : 'circle'}
+            color={this.props.useCustomActionSheet ? '#fff' : '#3e3e3e'}
+            style={{
+              borderColor: '#3e3e3e',
+              borderWidth: 2,
+            }}
+            onPress={() => this.props.setUseCustomActionSheet(!this.props.useCustomActionSheet)}>
+            <Text
+              style={{
+                fontSize: 15,
+                color: this.props.useCustomActionSheet ? '#fff' : '#3e3e3e',
+              }}>
+              Use Custom Action Sheet
+            </Text>
+          </Entypo.Button>
+        </View>
         {this._renderSectionHeader('Universal Options')}
         <ShowActionSheetButton
           title="Options Only"
@@ -217,16 +252,21 @@ class App extends React.Component<Props, State> {
   }
 }
 
-const ConnectedApp = connectActionSheet<object>(App);
+const ConnectedApp = connectActionSheet<any>(App);
 
-export default class AppContainer extends React.Component {
-  render() {
-    return (
-      <ActionSheetProvider>
-        <ConnectedApp />
-      </ActionSheetProvider>
-    );
-  }
+export default function WrappedApp() {
+  const [useCustomActionSheet, setUseCustomActionSheet] = useState(false);
+
+  return (
+    <ActionSheetProvider
+      useCustomActionSheet={useCustomActionSheet}
+      key={useCustomActionSheet.toString()}>
+      <ConnectedApp
+        useCustomActionSheet={useCustomActionSheet}
+        setUseCustomActionSheet={setUseCustomActionSheet}
+      />
+    </ActionSheetProvider>
+  );
 }
 
 const styles = StyleSheet.create({
