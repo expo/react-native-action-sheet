@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+// NativeActionSheet will always be custom when on Android/web
 import NativeActionSheet from './ActionSheet';
 import CustomActionSheet from './ActionSheet/CustomActionSheet';
 import { Provider } from './context';
@@ -31,7 +32,7 @@ export default function ActionSheetProvider({
 
   const ActionSheet = React.useMemo(
     () => (useCustomActionSheet ? CustomActionSheet : NativeActionSheet),
-    [CustomActionSheet]
+    [useCustomActionSheet]
   );
 
   return (
