@@ -24,6 +24,7 @@ interface State {
 }
 
 export interface Props {
+  readonly children: React.ReactNode;
   readonly useNativeDriver?: boolean;
   readonly pointerEvents?: ViewProps['pointerEvents'];
 }
@@ -36,10 +37,6 @@ const ESCAPE_KEY = 'Escape';
 
 // Has same API as https://facebook.github.io/react-native/docs/actionsheetios.html
 export default class CustomActionSheet extends React.Component<Props, State> {
-  static defaultProps = {
-    useNativeDriver: true,
-  };
-
   _actionSheetHeight = 360;
 
   state: State = {
@@ -194,6 +191,7 @@ export default class CustomActionSheet extends React.Component<Props, State> {
 
   showActionSheetWithOptions = (options: ActionSheetOptions, onSelect: (i: number) => void) => {
     const { isVisible, overlayOpacity, sheetOpacity } = this.state;
+    const { useNativeDriver = true } = this.props;
 
     if (isVisible) {
       this._deferAfterAnimation = this.showActionSheetWithOptions.bind(this, options, onSelect);
@@ -213,13 +211,13 @@ export default class CustomActionSheet extends React.Component<Props, State> {
         toValue: 0.32,
         easing: EASING_OUT,
         duration: OPACITY_ANIMATION_IN_TIME,
-        useNativeDriver: this.props.useNativeDriver,
+        useNativeDriver,
       }),
       Animated.timing(sheetOpacity, {
         toValue: 1,
         easing: EASING_OUT,
         duration: OPACITY_ANIMATION_IN_TIME,
-        useNativeDriver: this.props.useNativeDriver,
+        useNativeDriver,
       }),
     ]).start((result) => {
       if (result.finished) {
@@ -265,6 +263,7 @@ export default class CustomActionSheet extends React.Component<Props, State> {
 
   _animateOut = (): boolean => {
     const { isAnimating, overlayOpacity, sheetOpacity } = this.state;
+    const { useNativeDriver = true } = this.props;
 
     if (isAnimating) {
       return false;
@@ -280,13 +279,13 @@ export default class CustomActionSheet extends React.Component<Props, State> {
         toValue: 0,
         easing: EASING_IN,
         duration: OPACITY_ANIMATION_OUT_TIME,
-        useNativeDriver: this.props.useNativeDriver,
+        useNativeDriver,
       }),
       Animated.timing(sheetOpacity, {
         toValue: 0,
         easing: EASING_IN,
         duration: OPACITY_ANIMATION_OUT_TIME,
-        useNativeDriver: this.props.useNativeDriver,
+        useNativeDriver,
       }),
     ]).start((result) => {
       if (result.finished) {
