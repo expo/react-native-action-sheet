@@ -86,7 +86,7 @@ class App extends React.Component<Props, State> {
         <View
           style={{
             alignItems: 'center',
-            display: Platform.OS === 'ios' ? 'block' : 'none',
+            display: Platform.OS === 'ios' ? 'flex' : 'none',
           }}>
           {this._renderSectionHeader('Use Custom Action Sheet')}
           <Text style={{ marginBottom: 10 }}>
@@ -258,9 +258,7 @@ export default function WrappedApp() {
   const [useCustomActionSheet, setUseCustomActionSheet] = useState(false);
 
   return (
-    <ActionSheetProvider
-      useCustomActionSheet={useCustomActionSheet}
-      key={useCustomActionSheet.toString()}>
+    <ActionSheetProvider useCustomActionSheet={useCustomActionSheet}>
       <ConnectedApp
         useCustomActionSheet={useCustomActionSheet}
         setUseCustomActionSheet={setUseCustomActionSheet}
