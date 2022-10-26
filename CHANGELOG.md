@@ -1,5 +1,17 @@
 # Changelog
 
+# [4.0.0](https://github.com/expo/react-native-action-sheet/compare/v3.14.0...v4.0.0) (2022-10-26)
+
+
+### Features
+
+* iOS use custom action sheet ([#281](https://github.com/expo/react-native-action-sheet/issues/281)) ([372dc80](https://github.com/expo/react-native-action-sheet/commit/372dc8065006a4da510ef5f31c27225d14a71ff3))
+
+
+### BREAKING CHANGES
+
+* This implementation is backwards compatible, but just to be safe I'm marking this as breaking so that it bumps the major version.
+
 # [3.14.0](https://github.com/expo/react-native-action-sheet/compare/v3.13.1...v3.14.0) (2022-10-03)
 
 
