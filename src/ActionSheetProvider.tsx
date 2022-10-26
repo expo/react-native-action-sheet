@@ -1,41 +1,45 @@
 import * as React from 'react';
 
-import ActionSheet from './ActionSheet';
+// NativeActionSheet will always be custom when on Android/web
+import NativeActionSheet from './ActionSheet';
+import CustomActionSheet from './ActionSheet/CustomActionSheet';
 import { Provider } from './context';
-import { ActionSheetOptions, ActionSheetProps } from './types';
+import { ActionSheetOptions } from './types';
 
 interface Props {
   children: React.ReactNode;
   useNativeDriver?: boolean;
+  useCustomActionSheet?: boolean;
 }
 
-export default class ActionSheetProvider extends React.Component<Props> {
-  _actionSheetRef: React.RefObject<ActionSheet>;
-  _context: ActionSheetProps;
+export default function ActionSheetProvider({
+  children,
+  useNativeDriver,
+  useCustomActionSheet = false,
+}: Props) {
+  const actionSheetRef = React.useRef<NativeActionSheet>(null);
 
-  constructor(props: Props) {
-    super(props);
-    this._actionSheetRef = React.createRef();
-    this._context = {
+  const context = React.useMemo(
+    () => ({
       showActionSheetWithOptions: (options: ActionSheetOptions, callback: (i: number) => void) => {
-        if (this._actionSheetRef.current != null) {
-          this._actionSheetRef.current.showActionSheetWithOptions(options, callback);
+        if (actionSheetRef.current) {
+          actionSheetRef.current.showActionSheetWithOptions(options, callback);
         }
       },
-    };
-  }
+    }),
+    [actionSheetRef]
+  );
 
-  getContext(): ActionSheetProps {
-    return this._context;
-  }
+  const ActionSheet = React.useMemo(
+    () => (useCustomActionSheet ? CustomActionSheet : NativeActionSheet),
+    [useCustomActionSheet]
+  );
 
-  render() {
-    return (
-      <Provider value={this._context}>
-        <ActionSheet ref={this._actionSheetRef} useNativeDriver={this.props.useNativeDriver}>
-          {React.Children.only(this.props.children)}
-        </ActionSheet>
-      </Provider>
-    );
-  }
+  return (
+    <Provider value={context}>
+      <ActionSheet ref={actionSheetRef} useNativeDriver={useNativeDriver}>
+        {React.Children.only(children)}
+      </ActionSheet>
+    </Provider>
+  );
 }
