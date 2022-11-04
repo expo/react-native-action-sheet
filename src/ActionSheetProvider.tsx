@@ -4,7 +4,7 @@ import * as React from 'react';
 import NativeActionSheet from './ActionSheet';
 import CustomActionSheet from './ActionSheet/CustomActionSheet';
 import { Provider } from './context';
-import { ActionSheetOptions, ActionSheetProps } from './types';
+import { ActionSheetOptions, ActionSheetProviderRef } from './types';
 
 interface Props {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ interface Props {
   useCustomActionSheet?: boolean;
 }
 
-export default React.forwardRef<ActionSheetProps, Props>(function ActionSheetProvider(
+export default React.forwardRef<ActionSheetProviderRef, Props>(function ActionSheetProvider(
   { children, useNativeDriver, useCustomActionSheet = false },
   ref
 ) {
@@ -29,7 +29,15 @@ export default React.forwardRef<ActionSheetProps, Props>(function ActionSheetPro
     [actionSheetRef]
   );
 
-  React.useImperativeHandle(ref, () => context, [context]);
+  React.useImperativeHandle(
+    ref,
+    () => ({
+      // backwards compatible with 13.x before context was being passed right on the ref
+      getContext: () => context,
+      showActionSheetWithOptions: context.showActionSheetWithOptions,
+    }),
+    [context]
+  );
 
   const ActionSheet = React.useMemo(
     () => (useCustomActionSheet ? CustomActionSheet : NativeActionSheet),
