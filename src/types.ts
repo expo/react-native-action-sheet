@@ -8,6 +8,13 @@ export interface ActionSheetProps {
   ) => void;
 }
 
+export interface ActionSheetProviderRef extends ActionSheetProps {
+  /**
+   * @deprecated Simply call `showActionSheetWithOptions()` directly from the ref now
+   */
+  getContext: () => ActionSheetProps;
+}
+
 // for iOS
 export interface ActionSheetIOSOptions {
   options: string[];
