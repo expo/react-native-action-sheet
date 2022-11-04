@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/expo/react-native-action-sheet/compare/v4.0.0...v4.0.1) (2022-11-04)
+
+
+### Bug Fixes
+
+* expose ref on ActionSheetProvider for statically invoking ([#283](https://github.com/expo/react-native-action-sheet/issues/283)) ([b2f5f43](https://github.com/expo/react-native-action-sheet/commit/b2f5f433ff2070c77fdd62b273d2d80e636efd3a))
+
 # [4.0.0](https://github.com/expo/react-native-action-sheet/compare/v3.14.0...v4.0.0) (2022-10-26)
 
 
