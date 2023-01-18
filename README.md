@@ -51,7 +51,7 @@ import { useActionSheet } from '@expo/react-native-action-sheet';
 export default Menu() {
   const { showActionSheetWithOptions } = useActionSheet();
 
-  const onPress() => {
+  const onPress = () => {
     const options = ['Delete', 'Save', 'Cancel'];
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 2;
