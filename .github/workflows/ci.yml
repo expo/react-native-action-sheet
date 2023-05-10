@@ -2,21 +2,29 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
-      
+    branches: [master]
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v2
+      - name: 🗂️ Checkout
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: '14'
           cache: 'yarn'
-      - run: yarn install
-      - run: npm run type-check
-      - run: npm run lint-check
+
+      - name: 🧱 Build
+        run: yarn
+
+      - name: 🚧 Type Check
+        run: npm run type-check
+
+      - name: 🛟 Lint Check
+        run: npm run lint-check
