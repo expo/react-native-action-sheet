@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.2](https://github.com/expo/react-native-action-sheet/compare/v4.0.1...v4.0.2) (2023-08-02)
+
+
+### Bug Fixes
+
+* use release-please instead of semantic release ([#300](https://github.com/expo/react-native-action-sheet/issues/300)) ([b35a403](https://github.com/expo/react-native-action-sheet/commit/b35a403a213d596252ec5e8a20db5291396fafc0))
+
 ## [4.0.1](https://github.com/expo/react-native-action-sheet/compare/v4.0.0...v4.0.1) (2022-11-04)
 
 
