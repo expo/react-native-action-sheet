@@ -43,12 +43,13 @@
     "husky": "^3.0.0",
     "lint-staged": "^9.2.0",
     "prettier": "^2.3.2",
-    "react": "^16.8.6",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "react-native": "0.69.9",
     "typescript": "^3.5.3"
   },
   "peerDependencies": {
-    "react": ">=16.3.0"
+    "react": ">=18.0.0"
   },
   "@react-native-community/bob": {
     "source": "src",
