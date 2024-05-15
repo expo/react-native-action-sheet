@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.1.0](https://github.com/expo/react-native-action-sheet/compare/v4.0.1...v4.1.0) (2024-05-15)
+
+
+### Features
+
+* update peer dep ([#324](https://github.com/expo/react-native-action-sheet/issues/324)) ([bc33f9f](https://github.com/expo/react-native-action-sheet/commit/bc33f9f4d0c171ff17c098f94fab1b22ed6816ed))
+
+
+### Bug Fixes
+
+* use release-please instead of semantic release ([#300](https://github.com/expo/react-native-action-sheet/issues/300)) ([b35a403](https://github.com/expo/react-native-action-sheet/commit/b35a403a213d596252ec5e8a20db5291396fafc0))
+
 ## [4.0.1](https://github.com/expo/react-native-action-sheet/compare/v4.0.0...v4.0.1) (2022-11-04)
 
 
