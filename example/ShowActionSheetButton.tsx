@@ -21,7 +21,9 @@ interface Props {
   withCustomStyles?: boolean;
   withCancelButtonTintColor?: boolean;
   withAnchor?: boolean;
+  withExtendedOptions?: boolean;
   useModal?: boolean;
+  stickyCancel?: boolean;
 }
 
 // A custom button that shows examples of different share sheet configurations
@@ -34,8 +36,10 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
     withCustomStyles: false,
     withAnchor: false,
     withCancelButtonTintColor: false,
+    withExtendedOptions: false,
     onSelection: null,
     useModal: false,
+    stickyCancel: false,
   };
 
   _anchorRef = React.createRef<any>();
@@ -52,10 +56,26 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       onSelection,
       showActionSheetWithOptions,
       useModal,
+      stickyCancel,
+      withExtendedOptions,
     } = this.props;
-
+    console.log('stickyCancel', stickyCancel);
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
     const options = ['Delete', 'Disabled', 'Save', 'Cancel'];
+    const extendedOptions = [
+      'Option 1',
+      'Option 2',
+      'Option 3',
+      'Option 4',
+      'Option 5',
+      'Option 6',
+      'Option 7',
+      'Option 8',
+      'Option 9',
+      'Option 10',
+      'Option 11',
+      'Option 12',
+    ];
     const icons = withIcons
       ? [icon('delete'), icon('save'), icon('share'), icon('cancel')]
       : undefined;
@@ -99,7 +119,7 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
 
     showActionSheetWithOptions(
       {
-        options,
+        options: withExtendedOptions ? [...options, ...extendedOptions] : options,
         cancelButtonIndex,
         cancelButtonTintColor: withCancelButtonTintColor ? '#D93F0B' : undefined,
         destructiveButtonIndex,
@@ -123,6 +143,8 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
         containerStyle,
         // Android only,
         useModal,
+        // Android only
+        stickyCancel,
       },
       (buttonIndex?: number) => {
         // Do something here depending on the button index selected

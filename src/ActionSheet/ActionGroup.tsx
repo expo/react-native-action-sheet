@@ -24,6 +24,7 @@ type Props = ActionSheetOptions & {
 const BLACK_54PC_TRANSPARENT = '#0000008a';
 const BLACK_87PC_TRANSPARENT = '#000000de';
 const DESTRUCTIVE_COLOR = '#d32f2f';
+const RIPPLE_COLOR = 'rgba(180, 180, 180, 1)';
 
 /**
  * Can be used as a React ref for a component to auto-focus for accessibility on render.
@@ -66,6 +67,7 @@ export default class ActionGroup extends React.Component<Props> {
     showSeparators: false,
     tintIcons: true,
     textStyle: {},
+    stickyCancel: false,
   };
 
   render() {
@@ -73,6 +75,7 @@ export default class ActionGroup extends React.Component<Props> {
       <View style={[styles.groupContainer, this.props.containerStyle]}>
         {this._renderTitleContent()}
         <ScrollView>{this._renderOptionViews()}</ScrollView>
+        {this._renderCancelButton()}
       </View>
     );
   }
@@ -131,12 +134,10 @@ export default class ActionGroup extends React.Component<Props> {
       tintColor,
       autoFocus,
       showSeparators,
+      stickyCancel,
     } = this.props;
     const optionViews: React.ReactNode[] = [];
-    const nativeFeedbackBackground = TouchableNativeFeedbackSafe.Ripple(
-      'rgba(180, 180, 180, 1)',
-      false
-    );
+    const nativeFeedbackBackground = TouchableNativeFeedbackSafe.Ripple(RIPPLE_COLOR, false);
 
     for (let i = startIndex; i < startIndex + length; i++) {
       const defaultColor = tintColor
@@ -144,6 +145,9 @@ export default class ActionGroup extends React.Component<Props> {
         : (textStyle || {}).color || BLACK_87PC_TRANSPARENT;
       const disabled = isIndexDisabled(i, disabledButtonIndices);
       const isCancelButton = i === cancelButtonIndex;
+      if (isCancelButton && stickyCancel) {
+        continue;
+      }
       const color = isIndexDestructive(i, destructiveButtonIndex)
         ? destructiveColor
         : isCancelButton
@@ -173,6 +177,42 @@ export default class ActionGroup extends React.Component<Props> {
     }
 
     return optionViews;
+  };
+
+  _renderCancelButton = () => {
+    if (!this.props.stickyCancel || this.props.cancelButtonIndex === undefined) {
+      return null;
+    }
+    const {
+      options,
+      icons,
+      cancelButtonIndex,
+      cancelButtonTintColor,
+      disabledButtonIndices,
+      onSelect,
+      textStyle,
+      tintColor,
+    } = this.props;
+    const disabled = isIndexDisabled(cancelButtonIndex, disabledButtonIndices);
+    const defaultColor = tintColor ? tintColor : (textStyle || {}).color || BLACK_87PC_TRANSPARENT;
+    const color = cancelButtonTintColor || defaultColor;
+    const nativeFeedbackBackground = TouchableNativeFeedbackSafe.Ripple(RIPPLE_COLOR, false);
+    const iconSource = icons != null ? icons[cancelButtonIndex] : null;
+    const cancelOption = options[cancelButtonIndex];
+
+    return (
+      <TouchableNativeFeedbackSafe
+        pressInDelay={0}
+        background={nativeFeedbackBackground}
+        disabled={disabled}
+        onPress={() => onSelect(cancelButtonIndex)}
+        style={[styles.button, disabled && styles.disabledButton]}
+        accessibilityRole="button"
+        accessibilityLabel={cancelOption}>
+        {this._renderIconElement(iconSource, color)}
+        <Text style={[styles.text, textStyle, { color }]}>{cancelOption}</Text>
+      </TouchableNativeFeedbackSafe>
+    );
   };
 }
 
