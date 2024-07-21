@@ -59,7 +59,6 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       stickyCancel,
       withExtendedOptions,
     } = this.props;
-    console.log('stickyCancel', stickyCancel);
     // Same interface as https://facebook.github.io/react-native/docs/actionsheetios.html
     const options = ['Delete', 'Disabled', 'Save', 'Cancel'];
     const extendedOptions = [
