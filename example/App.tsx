@@ -213,6 +213,7 @@ class App extends React.Component<Props, State> {
           stickyCancel
           onSelection={this._updateSelectionText}
           showActionSheetWithOptions={showActionSheetWithOptions}
+          withSeparators
         />
         {this._renderSectionHeader('Special Cases')}
         <TouchableOpacity onPress={this._toggleModal}>

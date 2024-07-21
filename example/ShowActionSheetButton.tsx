@@ -75,6 +75,14 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       'Option 10',
       'Option 11',
       'Option 12',
+      'Option 13',
+      'Option 14',
+      'Option 15',
+      'Option 16',
+      'Option 17',
+      'Option 18',
+      'Option 19',
+      'Option 20',
     ];
     const icons = withIcons
       ? [icon('delete'), icon('save'), icon('share'), icon('cancel')]
@@ -112,7 +120,10 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
       ? {
           backgroundColor: 'lightgrey',
         }
-      : undefined;
+      : {};
+    if (withExtendedOptions) {
+      containerStyle.maxHeight = 500;
+    }
     const anchor: number | null = this._anchorRef.current
       ? findNodeHandle(this._anchorRef.current)
       : null;

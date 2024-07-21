@@ -192,6 +192,7 @@ export default class ActionGroup extends React.Component<Props> {
       onSelect,
       textStyle,
       tintColor,
+      showSeparators,
     } = this.props;
     const disabled = isIndexDisabled(cancelButtonIndex, disabledButtonIndices);
     const defaultColor = tintColor ? tintColor : (textStyle || {}).color || BLACK_87PC_TRANSPARENT;
@@ -201,17 +202,20 @@ export default class ActionGroup extends React.Component<Props> {
     const cancelOption = options[cancelButtonIndex];
 
     return (
-      <TouchableNativeFeedbackSafe
-        pressInDelay={0}
-        background={nativeFeedbackBackground}
-        disabled={disabled}
-        onPress={() => onSelect(cancelButtonIndex)}
-        style={[styles.button, disabled && styles.disabledButton]}
-        accessibilityRole="button"
-        accessibilityLabel={cancelOption}>
-        {this._renderIconElement(iconSource, color)}
-        <Text style={[styles.text, textStyle, { color }]}>{cancelOption}</Text>
-      </TouchableNativeFeedbackSafe>
+      <>
+        {showSeparators && this._renderRowSeparator('cancel')}
+        <TouchableNativeFeedbackSafe
+          pressInDelay={0}
+          background={nativeFeedbackBackground}
+          disabled={disabled}
+          onPress={() => onSelect(cancelButtonIndex)}
+          style={[styles.button, disabled && styles.disabledButton]}
+          accessibilityRole="button"
+          accessibilityLabel={cancelOption}>
+          {this._renderIconElement(iconSource, color)}
+          <Text style={[styles.text, textStyle, { color }]}>{cancelOption}</Text>
+        </TouchableNativeFeedbackSafe>
+      </>
     );
   };
 }
