@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.1](https://github.com/expo/react-native-action-sheet/compare/v4.1.0...v4.1.1) (2024-12-16)
+
+
+### Bug Fixes
+
+* show touch feedback on iOS when using custom action sheet ([#329](https://github.com/expo/react-native-action-sheet/issues/329)) ([1ce802b](https://github.com/expo/react-native-action-sheet/commit/1ce802b8f095f9c553002dd84cae694a30c2dc01))
+
 ## [4.1.0](https://github.com/expo/react-native-action-sheet/compare/v4.0.1...v4.1.0) (2024-05-15)
 
 
