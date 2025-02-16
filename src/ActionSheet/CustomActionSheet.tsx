@@ -229,8 +229,9 @@ export default class CustomActionSheet extends React.Component<Props, State> {
         this._deferAfterAnimation = undefined;
       }
     });
-    // @ts-ignore: Argument of type '"actionSheetHardwareBackPress"' is not assignable to parameter of type '"hardwareBackPress"'
+
     this._backHandlerListener = BackHandler.addEventListener(
+      // @ts-ignore: Argument of type '"actionSheetHardwareBackPress"' is not assignable to parameter of type '"hardwareBackPress"'
       'actionSheetHardwareBackPress',
       this._selectCancelButton
     );
