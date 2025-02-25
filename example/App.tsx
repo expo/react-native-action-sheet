@@ -207,6 +207,14 @@ class App extends React.Component<Props, State> {
           onSelection={this._updateSelectionText}
           showActionSheetWithOptions={showActionSheetWithOptions}
         />
+        <ShowActionSheetButton
+          title="More Options"
+          withExtendedOptions
+          stickyCancel
+          onSelection={this._updateSelectionText}
+          showActionSheetWithOptions={showActionSheetWithOptions}
+          withSeparators
+        />
         {this._renderSectionHeader('Special Cases')}
         <TouchableOpacity onPress={this._toggleModal}>
           <Text style={styles.link}>Open Modal</Text>
