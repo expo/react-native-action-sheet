@@ -19,6 +19,8 @@ export default class ActionSheet extends React.Component<Props> {
     );
   }
 
+  dismiss() {}
+
   showActionSheetWithOptions(dataOptions: ActionSheetIOSOptions, onSelect: onSelect) {
     // ...dataOptions include other keys which use in android and web, thats why `Android-Only options` Crash on IOS
     const {

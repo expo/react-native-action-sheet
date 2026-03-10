@@ -20,6 +20,11 @@ export default React.forwardRef<ActionSheetProviderRef, Props>(function ActionSh
 
   const context = React.useMemo(
     () => ({
+      dismiss: () => {
+        if (actionSheetRef.current) {
+          actionSheetRef.current.dismiss();
+        }
+      },
       showActionSheetWithOptions: (options: ActionSheetOptions, callback: (i: number) => void) => {
         if (actionSheetRef.current) {
           actionSheetRef.current.showActionSheetWithOptions(options, callback);
@@ -32,6 +37,7 @@ export default React.forwardRef<ActionSheetProviderRef, Props>(function ActionSh
   React.useImperativeHandle(
     ref,
     () => ({
+      dismiss: context.dismiss,
       // backwards compatible with 13.x before context was being passed right on the ref
       getContext: () => context,
       showActionSheetWithOptions: context.showActionSheetWithOptions,

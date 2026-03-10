@@ -2,6 +2,7 @@ import * as React from 'react';
 import { TextStyle, ViewStyle } from 'react-native';
 
 export interface ActionSheetProps {
+  dismiss: () => void;
   showActionSheetWithOptions: (
     options: ActionSheetOptions,
     callback: (i?: number) => void | Promise<void>

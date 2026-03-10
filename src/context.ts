@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ActionSheetOptions, ActionSheetProps } from './types';
 
 const context = React.createContext<ActionSheetProps>({
+  dismiss: () => {},
   showActionSheetWithOptions: (options: ActionSheetOptions, callback: (i: number) => void) => {},
 });
 

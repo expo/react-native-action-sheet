@@ -191,6 +191,10 @@ export default class CustomActionSheet extends React.Component<Props, State> {
     );
   }
 
+  dismiss = () => {
+    this._animateOut();
+  };
+
   showActionSheetWithOptions = (options: ActionSheetOptions, onSelect: (i: number) => void) => {
     const { isVisible, overlayOpacity, sheetOpacity } = this.state;
     const { useNativeDriver = true } = this.props;
