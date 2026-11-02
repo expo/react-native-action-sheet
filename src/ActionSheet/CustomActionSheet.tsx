@@ -89,9 +89,14 @@ export default class CustomActionSheet extends React.Component<Props, State> {
     ) : null;
 
     // While the sheet is visible, hide the rest of the app's content from screen readers.
+    // `collapsable={false}` keeps this wrapper as a real native view at all times. Otherwise it is
+    // flattened while importantForAccessibility is 'auto' and materialized when it changes, which
+    // re-parents (detaches and re-attaches) the whole app's native view tree on every show/hide.
+    // On Android, a detached <Modal> dismisses its dialog and recreates it on top of the sheet.
     const appContent = (
       <View
         style={styles.flexContainer}
+        collapsable={false}
         importantForAccessibility={isVisible ? 'no-hide-descendants' : 'auto'}>
         {React.Children.only(this.props.children)}
       </View>
